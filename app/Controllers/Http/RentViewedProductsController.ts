@@ -1,0 +1,31 @@
+import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Validators from "../../Validators";
+import { RentViewedProductDomain } from "../../Domain";
+import { RentViewedProductsRepo } from "../../Repositories";
+import { FAILURE } from "../../Data/language";
+
+export default class RentViewedProductsController {
+
+    public async get({ request }: HttpContextContract) {
+        const payload = request.all()
+        return {
+            success: true,
+            data: RentViewedProductDomain.createFromArrOfObject(
+                await RentViewedProductsRepo.get(payload.userId, payload.deviceId)
+            ),
+        };
+    }
+
+    public async create({ request }: HttpContextContract) {
+        const payload = await request.validate(Validators.RentViewedProductValidator);
+
+        const language = request.header('language') || 'es'
+        const rvProductDetails = await RentViewedProductsRepo.create(payload, language);
+
+        return {
+            success: true,
+            result: RentViewedProductDomain.createFromObject(rvProductDetails),
+            massage: FAILURE.REPRODUCT_CREATE[language]
+        };
+    }
+}

@@ -1,0 +1,55 @@
+import Exceptions from '../Exceptions'
+import Trim from 'App/Models/Trim'
+import { FAILURE } from "../Data/language";
+
+export default class TrimRepo {
+    
+	static async get() {
+        const result = await Trim.query().where('active', 1)
+        return result
+    }
+
+    static async create(data: any, language: string) {
+        const result = await Trim.create(data)
+        if (!result) throw Exceptions.notFound(FAILURE.TRIM_CREATE[language])
+        return result
+    }
+
+    static async update(id: number, data: any, language: string) {
+        try {
+            const trim = await Trim.findOrFail(id)
+            trim.merge(data)
+            await trim.save()
+
+            return trim
+        } catch (error) {
+            throw Exceptions.conflict(FAILURE.TRIM_CONFLICT[language])
+        }
+    }
+
+    static async delete(data: any, Trim, language: string) {
+        Trim.active = data.active
+        await Trim.save()
+        if (!Trim.$isPersisted)
+            throw Exceptions.notFound(FAILURE.TRIM_DELETE_CONFLICT[language])
+        return Trim
+    }
+
+    static async isEntryExist(id: number, language) {
+        const result = await Trim.query().where('id', id).first()
+        if (!result) throw Exceptions.notFound(FAILURE.TRIM_DELETE_CONFLICT[language])
+        return result
+    }
+
+    static async adminGet(active, trimId) {
+        const result = await Trim.query()
+            .select('trims.*')
+            .orderBy('trims.id', "desc")
+            .if(active, (query) =>
+                query.where('trims.active', active))
+            .if(trimId, (query) =>
+                query.where('trims.id', trimId))
+        return result
+    }
+
+}

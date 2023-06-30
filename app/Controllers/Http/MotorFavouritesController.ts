@@ -1,0 +1,76 @@
+import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Validators from "../../Validators";
+import { MotorFavouritesDomain } from "../../Domain";
+import { MotorFavouritesRepo } from "../../Repositories";
+import { SUCCESS } from "../../Data/language";
+
+export default class MotorFavouritesController {
+
+    public async favourites({ request }: HttpContextContract) {
+        const payload = await request.validate(Validators.MotorFavouriteValidator);
+        const language = request.header('language') || 'es'
+        const userId: any = request.header('userId') || 0
+        const guestUserId: any = request.header('guestUserId') || ''
+
+        payload["userId"] = userId
+        payload["guestUserId"] = guestUserId
+
+        const isEntryExist = await MotorFavouritesRepo.isEntryExist(userId, payload.productId, language)
+
+        if (isEntryExist.length == 0) {
+
+            if (payload.isFavourites == true) {
+
+                const FavoritesDetails = await MotorFavouritesRepo.create(payload, language);
+
+                return {
+                    success: true,
+                    result: MotorFavouritesDomain.createFromObject(FavoritesDetails),
+                    massage: SUCCESS.MOTORFAVORITES[language]
+                };
+
+            } else {
+                return {
+                    success: false,
+                    massage: SUCCESS.MOTORFAVORITES_NOT_EXITS[language]
+                };
+            }
+        } else {
+
+            if (payload.isFavourites == false) {
+
+                MotorFavouritesDomain.createFromObject(
+                    await MotorFavouritesRepo.delete(payload.productId, userId, language)
+                );
+                return {
+                    success: true,
+                    massage: SUCCESS.MOTORUNFAVORITES[language]
+                };
+            } else {
+                return {
+                    success: false,
+                    massage: SUCCESS.MOTORALREADY_FAVORITES[language]
+                };
+            }
+        }
+    }
+
+    public async get({ request }: HttpContextContract) {
+
+        const userId: any = request.header('userId') || ''
+        const guestUserId: any = request.header('guestUserId') || ''
+        // let userId: any = loginUserId ?  loginUserId: guestUserId
+
+        let result = MotorFavouritesDomain.createFromArrOfObject(
+            await MotorFavouritesRepo.get(userId, guestUserId)
+        )
+        await result.map((el) => {
+            el.isFavorites = 1
+        })
+
+        return {
+            success: true,
+            data: result,
+        };
+    }
+}
