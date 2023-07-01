@@ -1,0 +1,135 @@
+import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+// import Validators from "../../Validators";
+import {
+    MotorViewedProductDomain, RentViewedProductDomain, MotorPostDomain, RentDomain
+} from "../../Domain";
+import {
+    MotorViewedProductsRepo, RentViewedProductsRepo, MotorpostRepo, RentRepo
+} from "../../Repositories";
+// import { SUCCESS } from "../../Data/language";
+// import Env from '@ioc:Adonis/Core/Env'
+
+export default class HomeController {
+
+    public mergeArray = async (post: any, favorites: any) => {
+        let postsLen = post.length
+        let favoritesLen = favorites.length
+
+        for (let i = 0; i < favoritesLen; i++) {
+            let item = favorites[i]
+
+            for (let j = 0; j < postsLen; j++) {
+                if (item.productId === post[j].id) {
+                    post[j].isFavorites = 1
+                } else {
+                    post[j].isFavorites = 0
+                }
+            }
+        }
+        return post
+    }
+
+    // public getFavorites = async (loginUserId, productDetails: any) => {
+    //     let favorites: any = await FavouritesRepo.getFavorites(loginUserId, '')
+
+    //     if (favorites.length !== 0 && productDetails.length !== 0) {
+
+    //         return productDetails = await this.mergeArray(productDetails, favorites)
+
+    //     } else {
+    //         return productDetails
+    //     }
+    // }
+
+    public async get({ request }: HttpContextContract) {
+        const payload = request.all()
+        const userId = request.header('userId') || ''
+
+        console.log(userId,'userId');
+        
+        let motorViewedProducts = MotorViewedProductDomain.createFromArrOfObject(
+            await MotorViewedProductsRepo.get(payload.userId, payload.deviceId)
+        )
+        let rentViewedProducts = RentViewedProductDomain.createFromArrOfObject(
+            await RentViewedProductsRepo.get(payload.userId, payload.deviceId)
+        )
+        let motorposts = MotorPostDomain.createFromArrOfObject(
+            await MotorpostRepo.getAllPost(userId)
+        )
+        console.log(motorposts,'motorposts');
+        
+        let rents = RentDomain.createFromArrOfObject(
+            await RentRepo.getAllPost(userId)
+        )
+
+        const language = request.header('language') || 'en'
+
+        let data: any = []
+
+
+        let motorViewedProductsList
+        if (motorViewedProducts.length != 0) {
+            motorViewedProductsList = {
+                "type": "motorViewedProductsList",
+                "title": language == 'en' ? "Motor Viewed Products" : "اعلى المبيعات",
+                "data": motorViewedProducts
+            }
+            data.push(motorViewedProductsList)
+
+        }
+
+        let rentViewedProductList
+        if (rentViewedProducts.length != 0) {
+            rentViewedProductList = {
+                "type": "rentViewedProducts",
+                "title": language == 'en' ? "Rent Viewed Products" : "افضل مبيعات",
+                "data": rentViewedProducts
+            }
+            data.push(rentViewedProductList)
+
+        }
+
+        let motorpostsList
+        if (motorposts.length != 0) {
+            motorpostsList = {
+                "type": "PopularRent",
+                "title": language == 'en' ? "Popular in Residential for Rent" : "تخفيض المنتج",
+                "data": motorposts
+            }
+            data.push(motorpostsList)
+
+        }
+
+        let rentsList
+        if (rents.length != 0) {
+            // await rents.map((data) => {
+            //     if (language == 'en') {
+            //         data.name = data.enName
+            //         data.specification = data.enSpecification
+            //         data.productOverview = data.enProductOverview
+            //         data.serviceNotes = data.enServiceNotes
+            //     } else {
+            //         data.name = data.arName
+            //         data.specification = data.arSpecification
+            //         data.productOverview = data.arProductOverview
+            //         data.serviceNotes = data.arServiceNotes
+            //     }
+            // })
+            rentsList = {
+                "type": "PopularRents",
+                "title": language == 'en' ? "Popular in Used Cars for Sale" : "المشاهدات الأخيرة",
+                "data": rents
+            }
+            data.push(rentsList)
+
+        }
+
+
+        return {
+            success: true,
+            error: false,
+            message: "data loaded",
+            data
+        }
+    };
+}

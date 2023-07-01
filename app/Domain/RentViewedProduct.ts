@@ -20,12 +20,14 @@ export default class RentViewedProductDomain {
     public readonly sellCount: number
     public readonly categoryId: number
     public readonly subCategoryId: number
+    public readonly location: string
 
 
     private constructor(id: number, productId: number, userId: number, deviceId: string, createdAt: string, updatedAt: string,
         name: string, image: string, brand: string, price: number, originalPrice: number,
         isStock: number, colour: string, capacity: string, active: boolean, warrenty: number,
-        isPod: boolean, returnPolicy: number, sellCount: number, categoryId: number, subCategoryId: number) {
+        isPod: boolean, returnPolicy: number, sellCount: number, categoryId: number, subCategoryId: number,
+        location: string) {
 
         this.id = id
         this.productId = productId
@@ -48,6 +50,7 @@ export default class RentViewedProductDomain {
         this.sellCount = sellCount
         this.categoryId = categoryId
         this.subCategoryId = subCategoryId
+        this.location = location
 
     }
 
@@ -56,7 +59,7 @@ export default class RentViewedProductDomain {
             data.$extras.name, data.$extras.image, data.$extras.brand, data.$extras.price, data.$extras.original_price,
             data.$extras.is_stock, data.$extras.colour, data.$extras.capacity, data.$extras.active, data.$extras.warrenty,
             data.$extras.is_pod, data.$extras.returnPolicy, data.$extras.sell, data.$extras.category_id,
-            data.$extras.sub_category_id)
+            data.$extras.sub_category_id, data.$extras.location)
     }
 
     public static createFromArrOfObject(data: any) {
@@ -65,7 +68,7 @@ export default class RentViewedProductDomain {
                 el.$extras.name, el.$extras.image, el.$extras.brand, el.$extras.price, el.$extras.original_price,
                 el.$extras.is_stock, el.$extras.colour, el.$extras.capacity, el.$extras.active, el.$extras.warrenty,
                 el.$extras.is_pod, el.$extras.returnpolicy, el.$extras.sell, el.$extras.category_id,
-                el.$extras.sub_category_id)
+                el.$extras.sub_category_id, el.$extras.location)
         })
     }
 } 

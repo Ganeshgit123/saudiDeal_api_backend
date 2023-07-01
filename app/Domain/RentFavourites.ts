@@ -39,8 +39,10 @@ export default class RentFavouritesDomain {
     public readonly features: string
     public readonly noLivingRooms: string
     public readonly propertyAge: string
+    public readonly isFavorites: number
 
-    private constructor(id: number, productId: number, userId: number, createdAt: string, updatedAt: string, favouritesId: number, price: string, areaInSqmt: string, widthInMtr: string, lengthInMtr: string, title: string, phoneNumber: string, ownerType: string, rentalTerm: string, streetLength: string, noBedrooms: string, noBathrooms: string, noFloors: string, provinceId: number, cityId: number, location: string, images1: string, description: string, propetyType: string, furnished: boolean, kitchen: boolean, garage: boolean, elevator: boolean, waterSupply: boolean, electricitySupply: boolean,type: string, isApprove: boolean, rejectReason: string, categoryId: number, updateStatusLevel: number, image: string, features: string, noLivingRooms: string, propertyAge: string) {
+    private constructor(id: number, productId: number, userId: number, createdAt: string, updatedAt: string, favouritesId: number, price: string, areaInSqmt: string, widthInMtr: string, lengthInMtr: string, title: string, phoneNumber: string, ownerType: string, rentalTerm: string, streetLength: string, noBedrooms: string, noBathrooms: string, noFloors: string, provinceId: number, cityId: number, location: string, images1: string, description: string, propetyType: string, furnished: boolean, kitchen: boolean, garage: boolean, elevator: boolean, waterSupply: boolean, electricitySupply: boolean, type: string, isApprove: boolean, rejectReason: string, categoryId: number, updateStatusLevel: number, image: string, features: string, noLivingRooms: string, propertyAge: string,
+        isFavorites: number) {
 
         this.id = id
         this.productId = productId
@@ -51,7 +53,9 @@ export default class RentFavouritesDomain {
         this.price = price
         this.areaInSqmt = areaInSqmt
         this.widthInMtr = widthInMtr
+        this.lengthInMtr = lengthInMtr
         this.title = title
+        this.phoneNumber = phoneNumber
         this.ownerType = ownerType
         this.rentalTerm = rentalTerm
         this.streetLength = streetLength
@@ -79,16 +83,19 @@ export default class RentFavouritesDomain {
         this.features = features
         this.noLivingRooms = noLivingRooms
         this.propertyAge = propertyAge
+        this.isFavorites = isFavorites
     }
 
     public static createFromObject(data: any) {
-        return new RentFavouritesDomain(data.id, data.productId, data.userId, data.createdAt, data.updatedAt, data.$extras.favouritesId, data.$extras.price, data.$extras.areaInSqmt, data.$extras.widthInMtr, data.$extras.lengthInMtr, data.$extras.title, data.$extras.phoneNumber, data.$extras.ownerType, data.$extras.rentalTerm, data.$extras.streetLength, data.$extras.noBedrooms, data.$extras.noBathrooms, data.$extras.noFloors, data.$extras.provinceId, data.$extras.cityId, data.$extras.location, data.$extras.images1, data.$extras.description, data.$extras.propetyType, data.$extras.furnished, data.$extras.kitchen, data.$extras.garage, data.$extras.elevator, data.$extras.waterSupply, data.$extras.electricitySupply, data.$extras.type, data.$extras.isApprove, data.$extras.rejectReason, data.$extras.categoryId, data.$extras.updateStatusLevel, data.$extras.image, data.$extras.features, data.$extras.noLivingRooms, data.$extras.propertyAge)
+        return new RentFavouritesDomain(data.id, data.productId, data.userId, data.createdAt, data.updatedAt, data.$extras.favouritesId, data.$extras.price, data.$extras.areaInSqmt, data.$extras.widthInMtr, data.$extras.lengthInMtr, data.$extras.title, data.$extras.phoneNumber, data.$extras.ownerType, data.$extras.rentalTerm, data.$extras.streetLength, data.$extras.noBedrooms, data.$extras.noBathrooms, data.$extras.noFloors, data.$extras.provinceId, data.$extras.cityId, data.$extras.location, data.$extras.images1, data.$extras.description, data.$extras.propetyType, data.$extras.furnished, data.$extras.kitchen, data.$extras.garage, data.$extras.elevator, data.$extras.waterSupply, data.$extras.electricitySupply, data.$extras.type, data.$extras.isApprove, data.$extras.rejectReason, data.$extras.categoryId, data.$extras.updateStatusLevel, data.$extras.image, data.$extras.features, data.$extras.noLivingRooms, data.$extras.propertyAge,
+            data.isFavorites)
     }
 
     public static createFromArrOfObject(data: any) {
         console.log(data)
         return data.map((el) => {
-            return new RentFavouritesDomain(el.id, el.productId, el.userId, el.createdAt, el.updatedAt, el.$extras.favouritesId, el.$extras.price, el.$extras.areaInSqmt, el.$extras.widthInMtr, el.$extras.lengthInMtr, el.$extras.title, el.$extras.phoneNumber, el.$extras.ownerType, el.$extras.rentalTerm, el.$extras.streetLength, el.$extras.noBedrooms, el.$extras.noBathrooms, el.$extras.noFloors, el.$extras.provinceId, el.$extras.cityId, el.$extras.location, el.$extras.images1, el.$extras.description, el.$extras.propetyType, el.$extras.furnished, el.$extras.kitchen, el.$extras.garage, el.$extras.elevator, el.$extras.waterSupply, el.$extras.electricitySupply, el.$extras.type, el.$extras.isApprove, el.$extras.rejectReason, el.$extras.categoryId, el.$extras.updateStatusLevel, el.$extras.image, el.$extras.features, el.$extras.noLivingRooms, el.$extras.propertyAge)
+            return new RentFavouritesDomain(el.id, el.productId, el.userId, el.createdAt, el.updatedAt, el.$extras.favouritesId, el.$extras.price, el.$extras.areaInSqmt, el.$extras.widthInMtr, el.$extras.lengthInMtr, el.$extras.title, el.$extras.phoneNumber, el.$extras.ownerType, el.$extras.rentalTerm, el.$extras.streetLength, el.$extras.noBedrooms, el.$extras.noBathrooms, el.$extras.noFloors, el.$extras.provinceId, el.$extras.cityId, el.$extras.location, el.$extras.images1, el.$extras.description, el.$extras.propetyType, el.$extras.furnished, el.$extras.kitchen, el.$extras.garage, el.$extras.elevator, el.$extras.waterSupply, el.$extras.electricitySupply, el.$extras.type, el.$extras.isApprove, el.$extras.rejectReason, el.$extras.categoryId, el.$extras.updateStatusLevel, el.$extras.image, el.$extras.features, el.$extras.noLivingRooms, el.$extras.propertyAge,
+                el.isFavorites)
         })
     }
 } 

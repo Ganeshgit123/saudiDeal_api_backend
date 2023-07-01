@@ -22,15 +22,15 @@ export default class RentFavouritesRepo {
         }
     }
 
-    static async get(userId, guestUserId) {
+    static async get(userId) {
         const result = await RentFavourite.query()
             .select('rent_favourites.id as favouritesId')
             .select('rents.*')
             .innerJoin('rents', 'rents.id', 'rent_favourites.product_id')
             .if(userId, (query) =>
                 query.where('rent_favourites.user_id', userId))
-            .if(guestUserId, (query) =>
-                query.where('rent_favourites.guest_user_id', guestUserId))
+            // .if(guestUserId, (query) =>
+            //     query.where('rent_favourites.guest_user_id', guestUserId))
         // .where('rent_favourites.user_id', userId)
         return result
     }

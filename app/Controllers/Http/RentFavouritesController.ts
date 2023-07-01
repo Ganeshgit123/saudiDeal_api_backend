@@ -58,11 +58,13 @@ export default class RentFavouritesController {
     public async get({ request }: HttpContextContract) {
 
         const userId: any = request.header('userId') || ''
-        const guestUserId: any = request.header('guestUserId') || ''
+        console.log(userId,'userId');
+        
+        // const guestUserId: any = request.header('guestUserId') || ''
         // let userId: any = loginUserId ?  loginUserId: guestUserId
 
         let result = RentFavouritesDomain.createFromArrOfObject(
-            await RentFavouritesRepo.get(userId, guestUserId)
+            await RentFavouritesRepo.get(userId)
         )
         await result.map((el) => {
             el.isFavorites = 1

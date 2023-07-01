@@ -131,7 +131,7 @@ Route.group(() => {
   }).prefix('/rent')
 
 
-    // Rent Category curd API
+  // Rent Category curd API
   Route.group(() => {
     Route.get('/', 'RentCategoriesController.get')
     Route.post('/', 'RentCategoriesController.create')
@@ -183,7 +183,7 @@ Route.group(() => {
   Route.get('/subCategory', 'SubCategoriesController.get')
   Route.get('/banner', 'BannersController.get')
   Route.get('/rentCategory', 'RentsController.get')
-
+  Route.get('/home', 'HomeController.get')
 
   // brand list API
   Route.group(() => {
@@ -229,12 +229,10 @@ Route.group(() => {
       Route.post('/', 'RecentViewedProductsController.create')
     }).prefix('/recentViewedProduct')
 
-    Route.group(() => {
-      Route.get('/list', 'FavouritesController.get')
-      Route.post('/', 'FavouritesController.favourites')
-    }).prefix('/favourites')
-
-    
+    // Route.group(() => {
+    //   Route.get('/list', 'FavouritesController.get')
+    //   Route.post('/', 'FavouritesController.favourites')
+    // }).prefix('/favourites')
 
     Route.group(() => {
       Route.get('/get', 'OrdersController.get')
@@ -253,14 +251,14 @@ Route.group(() => {
   }).prefix('/review')
 
   Route.group(() => {
-      Route.get('/list', 'RentFavouritesController.get')
-      Route.post('/', 'RentFavouritesController.favourites')
-    }).prefix('/rentFavourites')
+    Route.get('/list', 'RentFavouritesController.get')
+    Route.post('/', 'RentFavouritesController.favourites')
+  }).prefix('/rentFavourites')
 
   Route.group(() => {
-      Route.get('/', 'RentViewedProductsController.get')
-      Route.post('/', 'RentViewedProductsController.create')
-    }).prefix('/rentViewedProduct')
+    Route.get('/', 'RentViewedProductsController.get')
+    Route.post('/', 'RentViewedProductsController.create')
+  }).prefix('/rentViewedProduct')
 
   Route.group(() => {
     Route.get('/list', 'MotorFavouritesController.get')
