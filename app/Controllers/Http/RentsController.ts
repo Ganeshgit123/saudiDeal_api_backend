@@ -1,32 +1,65 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { RentDomain } from "../../Domain";
-import { RentRepo } from "../../Repositories";
+import { RentRepo, RentFavouritesRepo } from "../../Repositories";
 import Validators from "../../Validators";
 import { SUCCESS } from "../../Data/language";
 import Rent from 'App/Models/Rent'
 
 export default class RentsController {
 
-	// public async get() {
+    public mergeArray = async (post: any, favorites: any) => {
+        let postsLen = post.length
+        let favoritesLen = favorites.length
 
- //        return {
- //            success: true,
- //            data: RentDomain.createFromArrOfObject(
- //                await RentRepo.get()
- //            ),
- //        };
- //    }
+        for (let i = 0; i < favoritesLen; i++) {
+            let item = favorites[i]
 
- public async get({ request }: HttpContextContract) {
+            for (let j = 0; j < postsLen; j++) {
+                if (item.productId === post[j].id) {
+                    post[j].isFavorites = 1
+                } else {
+                    post[j].isFavorites = 0
+                }
+            }
+        }
+        return post
+    }
+
+    public getRentFavourites = async (loginUserId, productDetails: any) => {
+        let favorites: any = await RentFavouritesRepo.getFavorites(loginUserId)
+
+        if (favorites.length !== 0 && productDetails.length !== 0) {
+
+            return productDetails = await this.mergeArray(productDetails, favorites)
+
+        } else {
+            return productDetails
+        }
+    }
+
+    // public async get() {
+
+    //        return {
+    //            success: true,
+    //            data: RentDomain.createFromArrOfObject(
+    //                await RentRepo.get()
+    //            ),
+    //        };
+    //    }
+
+    public async get({ request }: HttpContextContract) {
         const payload = request.all()
 
         const rentPostId = payload.rentPostId
         const userId = request.header('userId') || ''
+        let rentPost = RentDomain.createFromArrOfObject(
+            await RentRepo.get(userId, rentPostId)
+        )
+        rentPost = await this.getRentFavourites(userId, rentPost)
+
         return {
             success: true,
-            data: RentDomain.createFromArrOfObject(
-                await RentRepo.get(userId, rentPostId)
-            ),
+            data: rentPost,
         };
     }
 
@@ -81,7 +114,7 @@ export default class RentsController {
         const language = request.header('language') || 'es'
         const result = await RentRepo.isEntryExist(params.id, language);
 
-        await RentRepo.delete({ active: 0 },result, language);
+        await RentRepo.delete({ active: 0 }, result, language);
         return {
             success: true,
             massage: SUCCESS.RENT_DELETE[language]

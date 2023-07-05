@@ -49,6 +49,8 @@ export default class MotorPostDomain {
     public readonly cityName: string
     public readonly userName: string
     public readonly userMobileNumber: string
+    public readonly productId: number
+
 
     private constructor(id: number, region: string, title: string, makeAndModel: string, trim: string,
         regionalSpecs: string, year: string, kilometer: number, price: number, PhoneNumber: string,
@@ -59,7 +61,8 @@ export default class MotorPostDomain {
         mainMotorCategoryName: string, motorCategoryName: string, motorSubCategoryName: string, isApprove: number,
         rejectReason: string, userId: number, provinceId: number, cityId: number, finalDriveSystem: string, wheels: string,
         engineSize: string, bodyCondition: string, mechanicalCondition: string, cylinders: string, horsePower: string,
-        capacity: string, provinceName: string, cityName: string, userName: string, userMobileNumber: string) {
+        capacity: string, provinceName: string, cityName: string, userName: string, userMobileNumber: string,
+        productId: number) {
 
         this.id = id
         this.region = region
@@ -110,6 +113,7 @@ export default class MotorPostDomain {
         this.cityName = cityName
         this.userName = userName
         this.userMobileNumber = userMobileNumber
+        this.productId = productId
     }
 
     public static createFromObject(data: any) {
@@ -121,7 +125,8 @@ export default class MotorPostDomain {
             data.motorSubCategoryId, data.$extras ? data.$extras.mainMotorCategoryName : '', data.$extras ? data.$extras.motorCategoryName : '', data.$extras ? data.$extras.motorSubCategoryName : '',
             data.isApprove, data.rejectReason, data.userId, data.provinceId, data.cityId, data.finalDriveSystem, data.wheels, data.engineSize,
             data.bodyCondition, data.mechanicalCondition, data.cylinders, data.horsePower, data.capacity, data.$extras ? data.$extras.provinceName : '',
-            data.$extras ? data.$extras.cityName : '', data.$extras ? data.$extras.userName : '', data.$extras ? data.$extras.userMobileNumber : '')
+            data.$extras ? data.$extras.cityName : '', data.$extras ? data.$extras.userName : '', data.$extras ? data.$extras.userMobileNumber : '',
+            data.id)
     }
 
     public static createFromArrOfObject(data: any) {
@@ -135,7 +140,8 @@ export default class MotorPostDomain {
                 el.isApprove, el.rejectReason, el.userId, el.provinceId, el.cityId, el.finalDriveSystem,
                 el.wheels, el.engineSize, el.bodyCondition, el.mechanicalCondition, el.cylinders, el.horsePower, el.capacity,
                 el.$extras ? el.$extras.provinceName : '',
-                el.$extras ? el.$extras.cityName : '', el.$extras ? el.$extras.userName : '', el.$extras ? el.$extras.userMobileNumber : '')
+                el.$extras ? el.$extras.cityName : '', el.$extras ? el.$extras.userName : '', el.$extras ? el.$extras.userMobileNumber : '',
+                el.id)
         })
     }
 }

@@ -37,7 +37,7 @@ export default class RentFavouritesRepo {
 
     static async getFavorites(userId) {
         const result = await RentFavourite.query()
-            .where('user_id', userId)
+            .where('user_id', userId)            
         return result
     }
 

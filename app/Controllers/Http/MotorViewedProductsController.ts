@@ -7,11 +7,13 @@ import { FAILURE } from "../../Data/language";
 export default class MotorViewedProductsController {
 
     public async get({ request }: HttpContextContract) {
-        const payload = request.all()
+        // const payload = request.all()
+        const userId = request.header('userId') || 0
+
         return {
             success: true,
             data: MotorViewedProductDomain.createFromArrOfObject(
-                await MotorViewedProductsRepo.get(payload.userId, payload.deviceId)
+                await MotorViewedProductsRepo.get(userId)
             ),
         };
     }

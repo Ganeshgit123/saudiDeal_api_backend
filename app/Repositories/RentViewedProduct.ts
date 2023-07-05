@@ -9,11 +9,10 @@ export default class RentViewedProductsRepo {
         return result
     }
 
-    static async get(userId, deviceId) {
+    static async get(userId) {
         const result = await RentViewedProduct.query()
             .innerJoin('rents', 'rents.id', 'rent_viewed_products.product_id')
-            .if(userId, (query) => query.where('rent_viewed_products.user_id', userId))
-            .if(deviceId, (query) => query.where('rent_viewed_products.device_id', deviceId))
+            .where('rent_viewed_products.user_id', userId)
         return result
     }
 

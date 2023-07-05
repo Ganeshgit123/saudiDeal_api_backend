@@ -4,7 +4,8 @@ import {
     MotorViewedProductDomain, RentViewedProductDomain, MotorPostDomain, RentDomain
 } from "../../Domain";
 import {
-    MotorViewedProductsRepo, RentViewedProductsRepo, MotorpostRepo, RentRepo
+    MotorViewedProductsRepo, RentViewedProductsRepo, MotorpostRepo, RentRepo, RentFavouritesRepo,
+    MotorFavouritesRepo
 } from "../../Repositories";
 // import { SUCCESS } from "../../Data/language";
 // import Env from '@ioc:Adonis/Core/Env'
@@ -29,42 +30,58 @@ export default class HomeController {
         return post
     }
 
-    // public getFavorites = async (loginUserId, productDetails: any) => {
-    //     let favorites: any = await FavouritesRepo.getFavorites(loginUserId, '')
+    public getRentFavourites = async (loginUserId, productDetails: any) => {
+        let favorites: any = await RentFavouritesRepo.getFavorites(loginUserId)
 
-    //     if (favorites.length !== 0 && productDetails.length !== 0) {
+        if (favorites.length !== 0 && productDetails.length !== 0) {
 
-    //         return productDetails = await this.mergeArray(productDetails, favorites)
+            return productDetails = await this.mergeArray(productDetails, favorites)
 
-    //     } else {
-    //         return productDetails
-    //     }
-    // }
+        } else {
+            return productDetails
+        }
+    }
+    public getMotorFavouritesRepo = async (loginUserId, productDetails: any) => {
+        let favorites: any = await MotorFavouritesRepo.getFavorites(loginUserId)
+
+        if (favorites.length !== 0 && productDetails.length !== 0) {
+
+            return productDetails = await this.mergeArray(productDetails, favorites)
+
+        } else {
+            return productDetails
+        }
+    }
 
     public async get({ request }: HttpContextContract) {
-        const payload = request.all()
+        // const payload = request.all()
         const userId = request.header('userId') || ''
 
-        console.log(userId,'userId');
-        
         let motorViewedProducts = MotorViewedProductDomain.createFromArrOfObject(
-            await MotorViewedProductsRepo.get(payload.userId, payload.deviceId)
+            await MotorViewedProductsRepo.get(userId)
         )
         let rentViewedProducts = RentViewedProductDomain.createFromArrOfObject(
-            await RentViewedProductsRepo.get(payload.userId, payload.deviceId)
+            await RentViewedProductsRepo.get(userId)
         )
         let motorposts = MotorPostDomain.createFromArrOfObject(
             await MotorpostRepo.getAllPost(userId)
         )
-        console.log(motorposts,'motorposts');
-        
+
         let rents = RentDomain.createFromArrOfObject(
             await RentRepo.getAllPost(userId)
         )
 
+        motorViewedProducts = await this.getRentFavourites(userId, motorViewedProducts)
+        rentViewedProducts = await this.getMotorFavouritesRepo(userId, rentViewedProducts)
+
+        motorposts = await this.getRentFavourites(userId, motorposts)
+        rents = await this.getMotorFavouritesRepo(userId, rents)
+
+
         const language = request.header('language') || 'en'
 
-        let data: any = []
+        let viewedProducts: any = []
+        let popularProducts: any = []
 
 
         let motorViewedProductsList
@@ -74,7 +91,7 @@ export default class HomeController {
                 "title": language == 'en' ? "Motor Viewed Products" : "اعلى المبيعات",
                 "data": motorViewedProducts
             }
-            data.push(motorViewedProductsList)
+            viewedProducts.push(motorViewedProductsList)
 
         }
 
@@ -85,7 +102,7 @@ export default class HomeController {
                 "title": language == 'en' ? "Rent Viewed Products" : "افضل مبيعات",
                 "data": rentViewedProducts
             }
-            data.push(rentViewedProductList)
+            viewedProducts.push(rentViewedProductList)
 
         }
 
@@ -96,7 +113,7 @@ export default class HomeController {
                 "title": language == 'en' ? "Popular in Residential for Rent" : "تخفيض المنتج",
                 "data": motorposts
             }
-            data.push(motorpostsList)
+            popularProducts.push(motorpostsList)
 
         }
 
@@ -120,7 +137,7 @@ export default class HomeController {
                 "title": language == 'en' ? "Popular in Used Cars for Sale" : "المشاهدات الأخيرة",
                 "data": rents
             }
-            data.push(rentsList)
+            popularProducts.push(rentsList)
 
         }
 
@@ -129,7 +146,8 @@ export default class HomeController {
             success: true,
             error: false,
             message: "data loaded",
-            data
+            viewedProducts,
+            popularProducts
         }
     };
 }

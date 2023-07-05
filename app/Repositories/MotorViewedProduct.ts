@@ -9,11 +9,10 @@ export default class MotorViewedProductsRepo {
         return result
     }
 
-    static async get(userId, deviceId) {
+    static async get(userId) {
         const result = await MotorViewedProduct.query()
             .innerJoin('motor_posts', 'motor_posts.id', 'motor_viewed_products.product_id')
-            .if(userId, (query) => query.where('motor_viewed_products.user_id', userId))
-            .if(deviceId, (query) => query.where('motor_viewed_products.device_id', deviceId))
+            .where('motor_viewed_products.user_id', userId)
         return result
     }
 
