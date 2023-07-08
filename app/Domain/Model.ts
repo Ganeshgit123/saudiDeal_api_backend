@@ -9,7 +9,7 @@ export default class ModelDomain {
     public readonly updatedAt: string
     public readonly brandName: string
 
-    private constructor(id: number, brandId: number, type: string,  modelName: string, active: boolean, createdAt: string, updatedAt: string,
+    private constructor(id: number, brandId: number, modelName: string, type: string, active: boolean, createdAt: string, updatedAt: string,
         brandName: string) {
 
         this.id = id

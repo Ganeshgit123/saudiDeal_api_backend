@@ -20,6 +20,10 @@ const SUCCESS = {
         'es': 'User deactived please contact admin',
         'ar': 'تم إرسال رمز التحقق بنجاح',
     },
+    NEW_USER: {
+        'es': 'please create an account',
+        'ar': 'تم إرسال رمز التحقق بنجاح',
+    },
     LOGOUT: {
         'es': 'Logout successfully',
         'ar': 'تم تسجيل الخروج بنجاح ',

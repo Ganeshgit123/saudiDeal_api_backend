@@ -38,6 +38,9 @@ export default class User extends BaseModel {
   @column()
   public isNewUser: boolean
 
+  @column()
+  public userType: string
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

@@ -184,6 +184,7 @@ Route.group(() => {
   Route.get('/banner', 'BannersController.get')
   Route.get('/rentCategory', 'RentsController.get')
   Route.get('/home', 'HomeController.get')
+  Route.get('/subscription', 'SubscriptionsController.get')
 
   // brand list API
   Route.group(() => {

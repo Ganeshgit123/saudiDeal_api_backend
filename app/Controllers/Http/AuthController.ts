@@ -16,17 +16,22 @@ export default class AuthController {
         // var otp = Math.floor(1000 + Math.random() * 9000);
         const otp = 1234
 
-        const data = {
-            mobileNumber: mobileNumber,
-            countryCode: countryCode,
-            // otp: mobileNumber == 1234567890 ? 1234 : otp
-            otp: mobileNumber == 1234
-        }
+        // const data = {
+        //     mobileNumber: mobileNumber,
+        //     countryCode: countryCode,
+        //     // otp: mobileNumber == 1234567890 ? 1234 : otp
+        //     otp: mobileNumber == 1234
+        // }
 
         const maybeUser = await AuthRepo.isEntryExist(mobileNumber);
 
         if (!maybeUser) {
-            await AuthRepo.create(data, language);
+            return {
+                success: false,
+                isNewUser: 0,
+                massage: SUCCESS.NEW_USER[language]
+            };
+            // await AuthRepo.create(data, language);
         } else {
             const userId = maybeUser.id
             if (maybeUser.active == false) {
@@ -69,7 +74,6 @@ export default class AuthController {
         }
 
         let result = {}
-        console.log(userData,'userData');
         
         if (userData) {
             result = {
@@ -80,7 +84,8 @@ export default class AuthController {
                 lastName: userData.lastName,
                 token: token,
                 isNewUser: userData.isNewUser,
-                userName: userData.userName
+                userName: userData.userName,
+                userType: userData.userType
                 // image: userData.image,
             }
             // const userId = userData.id
@@ -99,7 +104,7 @@ export default class AuthController {
     }
 
     public async create({ request }: HttpContextContract) {
-        const { mobileNumber, countryCode, userName, email } = await request.validate(Validators.SendOtpValidator);
+        const { mobileNumber, countryCode, userName, email, userType } = await request.validate(Validators.SendOtpValidator);
 
         const language = request.header('language') || 'es'
 
@@ -112,6 +117,7 @@ export default class AuthController {
             userName: userName,
             email: email,
             isNewUser: 0,
+            userType: userType,
             // otp: mobileNumber == 1234567890 ? 1234 : otp
             otp: 1234
         }
@@ -139,6 +145,7 @@ export default class AuthController {
         }
         return {
             success: true,
+            isNewUser: 1,
             otp: otp,
             massage: SUCCESS.SENT_OTP[language]
         };

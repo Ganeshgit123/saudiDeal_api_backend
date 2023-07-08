@@ -16,6 +16,7 @@ export default class SendOtpValidator {
     countryCode: schema.string.optional(),
     userName: schema.string.optional(),
     email: schema.string.optional(),
+    userType: schema.string.optional(),
   })
 
   public messages = {
