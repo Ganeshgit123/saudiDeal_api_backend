@@ -9,7 +9,7 @@ export default class MotorPostDomain {
     public readonly year: string
     public readonly kilometer: number
     public readonly price: number
-    public readonly PhoneNumber: string
+    public readonly phoneNumber: string
     public readonly image: string
     public readonly location: string
     public readonly usage: string
@@ -53,7 +53,7 @@ export default class MotorPostDomain {
 
 
     private constructor(id: number, region: string, title: string, makeAndModel: string, trim: string,
-        regionalSpecs: string, year: string, kilometer: number, price: number, PhoneNumber: string,
+        regionalSpecs: string, year: string, kilometer: number, price: number, phoneNumber: string,
         image: string, location: string, usage: string, description: string, bodyType: string, transmissionType: string,
         extra: string, specification: string, updateStatusLevel: number,
         active: boolean, createdAt: string, updatedAt: string, make: string, model: string, age: string, length: string,
@@ -73,7 +73,7 @@ export default class MotorPostDomain {
         this.year = year
         this.kilometer = kilometer
         this.price = price
-        this.PhoneNumber = PhoneNumber
+        this.phoneNumber = phoneNumber
         this.image = image
         this.location = location
         this.usage = usage
@@ -118,7 +118,7 @@ export default class MotorPostDomain {
 
     public static createFromObject(data: any) {
         return new MotorPostDomain(data.id, data.region, data.title, data.makeAndModel, data.trim,
-            data.regionalSpecs, data.year, data.kilometer, data.price, data.PhoneNumber, data.image,
+            data.regionalSpecs, data.year, data.kilometer, data.price, data.phoneNumber, data.image,
             data.location, data.usage, data.description, data.bodyType, data.transmissionType,
             data.extra, data.specification, data.updateStatusLevel, data.active, data.createdAt, data.updatedAt,
             data.make, data.model, data.age, data.length, data.mainMotorCategoryId, data.motorCategoryId,
@@ -132,7 +132,7 @@ export default class MotorPostDomain {
     public static createFromArrOfObject(data: any) {
         return data.map((el) => {
             return new MotorPostDomain(el.id, el.region, el.title, el.makeAndModel, el.trim,
-                el.regionalSpecs, el.year, el.kilometer, el.price, el.PhoneNumber, el.image,
+                el.regionalSpecs, el.year, el.kilometer, el.price, el.phoneNumber, el.image,
                 el.location, el.usage, el.description, el.bodyType, el.transmissionType,
                 el.extra, el.specification, el.updateStatusLevel, el.active, el.createdAt, el.updatedAt,
                 el.make, el.model, el.age, el.length, el.mainMotorCategoryId, el.motorCategoryId,

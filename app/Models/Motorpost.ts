@@ -33,7 +33,7 @@ export default class MotorPost extends BaseModel {
   public price: number
 
   @column()
-  public PhoneNumber: string
+  public phoneNumber: string
 
   @column()
   public image: string
