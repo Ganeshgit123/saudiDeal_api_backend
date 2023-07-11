@@ -9,7 +9,7 @@ export default class ReviewsController {
 
     public async create({ request }: HttpContextContract) {
         const payload = await request.validate(Validators.ReviewValidator);
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
 
         await ReviewRepo.create(payload, language);
         // let rating = await ReviewRepo.getRatingAvg(payload.productId);
@@ -36,7 +36,7 @@ export default class ReviewsController {
     public async update({ request, params }: HttpContextContract) {
         const UpdateComment = request.all()
 
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
         await ReviewRepo.isEntryExist(params.id, language);
 
         const updateResult = ReviewsDomain.createFromObject(
@@ -51,7 +51,7 @@ export default class ReviewsController {
 
     public async delete({ request, params }: HttpContextContract) {
 
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
         const result = await ReviewRepo.isEntryExist(params.id, language);
 
         await ReviewRepo.delete(result.productId, result.userId, language);
@@ -63,7 +63,7 @@ export default class ReviewsController {
     }
 
     public async reviewDelete({ request, params }: HttpContextContract) {
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
 
         const address = await Review.findOrFail(params.id)
         await address.delete()

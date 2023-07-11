@@ -1,251 +1,251 @@
 
 const SUCCESS = {
     ADMIN_LOGIN: {
-        'es': 'Login successfully',
+        'en': 'Login successfully',
         'ar': '',
     },
     ADMIN_PASSWOD_UPDATE: {
-        'es': 'Password updated successfully',
+        'en': 'Password updated successfully',
         'ar': '',
     },
     SENT_OTP: {
-        'es': 'Otp send successfully',
+        'en': 'Otp send successfully',
         'ar': 'تم إرسال رمز التحقق بنجاح',
     },
     VERIFY_OTP: {
-        'es': 'Otp verify successfully',
+        'en': 'Otp verify successfully',
         'ar': 'تم التحقق من رمز التحقق بنجاح',
     },
     USER_DEACTIVED: {
-        'es': 'User deactived please contact admin',
+        'en': 'User deactived please contact admin',
         'ar': 'تم إرسال رمز التحقق بنجاح',
     },
     NEW_USER: {
-        'es': 'please create an account',
+        'en': 'please create an account',
         'ar': 'تم إرسال رمز التحقق بنجاح',
     },
     LOGOUT: {
-        'es': 'Logout successfully',
+        'en': 'Logout successfully',
         'ar': 'تم تسجيل الخروج بنجاح ',
     },
     USER_CREATE: {
-        'es': 'User created successfully',
+        'en': 'User created successfully',
         'ar': 'تم إنشاء المستخدم بنجاح',
     },
     USER_UPDATE: {
-        'es': 'User updated successfully',
+        'en': 'User updated successfully',
         'ar': 'تم تحديث المستخدم بنجاح',
     },
     USER_Id_NOTEXIST: {
-        'es': 'User id is missing',
+        'en': 'User id is missing',
         'ar': 'تم تحديث المستخدم بنجاح',
     },
     BANNER_CREATE: {
-        'es': 'Banner created successfully',
+        'en': 'Banner created successfully',
         'ar': 'تم إنشاء الواجهة بنجاح',
     },
     BANNER_UPDATE: {
-        'es': 'Banner updated successfully',
+        'en': 'Banner updated successfully',
         'ar': 'تم تحديث الواجهة بنجاح',
     },
     BANNER_DELETE: {
-        'es': 'Banner deleted successfully',
+        'en': 'Banner deleted successfully',
         'ar': 'تم حذف الواجهة بنجاح',
     },
     COUPON_CREATE: {
-        'es': 'Coupon created successfully',
+        'en': 'Coupon created successfully',
         'ar': 'تم إنشاء الواجهة بنجاح',
     },
     COUPON_UPDATE: {
-        'es': 'Coupon updated successfully',
+        'en': 'Coupon updated successfully',
         'ar': 'تم تحديث الواجهة بنجاح',
     },
     COUPON_DELETE: {
-        'es': 'Coupon deleted successfully',
+        'en': 'Coupon deleted successfully',
         'ar': 'تم حذف الواجهة بنجاح',
     },
     ADDRESS_CREATE: {
-        'es': 'Address created successfully',
+        'en': 'Address created successfully',
         'ar': 'تم إنشاء الواجهة بنجاح',
     },
     ADDRESS_UPDATE: {
-        'es': 'Address updated successfully',
+        'en': 'Address updated successfully',
         'ar': 'تم تحديث الواجهة بنجاح',
     },
     ADDRESS_DELETE: {
-        'es': 'Address deleted successfully',
+        'en': 'Address deleted successfully',
         'ar': 'تم حذف الواجهة بنجاح',
     },
     CATEGORY_CREATE: {
-        'es': 'Category created successfully',
+        'en': 'Category created successfully',
         'ar': 'تم إنشاء الفئة بنجاح',
     },
     CATEGORY_UPDATE: {
-        'es': 'Category updated successfully',
+        'en': 'Category updated successfully',
         'ar': 'تم تحديث الفئة بنجاح',
     },
     CATEGORY_DELETE: {
-        'es': 'Category deleted successfully',
+        'en': 'Category deleted successfully',
         'ar': 'تم حذف الفئة بنجاح',
     },
     SUBCATEGORY_CREATE: {
-        'es': 'SubCategory created successfully',
+        'en': 'SubCategory created successfully',
         'ar': 'تم إنشاء الفئة بنجاح',
     },
     SUBCATEGORY_UPDATE: {
-        'es': 'SubCategory updated successfully',
+        'en': 'SubCategory updated successfully',
         'ar': 'تم تحديث الفئة بنجاح',
     },
     SUBCATEGORY_DELETE: {
-        'es': 'SubCategory deleted successfully',
+        'en': 'SubCategory deleted successfully',
         'ar': 'تم حذف الفئة بنجاح',
     },
     FAVORITES: {
-        'es': 'Favorites successfully',
+        'en': 'Favorites successfully',
         'ar': 'تمت الإضافة الى المفضلة بنجاح',
     },
     UNFAVORITES: {
-        'es': 'UnFavorites successfully',
+        'en': 'UnFavorites successfully',
         'ar': 'تم الغاء الإضافة بنجاح',
     },
     ALREADY_FAVORITES: {
-        'es': 'Already Favorites',
+        'en': 'Already Favorites',
         'ar': 'فى المفضلة بالفعل',
     },
     FAVORITES_NOT_EXITS: {
-        'es': 'Favorites not exist',
+        'en': 'Favorites not exist',
         'ar': 'غير موجود بالمفضلةt',
     },
     RENTFAVORITES: {
-        'es': 'Rent Favorites successfully',
+        'en': 'Rent Favorites successfully',
         'ar': 'تمت الإضافة الى المفضلة بنجاح',
     },
     RENTUNFAVORITES: {
-        'es': 'Rent UnFavorites successfully',
+        'en': 'Rent UnFavorites successfully',
         'ar': 'تم الغاء الإضافة بنجاح',
     },
     RENTALREADY_FAVORITES: {
-        'es': 'Rent Already Favorites',
+        'en': 'Rent Already Favorites',
         'ar': 'فى المفضلة بالفعل',
     },
     RENTFAVORITES_NOT_EXITS: {
-        'es': 'Rent Favorites not exist',
+        'en': 'Rent Favorites not exist',
         'ar': 'غير موجود بالمفضلةt',
     },
     MOTORFAVORITES: {
-        'es': 'Motor Favorites successfully',
+        'en': 'Motor Favorites successfully',
         'ar': 'تمت الإضافة الى المفضلة بنجاح',
     },
     MOTORUNFAVORITES: {
-        'es': 'Motor UnFavorites successfully',
+        'en': 'Motor UnFavorites successfully',
         'ar': 'تم الغاء الإضافة بنجاح',
     },
     MOTORALREADY_FAVORITES: {
-        'es': 'Motor Already Favorites',
+        'en': 'Motor Already Favorites',
         'ar': 'فى المفضلة بالفعل',
     },
     MOTORFAVORITES_NOT_EXITS: {
-        'es': 'Motor Favorites not exist',
+        'en': 'Motor Favorites not exist',
         'ar': 'غير موجود بالمفضلةt',
     },
     ADD_COMMENT: {
-        'es': 'Comment added successfully',
+        'en': 'Comment added successfully',
         'ar': 'تمت إضافة التعليق بنجاح',
     },
     UPDATE_COMMENT: {
-        'es': 'Comment updated successfully',
+        'en': 'Comment updated successfully',
         'ar': 'تم تحديث التعليق بنجاح',
     },
     SETTING_CREATE: {
-        'es': 'Setting created successfully',
+        'en': 'Setting created successfully',
         'ar': 'تم إنشاء الإعداد بنجاح',
     },
     SETTING_UPDATE: {
-        'es': 'Settig updated successfully',
+        'en': 'Settig updated successfully',
         'ar': 'تم تحديث الإعداد بنجاح',
     },
     SETTING_DELETE: {
-        'es': 'Settig deleted successfully',
+        'en': 'Settig deleted successfully',
         'ar': 'تم حذف الإعداد بنجاح',
     },
     NOTIFICATION_UPDATE: {
-        'es': 'Notification updated successfully',
+        'en': 'Notification updated successfully',
         'ar': 'تم تحديث التنبيه بنجاح',
     },
     NOTIFICATION_DELETE: {
-        'es': 'Notification delete successfully',
+        'en': 'Notification delete successfully',
         'ar': 'تم تحديث الإخطار بنجاح',
     },
     NOTIFICATION_ERROR: {
-        'es': 'Something went wrong',
+        'en': 'Something went wrong',
         'ar': 'هناك خطأ ما',
     },
     OTP_NOT_SEND: {
-        'es': 'otp not send',
+        'en': 'otp not send',
         'ar': 'لن يتم ارسال رمز التحقق',
     },
     FAQ_CREATE: {
-        'es': 'Faq created successfully',
+        'en': 'Faq created successfully',
         'ar': 'تم إنشاء الواجهة بنجاح',
     },
     FAQ_UPDATE: {
-        'es': 'Faq updated successfully',
+        'en': 'Faq updated successfully',
         'ar': 'تم تحديث الواجهة بنجاح',
     },
     FAQ_DELETE: {
-        'es': 'Faq deleted successfully',
+        'en': 'Faq deleted successfully',
         'ar': 'تم حذف الواجهة بنجاح',
     },
     ADMIN_CREATE: {
-        'es': 'Admin created successfully',
+        'en': 'Admin created successfully',
         'ar': 'تم إنشاء الواجهة بنجاح',
     },
     ADMIN_UPDATE: {
-        'es': 'Admin updated successfully',
+        'en': 'Admin updated successfully',
         'ar': 'تم تحديث الواجهة بنجاح',
     },
     ADMIN_DELETE: {
-        'es': 'Admin deleted successfully',
+        'en': 'Admin deleted successfully',
         'ar': 'تم حذف الواجهة بنجاح',
     },
     PRODUCT_CREATE: {
-        'es': 'Product created successfully',
+        'en': 'Product created successfully',
         'ar': 'تم إنشاء الواجهة بنجاح',
     },
     PRODUCT_UPDATE: {
-        'es': 'Product updated successfully',
+        'en': 'Product updated successfully',
         'ar': 'تم تحديث الواجهة بنجاح',
     },
     PRODUCT_DELETE: {
-        'es': 'Product deleted successfully',
+        'en': 'Product deleted successfully',
         'ar': 'تم حذف الواجهة بنجاح',
     },
     AWALADS_CREATE: {
-        'es': 'AwalAds created successfully',
+        'en': 'AwalAds created successfully',
         'ar': 'تم إنشاء الواجهة بنجاح',
     },
     ORDER_UPDATE: {
-        'es': 'Order updated successfully',
+        'en': 'Order updated successfully',
         'ar': 'تم تحديث الواجهة بنجاح',
     },
     ADD_REVIEW: {
-        'es': 'Review added successfully',
+        'en': 'Review added successfully',
         'ar': 'تمت إضافة التعليق بنجاح',
     },
     UPDATE_REVIEW: {
-        'es': 'Review updated successfully',
+        'en': 'Review updated successfully',
         'ar': 'تم تحديث التعليق بنجاح',
     },
     DELETE_REVIEW: {
-        'es': 'Review deleted successfully',
+        'en': 'Review deleted successfully',
         'ar': 'تم تحديث التعليق بنجاح',
     },
     OUTOFSTOCk: {
-        'es': 'Updated successfully',
+        'en': 'Updated successfully',
         'ar': 'تمت الإضافة الى المفضلة بنجاح',
     },
     ALREADY_OUTOFSTOCk: {
-        'es': 'Already notified',
+        'en': 'Already notified',
         'ar': 'فى المفضلة بالفعل',
     },
     BRAND_CREATE: {
@@ -309,250 +309,250 @@ const SUCCESS = {
         'ar': 'تم حذف الواجهة بنجاح',
     },
     RENT_CREATE: {
-    'es': 'Rent created successfully',
+    'en': 'Rent created successfully',
     'ar': 'تم إنشاء الفئة بنجاح',
     },
     RENT_UPDATE: {
-        'es': 'Rent updated successfully',
+        'en': 'Rent updated successfully',
         'ar': 'تم تحديث الفئة بنجاح',
     },
     RENT_DELETE: {
-        'es': 'Rent deleted successfully',
+        'en': 'Rent deleted successfully',
         'ar': 'تم حذف الفئة بنجاح',
     },
     DELETE_RENT: {
-        'es': 'Rent deleted successfully',
+        'en': 'Rent deleted successfully',
         'ar': 'تم تحديث التعليق بنجاح',
     },
     RENT_CATEGORY_CREATE: {
-    'es': 'Rent Category created successfully',
+    'en': 'Rent Category created successfully',
     'ar': 'تم إنشاء الفئة بنجاح',
     },
     RENT_CATEGORY_UPDATE: {
-        'es': 'Rent Category updated successfully',
+        'en': 'Rent Category updated successfully',
         'ar': 'تم تحديث الفئة بنجاح',
     },
     RENT_CATEGORY_DELETE: {
-        'es': 'Rent Category deleted successfully',
+        'en': 'Rent Category deleted successfully',
         'ar': 'تم حذف الفئة بنجاح',
     },
     DELETE_RENT_CATEGORY: {
-        'es': 'Rent Category deleted successfully',
+        'en': 'Rent Category deleted successfully',
         'ar': 'تم تحديث التعليق بنجاح',
     },
     SUBSCRIPTION_CREATE: {
-    'es': 'Subscription created successfully',
+    'en': 'Subscription created successfully',
     'ar': 'تم إنشاء الفئة بنجاح',
     },
     SUBSCRIPTION_UPDATE: {
-        'es': 'Subscription updated successfully',
+        'en': 'Subscription updated successfully',
         'ar': 'تم تحديث الفئة بنجاح',
     },
     SUBSCRIPTION_DELETE: {
-        'es': 'Subscription deleted successfully',
+        'en': 'Subscription deleted successfully',
         'ar': 'تم حذف الفئة بنجاح',
     },
     DELETE_SUBSCRIPTION: {
-        'es': 'Subscription deleted successfully',
+        'en': 'Subscription deleted successfully',
         'ar': 'تم تحديث التعليق بنجاح',
     },
     TRIM_CREATE: {
-    'es': 'Trim created successfully',
+    'en': 'Trim created successfully',
     'ar': 'تم إنشاء الفئة بنجاح',
     },
     TRIM_UPDATE: {
-        'es': 'Trim updated successfully',
+        'en': 'Trim updated successfully',
         'ar': 'تم تحديث الفئة بنجاح',
     },
     TRIM_DELETE: {
-        'es': 'Trim deleted successfully',
+        'en': 'Trim deleted successfully',
         'ar': 'تم حذف الفئة بنجاح',
     },
     DELETE_TRIM: {
-        'es': 'Trim deleted successfully',
+        'en': 'Trim deleted successfully',
         'ar': 'تم تحديث التعليق بنجاح',
     },
     TRANSLATIONSTRING_CREATE: {
-    'es': 'Translation String created successfully',
+    'en': 'Translation String created successfully',
     'ar': 'تم إنشاء الفئة بنجاح',
     },
     TRANSLATIONSTRING_UPDATE: {
-        'es': 'Translation String updated successfully',
+        'en': 'Translation String updated successfully',
         'ar': 'تم تحديث الفئة بنجاح',
     },
     TRANSLATIONSTRING_DELETE: {
-        'es': 'Translation String deleted successfully',
+        'en': 'Translation String deleted successfully',
         'ar': 'تم حذف الفئة بنجاح',
     },
     DELETE_TRANSLATIONSTRING: {
-        'es': 'Translation String deleted successfully',
+        'en': 'Translation String deleted successfully',
         'ar': 'تم تحديث التعليق بنجاح',
     },
 }
 
 const FAILURE = {
     ADMIN_CONFLICT: {
-        'es': 'Incorrect email or password',
+        'en': 'Incorrect email or password',
         'ar': '',
     },
     PRODUCT_CREATE: {
-        'es': 'Error in product creation.',
+        'en': 'Error in product creation.',
         'ar': 'خطأ في إنشاء الواجهة.',
     },
     PRODUCT_CONFLICT: {
-        'es': 'Product not found.',
+        'en': 'Product not found.',
         'ar': 'الفئة غير موجودة.',
     },
     PRODUCT_DELETE_CONFLICT: {
-        'es': 'Error in deleting the product.',
+        'en': 'Error in deleting the product.',
         'ar': 'خطأ في حذف الفئة.',
     },
     CATEGORY_CREATE: {
-        'es': 'Error in category creation.',
+        'en': 'Error in category creation.',
         'ar': 'خطأ في إنشاء الواجهة.',
     },
     CATEGORY_CONFLICT: {
-        'es': 'Category not found.',
+        'en': 'Category not found.',
         'ar': 'الفئة غير موجودة.',
     },
     CATEGORY_DELETE_CONFLICT: {
-        'es': 'Error in deleting the category.',
+        'en': 'Error in deleting the category.',
         'ar': 'خطأ في حذف الفئة.',
     },
     SUBCATEGORY_CREATE: {
-        'es': 'Error in category creation.',
+        'en': 'Error in category creation.',
         'ar': 'خطأ في إنشاء الواجهة.',
     },
     SUBCATEGORY_CONFLICT: {
-        'es': 'Category not found.',
+        'en': 'Category not found.',
         'ar': 'الفئة غير موجودة.',
     },
     SUBCATEGORY_DELETE_CONFLICT: {
-        'es': 'Error in deleting the category.',
+        'en': 'Error in deleting the category.',
         'ar': 'خطأ في حذف الفئة.',
     },
     FAVORITE_CREATE: {
-        'es': 'Error in Favorite creation.',
+        'en': 'Error in Favorite creation.',
         'ar': 'خطأ في الإنشاء فى المفضلة.',
     },
     FAVORITE_CONFLICT: {
-        'es': 'Favorite not found.',
+        'en': 'Favorite not found.',
         'ar': 'لم يتم العثور فى المفضلة.',
     },
     RENTFAVORITE_CREATE: {
-        'es': 'Error in Rent Favorite creation.',
+        'en': 'Error in Rent Favorite creation.',
         'ar': 'خطأ في الإنشاء فى المفضلة.',
     },
     RENTFAVORITE_CONFLICT: {
-        'es': 'Rent Favorite not found.',
+        'en': 'Rent Favorite not found.',
         'ar': 'لم يتم العثور فى المفضلة.',
     },
     MOTORFAVORITE_CREATE: {
-        'es': 'Error in Rent Favorite creation.',
+        'en': 'Error in Rent Favorite creation.',
         'ar': 'خطأ في الإنشاء فى المفضلة.',
     },
     MOTORFAVORITE_CONFLICT: {
-        'es': 'Rent Favorite not found.',
+        'en': 'Rent Favorite not found.',
         'ar': 'لم يتم العثور فى المفضلة.',
     },
     NOTIFICATION_CONFLICT: {
-        'es': 'Notification not exists.',
+        'en': 'Notification not exists.',
         'ar': 'التنبيه غير موجود.',
     },
     NOTIFICATION_CREATE: {
-        'es': 'Error in Notification creation.',
+        'en': 'Error in Notification creation.',
         'ar': 'خطأ في إنشاء التنبيه',
     },
     SETTING_CREATE: {
-        'es': 'Error in setting creation.',
+        'en': 'Error in setting creation.',
         'ar': 'خطأ في إنشاء الاعداد.',
     },
     SETTING_CONFLICT: {
-        'es': 'data not found.',
+        'en': 'data not found.',
         'ar': 'لم يتم العثور على بيانات.',
     },
     SETTING_DELETE_CONFLICT: {
-        'es': 'Error in deleting the setting.',
+        'en': 'Error in deleting the setting.',
         'ar': 'خطأ في حذف الإعداد.',
     },
     USER_CREATE: {
-        'es': 'Error in User creation.',
+        'en': 'Error in User creation.',
         'ar': 'خطأ في إنشاء المستخدم.',
     },
     USER_CONFLICT: {
-        'es': 'User not exists.',
+        'en': 'User not exists.',
         'ar': 'المستخدم غير موجود',
     },
     OTP_NOT_MATCH: {
-        'es': 'otp not match',
+        'en': 'otp not match',
         "ar": 'otp not match'
     },
     ADMIN_DELETE_CONFLICT: {
-        'es': 'Error in deleting the admin.',
+        'en': 'Error in deleting the admin.',
         'ar': 'خطأ في حذف الإعداد.',
     },
     FAQ_CREATE: {
-        'es': 'Error in banner faq creation.',
+        'en': 'Error in banner faq creation.',
         'ar': 'خطأ في إنشاء الاعداد.',
     },
     FAQ_CONFLICT: {
-        'es': 'Faq not found.',
+        'en': 'Faq not found.',
         'ar': 'لم يتم العثور على بيانات.',
     },
     FAQ_DELETE_CONFLICT: {
-        'es': 'Error in deleting the faq.',
+        'en': 'Error in deleting the faq.',
         'ar': 'خطأ في حذف الإعداد.',
     },
     ADDRESS_CREATE: {
-        'es': 'Error in address creation.',
+        'en': 'Error in address creation.',
         'ar': 'خطأ في إنشاء الواجهة.',
     },
     ADDRESS_CONFLICT: {
-        'es': 'Address not found.',
+        'en': 'Address not found.',
         'ar': 'الفئة غير موجودة.',
     },
     ADDRESS_DELETE_CONFLICT: {
-        'es': 'Error in deleting the address.',
+        'en': 'Error in deleting the address.',
         'ar': 'خطأ في حذف الفئة.',
     },
     RVPRODUCT_CREATE: {
-        'es': 'RecentViewedProduct created successfully',
+        'en': 'RecentViewedProduct created successfully',
         'ar': 'تم إنشاء الواجهة بنجاح',
     },
     RVPRODUCT_CONFLICT: {
-        'es': 'RecentViewedProduct not found.',
+        'en': 'RecentViewedProduct not found.',
         'ar': 'الفئة غير موجودة.',
     },
     REPRODUCT_CREATE: {
-        'es': 'RentViewedProduct created successfully',
+        'en': 'RentViewedProduct created successfully',
         'ar': 'تم إنشاء الواجهة بنجاح',
     },
     REPRODUCT_CONFLICT: {
-        'es': 'RentViewedProduct not found.',
+        'en': 'RentViewedProduct not found.',
         'ar': 'الفئة غير موجودة.',
     },
     MTPRODUCT_CREATE: {
-        'es': 'MotorViewedProduct created successfully',
+        'en': 'MotorViewedProduct created successfully',
         'ar': 'تم إنشاء الواجهة بنجاح',
     },
     MTPRODUCT_CONFLICT: {
-        'es': 'MotorViewedProduct not found.',
+        'en': 'MotorViewedProduct not found.',
         'ar': 'الفئة غير موجودة.',
     },
     ORDER_CONFLICT: {
-        'es': 'Order not found.',
+        'en': 'Order not found.',
         'ar': 'الفئة غير موجودة.',
     },
     REVIEW_CREATE: {
-        'es': 'Error in product review.',
+        'en': 'Error in product review.',
         'ar': 'خطأ في إنشاء الواجهة.',
     },
     REVIEW_CONFLICT: {
-        'es': 'Review not found.',
+        'en': 'Review not found.',
         'ar': 'الفئة غير موجودة.',
     },
     REVIEW_DELETE_CONFLICT: {
-        'es': 'Error in deleting the review.',
+        'en': 'Error in deleting the review.',
         'ar': 'خطأ في حذف الفئة.',
     },
     BRAND_CREATE: {
@@ -656,67 +656,67 @@ const FAILURE = {
         'ar': 'خطأ في حذف الواجهة.',
     },
     RENT_CREATE: {
-    'es': 'Error in rent creation.',
+    'en': 'Error in rent creation.',
     'ar': 'خطأ في إنشاء الواجهة.',
     },
     RENT_CONFLICT: {
-        'es': 'Rent not found.',
+        'en': 'Rent not found.',
         'ar': 'الفئة غير موجودة.',
     },
     RENT_DELETE_CONFLICT: {
-        'es': 'Error in deleting the rent.',
+        'en': 'Error in deleting the rent.',
         'ar': 'خطأ في حذف الفئة.',
     },
     RENT_CATEGORY_CREATE: {
-    'es': 'Error in rent category creation.',
+    'en': 'Error in rent category creation.',
     'ar': 'خطأ في إنشاء الواجهة.',
     },
     RENT_CATEGORY_CONFLICT: {
-        'es': 'Rent Category not found.',
+        'en': 'Rent Category not found.',
         'ar': 'الفئة غير موجودة.',
     },
     RENT_CATEGORY_DELETE_CONFLICT: {
-        'es': 'Error in deleting the rent category.',
+        'en': 'Error in deleting the rent category.',
         'ar': 'خطأ في حذف الفئة.',
     },
     SUBSCRIPTION_CREATE: {
-    'es': 'Error in Subscription creation.',
+    'en': 'Error in Subscription creation.',
     'ar': 'خطأ في إنشاء الواجهة.',
     },
     SUBSCRIPTION_CONFLICT: {
-        'es': 'Subscription not found.',
+        'en': 'Subscription not found.',
         'ar': 'الفئة غير موجودة.',
     },
     SUBSCRIPTION_DELETE_CONFLICT: {
-        'es': 'Error in deleting the subscription.',
+        'en': 'Error in deleting the subscription.',
         'ar': 'خطأ في حذف الفئة.',
     },
     TRIM_CREATE: {
-        'es': 'Error in trim creation.',
+        'en': 'Error in trim creation.',
         'ar': 'خطأ في إنشاء الواجهة.',
     },
     TRIM_CONFLICT: {
-        'es': 'Trim not found.',
+        'en': 'Trim not found.',
         'ar': 'الفئة غير موجودة.',
     },
     TRIM_DELETE_CONFLICT: {
-        'es': 'Error in deleting the trim.',
+        'en': 'Error in deleting the trim.',
         'ar': 'خطأ في حذف الفئة.',
     },
     TRANSLATIONSTRING_CREATE: {
-    'es': 'Translation String created successfully',
+    'en': 'Translation String created successfully',
     'ar': 'تم إنشاء الفئة بنجاح',
     },
     TRANSALATIONSTRING_CREATE: {
-    'es': 'Error in Translation String creation.',
+    'en': 'Error in Translation String creation.',
     'ar': 'خطأ في إنشاء الواجهة.',
     },
     TRANSALATIONSTRING_CONFLICT: {
-        'es': 'Translation String not found.',
+        'en': 'Translation String not found.',
         'ar': 'الفئة غير موجودة.',
     },
     TRANSALATIONSTRING_DELETE_CONFLICT: {
-        'es': 'Error in deleting the Translation String.',
+        'en': 'Error in deleting the Translation String.',
         'ar': 'خطأ في حذف الفئة.',
     },
 

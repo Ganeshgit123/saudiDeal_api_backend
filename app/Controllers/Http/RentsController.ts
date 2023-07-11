@@ -84,7 +84,7 @@ export default class RentsController {
 
         // let payload = request.all();
 
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
         const RentDetails = await RentRepo.create(payload, language);
 
         return {
@@ -97,7 +97,7 @@ export default class RentsController {
     public async update({ request, params }: HttpContextContract) {
         const UpdatePost = request.all()
 
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
         await RentRepo.isEntryExist(params.id, language);
 
         const updateResult = RentDomain.createFromObject(
@@ -111,7 +111,7 @@ export default class RentsController {
     }
 
     public async delete({ request, params }: HttpContextContract) {
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
         const result = await RentRepo.isEntryExist(params.id, language);
 
         await RentRepo.delete({ active: 0 }, result, language);
@@ -123,7 +123,7 @@ export default class RentsController {
     }
 
     public async rentDelete({ request, params }: HttpContextContract) {
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
 
         const address = await Rent.findOrFail(params.id)
         await address.delete()

@@ -63,6 +63,8 @@ export default class HomeController {
         let rentViewedProducts = RentViewedProductDomain.createFromArrOfObject(
             await RentViewedProductsRepo.get(userId)
         )
+        console.log(rentViewedProducts,'rentViewedProducts');
+        
         let motorposts = MotorPostDomain.createFromArrOfObject(
             await MotorpostRepo.getAllPost(userId)
         )

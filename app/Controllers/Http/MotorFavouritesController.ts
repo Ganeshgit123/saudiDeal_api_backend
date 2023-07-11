@@ -8,7 +8,7 @@ export default class MotorFavouritesController {
 
     public async favourites({ request }: HttpContextContract) {
         const payload = await request.validate(Validators.MotorFavouriteValidator);
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
         const userId: any = request.header('userId') || 0
         const guestUserId: any = request.header('guestUserId') || ''
 
@@ -39,9 +39,7 @@ export default class MotorFavouritesController {
 
             if (payload.isFavourites == false) {
 
-                MotorFavouritesDomain.createFromObject(
-                    await MotorFavouritesRepo.delete(payload.productId, userId, language)
-                );
+                await MotorFavouritesRepo.delete(payload.productId, userId, language)
                 return {
                     success: true,
                     massage: SUCCESS.MOTORUNFAVORITES[language]

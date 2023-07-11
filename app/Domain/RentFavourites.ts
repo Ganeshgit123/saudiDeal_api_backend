@@ -92,7 +92,6 @@ export default class RentFavouritesDomain {
     }
 
     public static createFromArrOfObject(data: any) {
-        console.log(data)
         return data.map((el) => {
             return new RentFavouritesDomain(el.id, el.productId, el.userId, el.createdAt, el.updatedAt, el.$extras.favouritesId, el.$extras.price, el.$extras.areaInSqmt, el.$extras.widthInMtr, el.$extras.lengthInMtr, el.$extras.title, el.$extras.phoneNumber, el.$extras.ownerType, el.$extras.rentalTerm, el.$extras.streetLength, el.$extras.noBedrooms, el.$extras.noBathrooms, el.$extras.noFloors, el.$extras.provinceId, el.$extras.cityId, el.$extras.location, el.$extras.images1, el.$extras.description, el.$extras.propetyType, el.$extras.furnished, el.$extras.kitchen, el.$extras.garage, el.$extras.elevator, el.$extras.waterSupply, el.$extras.electricitySupply, el.$extras.type, el.$extras.isApprove, el.$extras.rejectReason, el.$extras.categoryId, el.$extras.updateStatusLevel, el.$extras.image, el.$extras.features, el.$extras.noLivingRooms, el.$extras.propertyAge,
                 el.isFavorites)

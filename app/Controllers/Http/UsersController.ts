@@ -9,7 +9,7 @@ export default class UsersController {
     // User API
     public async get({ request }: HttpContextContract) {
 
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
         const userId: any = request.header('userId') || 0
 
         let result = UserDomain.createFromArrOfObject(
@@ -29,7 +29,7 @@ export default class UsersController {
 
     public async getUserById({ request }: HttpContextContract) {
 
-        // const language = request.header('language') || 'es'
+        // const language = request.header('language') || 'en'
         const userId: any = request.header('userId') || 0
         return {
             success: true,
@@ -43,7 +43,7 @@ export default class UsersController {
         const userId: any = request.header('userId') || 0
         let payload = await request.validate(Validators.UserValidator);
 
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
         await UserRepo.isEntryExist(userId, language);
 
         payload.isNewUser = false
@@ -62,7 +62,7 @@ export default class UsersController {
         // const updateProposal = await request.validate(Validators.UpdatePost);
         const userDetails = request.all()
         const userId: any = request.header('userId') || ''
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
         if (!userId) {
             return {
                 success: false,
@@ -109,7 +109,7 @@ export default class UsersController {
 
     public async userDetails({ params, request }: HttpContextContract) {
 
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
         return {
             success: true,
             userDetails: UserDomain.createFromArrOfObject(

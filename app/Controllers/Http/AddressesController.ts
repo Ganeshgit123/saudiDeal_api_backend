@@ -36,7 +36,7 @@ export default class AddressesController {
     public async update({ request, params }: HttpContextContract) {
         const UpdatePost = request.all()
 
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
         await AddressRepo.isEntryExist(params.id, language);
 
         const updateResult = AddressDomain.createFromObject(

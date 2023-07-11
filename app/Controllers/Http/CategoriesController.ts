@@ -9,14 +9,14 @@ export default class CategoriesController {
 
     public async get({ request }: HttpContextContract) {
 
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
 
         let categoryList = CategoryDomain.createFromArrOfObject(
             await CategoryRepo.get('')
         )
         if (categoryList.length != 0) {
             categoryList.map((el) => {
-                el.name = language == 'es' ? el.enName : el.arName
+                el.name = language == 'en' ? el.enName : el.arName
             })
         }
         return {
@@ -28,7 +28,7 @@ export default class CategoriesController {
     public async create({ request }: HttpContextContract) {
         const payload = await request.validate(Validators.CategoryValidator);
 
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
         const CategoryDetails = await CategoryRepo.create(payload, language);
 
         return {
@@ -41,7 +41,7 @@ export default class CategoriesController {
     public async update({ request, params }: HttpContextContract) {
         const UpdatePost = request.all()
 
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
         await CategoryRepo.isEntryExist(params.id, language);
 
         const updateResult = CategoryDomain.createFromObject(
@@ -55,7 +55,7 @@ export default class CategoriesController {
     }
 
     public async delete({ request, params }: HttpContextContract) {
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
         const result = await CategoryRepo.isEntryExist(params.id, language);
 
         await CategoryRepo.delete({ active: 0 }, result, language);
@@ -78,7 +78,7 @@ export default class CategoriesController {
     }
 
     public async categoriesDelete({ request, params }: HttpContextContract) {
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
 
         const category = await Category.findOrFail(params.id)
         await category.delete()

@@ -3,10 +3,10 @@ import Rent from 'App/Models/Rent'
 import { FAILURE } from "../Data/language";
 
 export default class RentRepo {
-    
-	static async get(userId, rentPostId) {
+
+    static async get(userId, rentPostId) {
         const result = await Rent.query().where('active', 1)
-        .if(userId, (query) =>
+            .if(userId, (query) =>
                 query.where('rents.user_id', userId))
             .if(rentPostId, (query) =>
                 query.where('rents.id', rentPostId))
@@ -14,11 +14,17 @@ export default class RentRepo {
     }
 
     static async getAllPost(userId) {
-        const result = await Rent.query().where('active', 1)
-        .if(userId, (query) =>
+        const result = await Rent.query().where('rents.active', 1)
+            .select('rents.*')
+            .select('cities.city as cityName')
+            .select('provinces.name as provincesName')
+            .leftJoin('cities', 'rents.city_id', 'cities.id')
+            .leftJoin('provinces', 'rents.province_id', 'provinces.id')
+            .if(userId, (query) =>
                 query.where('rents.user_id', userId))
-            // .if(rentPostId, (query) =>
-            //     query.where('rents.id', rentPostId))
+        // .if(rentPostId, (query) =>
+        //     query.where('rents.id', rentPostId))
+        
         return result
     }
 

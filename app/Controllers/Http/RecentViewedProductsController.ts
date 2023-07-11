@@ -19,7 +19,7 @@ export default class RecentViewedProductsController {
     public async create({ request }: HttpContextContract) {
         const payload = await request.validate(Validators.RecentViewedProductValidator);
 
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
         const rvProductDetails = await RecentViewedProductsRepo.create(payload, language);
 
         return {

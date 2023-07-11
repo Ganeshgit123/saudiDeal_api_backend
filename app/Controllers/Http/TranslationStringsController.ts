@@ -21,7 +21,7 @@ export default class TranslationStringsController {
 
         const payload = await request.validate(Validators.TranslationValidator);
 
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
         const TranslationDetails = await TranslationStringRepo.create(payload, language);
 
         return {
@@ -34,7 +34,7 @@ export default class TranslationStringsController {
     public async update({ request, params }: HttpContextContract) {
         const UpdatePost = request.all()
 
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
         await TranslationStringRepo.isEntryExist(params.id, language);
 
         const updateResult = TranslationStringDomain.createFromObject(
@@ -48,7 +48,7 @@ export default class TranslationStringsController {
     }
 
     public async delete({ request, params }: HttpContextContract) {
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
         const result = await TranslationStringRepo.isEntryExist(params.id, language);
 
         await TranslationStringRepo.delete({ active: 0 },result, language);
@@ -60,7 +60,7 @@ export default class TranslationStringsController {
     }
 
     public async translationStringDelete({ request, params }: HttpContextContract) {
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
 
         const address = await TranslationString.findOrFail(params.id)
         await address.delete()

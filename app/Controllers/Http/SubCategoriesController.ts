@@ -10,14 +10,14 @@ export default class SubCategoriesController {
     public async get({ request }: HttpContextContract) {
         const payload = request.all()
         const categoryId = payload.categoryId || ''        
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
 
         let subCategoryList = SubCategoryDomain.createFromArrOfObject(
             await SubCategoryRepo.get(categoryId)
         )
         if (subCategoryList.length != 0) {
             subCategoryList.map((el) => {
-                el.subCategoryName = language == 'es' ? el.enSubCategoryName : el.arSubCategoryName
+                el.subCategoryName = language == 'en' ? el.enSubCategoryName : el.arSubCategoryName
             })
         }
         return {
@@ -29,7 +29,7 @@ export default class SubCategoriesController {
     public async create({ request }: HttpContextContract) {
         const payload = await request.validate(Validators.SubCategoryValidator);
 
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
         const CategoryDetails = await SubCategoryRepo.create(payload, language);
 
         return {
@@ -42,7 +42,7 @@ export default class SubCategoriesController {
     public async update({ request, params }: HttpContextContract) {
         const UpdatePost = request.all()
 
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
         await SubCategoryRepo.isEntryExist(params.id, language);
 
         const updateResult = SubCategoryDomain.createFromObject(
@@ -56,7 +56,7 @@ export default class SubCategoriesController {
     }
 
     public async delete({ request, params }: HttpContextContract) {
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
         const result = await SubCategoryRepo.isEntryExist(params.id, language);
 
         await SubCategoryRepo.delete({ active: 0 }, result, language);
@@ -79,7 +79,7 @@ export default class SubCategoriesController {
     }
 
     public async categoriesDelete({ request, params }: HttpContextContract) {
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
 
         const category = await SubCategory.findOrFail(params.id)
         await category.delete()

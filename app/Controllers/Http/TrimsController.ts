@@ -23,7 +23,7 @@ export default class TrimsController {
 
         // let payload = request.all();
 
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
         const TrimDetails = await TrimRepo.create(payload, language);
 
         return {
@@ -36,7 +36,7 @@ export default class TrimsController {
     public async update({ request, params }: HttpContextContract) {
         const UpdatePost = request.all()
 
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
         await TrimRepo.isEntryExist(params.id, language);
 
         const updateResult = TrimDomain.createFromObject(
@@ -50,7 +50,7 @@ export default class TrimsController {
     }
 
     public async delete({ request, params }: HttpContextContract) {
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
         const result = await TrimRepo.isEntryExist(params.id, language);
 
         await TrimRepo.delete({ active: 0 },result, language);
@@ -63,7 +63,7 @@ export default class TrimsController {
 
     public async trimDelete({ request, params }: HttpContextContract) {
 
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
 
         const address = await Trim.findOrFail(params.id)
         await address.delete()

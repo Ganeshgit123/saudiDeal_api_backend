@@ -21,7 +21,7 @@ export default class MotorViewedProductsController {
     public async create({ request }: HttpContextContract) {
         const payload = await request.validate(Validators.MotorViewedProductValidator);
 
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
         const rvProductDetails = await MotorViewedProductsRepo.create(payload, language);
 
         return {

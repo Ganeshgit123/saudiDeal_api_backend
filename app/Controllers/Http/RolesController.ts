@@ -18,7 +18,7 @@ export default class RolesController {
     public async create({ request }: HttpContextContract) {
         const payload = await request.validate(Validators.RoleValidator);
 
-        // const language = request.header('language') || 'es'
+        // const language = request.header('language') || 'en'
         let roleResult = await RoleRepo.isEntryExist(payload.roleName);
 
         if (!roleResult) {
@@ -39,7 +39,7 @@ export default class RolesController {
     public async update({ request, params }: HttpContextContract) {
         const UpdatePost = request.all()
 
-        // const language = request.header('language') || 'es'
+        // const language = request.header('language') || 'en'
         await RoleRepo.isRoleExist(params.id);
 
         const updateResult = RolesDomain.createFromObject(
@@ -53,7 +53,7 @@ export default class RolesController {
     }
 
     public async delete({ params }: HttpContextContract) {
-        // const language = request.header('language') || 'es'
+        // const language = request.header('language') || 'en'
         const result = await RoleRepo.isRoleExist(params.id);
 
         await RoleRepo.delete({ active: 0 }, result);

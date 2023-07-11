@@ -8,7 +8,7 @@ export default class FavouritesController {
 
     public async favourites({ request }: HttpContextContract) {
         const payload = await request.validate(Validators.FavouriteValidator);
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
         const userId: any = request.header('userId') || 0
         const guestUserId: any = request.header('guestUserId') || ''
 

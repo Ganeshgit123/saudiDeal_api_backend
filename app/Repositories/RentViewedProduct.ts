@@ -1,5 +1,6 @@
 import Exceptions from '../Exceptions'
 import RentViewedProduct from 'App/Models/RentViewedProduct'
+import Rent from 'App/Models/Rent'
 import { FAILURE } from "../Data/language";
 
 export default class RentViewedProductsRepo {
@@ -10,9 +11,20 @@ export default class RentViewedProductsRepo {
     }
 
     static async get(userId) {
-        const result = await RentViewedProduct.query()
-            .innerJoin('rents', 'rents.id', 'rent_viewed_products.product_id')
+        // const result = await RentViewedProduct.query()
+        //     .innerJoin('rents', 'rents.id', 'rent_viewed_products.product_id')
+        //     .where('rent_viewed_products.user_id', userId)
+
+        const result = await Rent.query().where('rents.active', 1)
+            .select('rents.*')
+            .select('cities.city as cityName')
+            .select('provinces.name as provincesName')
+            .leftJoin('cities', 'rents.city_id', 'cities.id')
+            .leftJoin('provinces', 'rents.province_id', 'provinces.id')
+            .innerJoin('rent_viewed_products', 'rent_viewed_products.product_id', 'rents.id')
             .where('rent_viewed_products.user_id', userId)
+            // .if(userId, (query) =>
+            //     query.where('rents.user_id', userId))
         return result
     }
 

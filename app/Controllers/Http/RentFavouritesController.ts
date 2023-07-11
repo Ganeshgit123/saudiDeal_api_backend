@@ -8,7 +8,7 @@ export default class RentFavouritesController {
 
     public async favourites({ request }: HttpContextContract) {
         const payload = await request.validate(Validators.RentFavouriteValidator);
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
         const userId: any = request.header('userId') || 0
         const guestUserId: any = request.header('guestUserId') || ''
 
@@ -39,9 +39,7 @@ export default class RentFavouritesController {
 
             if (payload.isFavourites == false) {
 
-                RentFavouritesDomain.createFromObject(
-                    await RentFavouritesRepo.delete(payload.productId, userId, language)
-                );
+                await RentFavouritesRepo.delete(payload.productId, userId, language)
                 return {
                     success: true,
                     massage: SUCCESS.RENTUNFAVORITES[language]
@@ -58,8 +56,8 @@ export default class RentFavouritesController {
     public async get({ request }: HttpContextContract) {
 
         const userId: any = request.header('userId') || ''
-        console.log(userId,'userId');
-        
+        console.log(userId, 'userId');
+
         // const guestUserId: any = request.header('guestUserId') || ''
         // let userId: any = loginUserId ?  loginUserId: guestUserId
 

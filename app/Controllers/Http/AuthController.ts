@@ -11,7 +11,7 @@ export default class AuthController {
     public async sendOtp({ request }: HttpContextContract) {
         const { mobileNumber, countryCode } = await request.validate(Validators.SendOtpValidator);
 
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
 
         // var otp = Math.floor(1000 + Math.random() * 9000);
         const otp = 1234
@@ -59,7 +59,7 @@ export default class AuthController {
     public async verifyOtp({ request }: HttpContextContract) {
         const { mobileNumber, otp } = await request.validate(Validators.VerifyOtpValidator);
 
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
         let userData = await AuthRepo.checkOtp(mobileNumber, otp, language)
 
         let token
@@ -106,7 +106,7 @@ export default class AuthController {
     public async create({ request }: HttpContextContract) {
         const { mobileNumber, countryCode, userName, email, userType } = await request.validate(Validators.SendOtpValidator);
 
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
 
         // var otp = Math.floor(1000 + Math.random() * 9000);
         const otp = 1234
@@ -154,7 +154,7 @@ export default class AuthController {
     public async logout({ request, response }: HttpContextContract) {
         let token = request.headers().authorization || ''
 
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
 
         if (token && token.startsWith("Bearer ")) token = token.slice(7, token.length);
 

@@ -12,7 +12,7 @@ export default class AdminsController {
     // admin login
     public async login({ request }: HttpContextContract) {
         const { email, password } = await request.validate(Validators.AdminAuthValidator);
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
 
         const maybeAdmin = await AdminRepo.checkAdmin(email, password);
 
@@ -50,7 +50,7 @@ export default class AdminsController {
         const data = {
             password: newPassword
         }
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
 
         if (maybeAdmin) {
             await AdminRepo.updateAdmin(maybeAdmin.id, data, language)
@@ -79,7 +79,7 @@ export default class AdminsController {
     public async createAdmin({ request }: HttpContextContract) {
         const payload = await request.validate(Validators.AdminValidator);
 
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
 
         const adminResult = await AdminRepo.createAdmin(payload, language);
 
@@ -94,7 +94,7 @@ export default class AdminsController {
         const updateAdmin = request.all()
 
         await AdminRepo.isEntryExist(params.id);
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
 
         const updateResult = AdminDomain.createFromObject(
             await AdminRepo.updateAdmin(params.id, updateAdmin, language)
@@ -108,7 +108,7 @@ export default class AdminsController {
 
     public async deleteAdmin({ request, params }: HttpContextContract) {
         const result = await AdminRepo.isIdExist(params.id);
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
 
         await AdminRepo.deleteAdmin({ active: 0 }, result, language);
         return {
@@ -120,7 +120,7 @@ export default class AdminsController {
 
     async logout({ request, response }) {
         let token = request.headers().authorization || '';
-        const language = request.header('language') || 'es';
+        const language = request.header('language') || 'en';
         if (token && token.startsWith("Bearer "))
             token = token.slice(7, token.length);
         if (token) {

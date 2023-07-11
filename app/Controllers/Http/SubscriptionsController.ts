@@ -23,7 +23,7 @@ export default class SubscriptionsController {
 
         // let payload = request.all();
 
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
         const SubscriptionDetails = await SubscriptionRepo.create(payload, language);
 
         return {
@@ -36,7 +36,7 @@ export default class SubscriptionsController {
     public async update({ request, params }: HttpContextContract) {
         const UpdatePost = request.all()
 
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
         await SubscriptionRepo.isEntryExist(params.id, language);
 
         const updateResult = SubscriptionDomain.createFromObject(
@@ -50,7 +50,7 @@ export default class SubscriptionsController {
     }
 
     public async delete({ request, params }: HttpContextContract) {
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
         const result = await SubscriptionRepo.isEntryExist(params.id, language);
 
         await SubscriptionRepo.delete({ active: 0 },result, language);
@@ -62,7 +62,7 @@ export default class SubscriptionsController {
     }
 
     public async subscriptionDelete({ request, params }: HttpContextContract) {
-        const language = request.header('language') || 'es'
+        const language = request.header('language') || 'en'
 
         const address = await Subscription.findOrFail(params.id)
         await address.delete()
