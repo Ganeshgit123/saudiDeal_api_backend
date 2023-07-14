@@ -20,7 +20,8 @@ export default class RentViewedProductsController {
 
     public async create({ request }: HttpContextContract) {
         const payload = await request.validate(Validators.RentViewedProductValidator);
-
+        const userId = request.header('userId') || 0
+        payload.userId = Number(userId)
         const language = request.header('language') || 'en'
         const rvProductDetails = await RentViewedProductsRepo.create(payload, language);
 

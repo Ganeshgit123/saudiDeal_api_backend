@@ -56,28 +56,27 @@ export default class HomeController {
     public async get({ request }: HttpContextContract) {
         // const payload = request.all()
         const userId = request.header('userId') || ''
-
+        
         let motorViewedProducts = MotorViewedProductDomain.createFromArrOfObject(
             await MotorViewedProductsRepo.get(userId)
         )
         let rentViewedProducts = RentViewedProductDomain.createFromArrOfObject(
             await RentViewedProductsRepo.get(userId)
         )
-        console.log(rentViewedProducts,'rentViewedProducts');
-        
+
         let motorposts = MotorPostDomain.createFromArrOfObject(
-            await MotorpostRepo.getAllPost(userId)
+            await MotorpostRepo.getAllPost('')
         )
 
         let rents = RentDomain.createFromArrOfObject(
-            await RentRepo.getAllPost(userId)
+            await RentRepo.getAllPost('')
         )
 
         motorViewedProducts = await this.getRentFavourites(userId, motorViewedProducts)
         rentViewedProducts = await this.getMotorFavouritesRepo(userId, rentViewedProducts)
 
-        motorposts = await this.getRentFavourites(userId, motorposts)
-        rents = await this.getMotorFavouritesRepo(userId, rents)
+        rents = await this.getRentFavourites(userId, motorposts)
+        motorposts = await this.getMotorFavouritesRepo(userId, rents)
 
 
         const language = request.header('language') || 'en'
@@ -111,14 +110,14 @@ export default class HomeController {
         let motorpostsList
         if (motorposts.length != 0) {
             motorpostsList = {
-                "type": "PopularRent",
+                "type": "PopularMotor",
                 "title": language == 'en' ? "Popular in Residential for Rent" : "تخفيض المنتج",
                 "data": motorposts
             }
             popularProducts.push(motorpostsList)
 
         }
-
+        
         let rentsList
         if (rents.length != 0) {
             // await rents.map((data) => {

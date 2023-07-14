@@ -5,23 +5,28 @@ export default class BrandDomain {
     public readonly active: boolean
     public readonly createdAt: string
     public readonly updatedAt: string
+    public readonly type: string
 
-    private constructor(id: number, name: string, active: boolean, createdAt: string, updatedAt: string) {
+    private constructor(id: number, name: string, active: boolean, createdAt: string, updatedAt: string,
+        type: string) {
 
         this.id = id
         this.name = name
         this.active = active
         this.createdAt = createdAt
         this.updatedAt = updatedAt
+        this.type = type
     }
 
     public static createFromObject(data: any) {
-        return new BrandDomain(data.id, data.name, data.active, data.createdAt, data.updatedAt)
+        return new BrandDomain(data.id, data.name, data.active, data.createdAt, data.updatedAt,
+            data.type)
     }
 
-    public static createFromArrOfObject(data: any) {
+    public static createFromArrOfObject(data: any) {        
         return data.map((el) => {
-            return new BrandDomain(el.id, el.name, el.active, el.createdAt, el.updatedAt)
+            return new BrandDomain(el.id, el.name, el.active, el.createdAt, el.updatedAt,
+                el.$extras.type)
         })
     }
 } 

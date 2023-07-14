@@ -22,16 +22,13 @@ export default class MotorFavouritesRepo {
         }
     }
 
-    static async get(userId, guestUserId) {
+    static async get(userId) {
         const result = await MotorFavourite.query()
-            .select('motor_favourites.id as favouritesId', 'motor_favourites.product_id as productId')
+            .select('motor_favourites.id as favouritesId', 'motor_favourites.product_id as productId', 'motor_favourites.user_id as userId')
             .select('motor_posts.*')
             .innerJoin('motor_posts', 'motor_posts.id', 'motor_favourites.product_id')
-            .if(userId, (query) =>
-                query.where('motor_favourites.user_id', userId))
-            .if(guestUserId, (query) =>
-                query.where('motor_favourites.guest_user_id', guestUserId))
-        // .where('Motor_favourites.user_id', userId)
+            .where('motor_favourites.user_id', userId)
+        // .where('Motor_favourites.user_id', userId)        
         return result
     }
 

@@ -108,7 +108,7 @@ export default class MotorFavouritesDomain {
     }
 
     public static createFromObject(data: any) {
-        return new MotorFavouritesDomain(data.id, data.$extras.productId, data.userId, data.createdAt, data.updatedAt, 
+        return new MotorFavouritesDomain(data.id, data.$extras.productId, data.$extras.userId, data.createdAt, data.updatedAt, 
             data.$extras.title, data.$extras.favouritesId, data.$extras.region, data.$extras.makeAndModel, data.$extras.trim,
             data.$extras.regionalSpecs, data.$extras.year, data.$extras.kilometer, data.$extras.price, data.$extras.phoneNumber, 
             data.$extras.image, data.$extras.location, data.$extras.usage, data.$extras.description, data.$extras.transmissionType,
@@ -122,9 +122,8 @@ export default class MotorFavouritesDomain {
     }
 
     public static createFromArrOfObject(data: any) {
-        console.log(data)
         return data.map((el) => {
-            return new MotorFavouritesDomain(el.id, el.$extras.productId, el.userId, el.createdAt, el.updatedAt, el.$extras.title, el.$extras.favouritesId, 
+            return new MotorFavouritesDomain(el.id, el.$extras.productId, el.$extras.userId, el.createdAt, el.updatedAt, el.$extras.title, el.$extras.favouritesId, 
                 el.$extras.region, el.$extras.makeAndModel, el.$extras.trim, el.$extras.regionalSpecs, el.$extras.year, el.$extras.kilometer, el.$extras.price,
                 el.$extras.phoneNumber, el.$extras.image, el.$extras.location, el.$extras.usage, el.$extras.description, el.$extras.transmissionType, el.$extras.extra1, 
                 el.$extras.specification, el.$extras.updateStatusLevel, el.$extras.make, el.$extras.model, el.$extras.age, el.$extras.length, el.$extras.mainMotorCategoryId,

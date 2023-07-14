@@ -24,7 +24,7 @@ export default class BrandRepo {
     static async get(brandId) {
         const result = await Brand.query().where('active', 1)
             .if(brandId, (query) =>
-                query.where('id', brandId))
+                query.where('id', brandId))                
         return result
     }
 
