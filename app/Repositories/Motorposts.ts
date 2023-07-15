@@ -17,6 +17,8 @@ export default class MotorpostRepo {
 
             return motorpost
         } catch (error) {
+            console.log(error,'error');
+            
             throw Exceptions.conflict(FAILURE.MOTOR_POST_CONFLICT[language])
         }
     }

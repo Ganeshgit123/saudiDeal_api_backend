@@ -122,6 +122,34 @@ export default class MotorPost extends BaseModel {
   @column()
   public capacity: string
 
+  @column()
+  public interiorColor: string
+
+  @column()
+  public exteriorColor: string
+
+  @column()
+  public leatherSeat: boolean
+
+  @column()
+  public parkingSensor: boolean
+
+  @column()
+  public rearViewCamera: boolean
+
+  @column()
+  public sunRoof: boolean
+
+  @column()
+  public accidentFree: boolean
+
+  @column()
+  public warranty: boolean
+
+  @column()
+  public fullyMaintained: boolean
+
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
