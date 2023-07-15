@@ -23,10 +23,10 @@ export default class BrandDomain {
             data.type)
     }
 
-    public static createFromArrOfObject(data: any) {        
+    public static createFromArrOfObject(data: any) { 
         return data.map((el) => {
             return new BrandDomain(el.id, el.name, el.active, el.createdAt, el.updatedAt,
-                el.$extras.type)
+                el.$extras.type|| el.type)
         })
     }
 } 

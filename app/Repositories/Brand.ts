@@ -21,10 +21,13 @@ export default class BrandRepo {
         }
     }
 
-    static async get(brandId) {
-        const result = await Brand.query().where('active', 1)
+    static async get(brandId, type) {        
+        const result = await Brand.query()
             .if(brandId, (query) =>
-                query.where('id', brandId))                
+                query.where('id', brandId))
+            .if(type, (query) =>
+                query.where('type', type))
+            .where('active', 1)
         return result
     }
 

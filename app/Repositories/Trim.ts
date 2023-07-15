@@ -3,9 +3,18 @@ import Trim from 'App/Models/Trim'
 import { FAILURE } from "../Data/language";
 
 export default class TrimRepo {
-    
-	static async get() {
-        const result = await Trim.query().where('active', 1)
+
+    static async get(makeId, modelId) {
+        const result = await Trim.query().where('trims.active', 1)
+            .select('trims.*')
+            .select('brands.name as brandName')
+            .select('models.model_name as modelName')
+            .innerJoin('brands', 'trims.make_id', 'brands.id')
+            .innerJoin('models', 'trims.model_id', 'models.id')
+            .if(makeId, (query) =>
+                query.where('make_id', makeId))
+            .if(modelId, (query) =>
+                query.where('model_id', modelId))
         return result
     }
 

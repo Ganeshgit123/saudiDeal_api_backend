@@ -56,8 +56,6 @@ export default class RentFavouritesController {
     public async get({ request }: HttpContextContract) {
 
         const userId: any = request.header('userId') || ''
-        console.log(userId, 'userId');
-
         // const guestUserId: any = request.header('guestUserId') || ''
         // let userId: any = loginUserId ?  loginUserId: guestUserId
 

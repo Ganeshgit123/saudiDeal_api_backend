@@ -182,7 +182,7 @@ Route.group(() => {
   Route.get('/category', 'CategoriesController.get')
   Route.get('/subCategory', 'SubCategoriesController.get')
   Route.get('/banner', 'BannersController.get')
-  Route.get('/rentCategory', 'RentsController.get')
+  Route.get('/rentCategory', 'RentCategoriesController.get')
   Route.get('/home', 'HomeController.get')
   Route.get('/subscription', 'SubscriptionsController.get')
 
@@ -190,6 +190,11 @@ Route.group(() => {
   Route.group(() => {
     Route.get('/', 'BrandsController.get')
   }).prefix('/brand')
+
+    // trime list API
+    Route.group(() => {
+      Route.get('/', 'TrimsController.get')
+    }).prefix('/trim')
 
   // model list API
   Route.group(() => {

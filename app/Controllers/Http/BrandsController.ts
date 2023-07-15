@@ -7,11 +7,14 @@ import Brand from 'App/Models/Brand'
 
 export default class BrandsController {
 
-    public async get() {
+    public async get({ request }: HttpContextContract) {
+        const payload = request.all()
+        let type = payload.type || ''
+
         return {
             success: true,
             data: BrandDomain.createFromArrOfObject(
-                await BrandRepo.get('')
+                await BrandRepo.get('', type)
             ),
         };
     }

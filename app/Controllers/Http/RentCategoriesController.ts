@@ -9,12 +9,13 @@ import RentCategory from 'App/Models/RentCategory'
 
 export default class RentCategoriesController {
 
-	public async get() {
-        console.log("abcd");
+	public async get({ request }: HttpContextContract) {
+        let payload = request.all();
+        let type = payload.type || ''
         return {
             success: true,
             data: RentCategoryDomain.createFromArrOfObject(
-                await RentCategoriesRepo.get()
+                await RentCategoriesRepo.get(type)
             ),
         };
     }

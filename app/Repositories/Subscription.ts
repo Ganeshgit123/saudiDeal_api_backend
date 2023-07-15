@@ -16,7 +16,6 @@ export default class SubscriptionRepo {
     }
 
     static async update(id: number, data: any, language: string) {
-        console.log(data);
         try {
             const subscription = await Subscription.findOrFail(id)
             subscription.merge(data)

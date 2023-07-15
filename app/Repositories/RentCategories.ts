@@ -3,15 +3,17 @@ import RentCategory from 'App/Models/RentCategory'
 import { FAILURE } from "../Data/language";
 
 export default class RentCategoriesRepo {
-    
-	static async get() {
+
+    static async get(type) {
         const result = await RentCategory.query().where('active', 1)
+            .if(type, (query) =>
+                query.where('type', type))
         return result
     }
 
     static async create(data: any, language: string) {
         const result = await RentCategory.create(data)
-        
+
         if (!result) throw Exceptions.notFound(FAILURE.RENT_CATEGORY_CREATE[language])
         return result
     }

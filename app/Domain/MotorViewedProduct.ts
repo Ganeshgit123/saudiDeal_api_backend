@@ -77,7 +77,7 @@ export default class MotorViewedProductDomain {
     public static createFromArrOfObject(data: any) {
         return data.map((el) => {
             return new MotorViewedProductDomain(el.id, el.productId, el.userId, el.deviceId, el.createdAt, el.updatedAt,
-                el.$extras.name, el.$extras.image, el.$extras.brand, el.$extras.price, el.$extras.original_price,
+                el.$extras.name, el.$extras.image, el.$extras.brand, el.$extras.price || el.price, el.$extras.original_price,
                 el.$extras.is_stock, el.$extras.colour, el.$extras.capacity, el.$extras.active, el.$extras.warrenty,
                 el.$extras.is_pod, el.$extras.returnpolicy, el.$extras.sell, el.$extras.category_id,
                 el.$extras.sub_category_id, el.$extras.location, el.$extras.make, el.$extras.model, el.$extras.trim,

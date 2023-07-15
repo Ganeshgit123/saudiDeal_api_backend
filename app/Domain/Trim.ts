@@ -8,9 +8,12 @@ export default class TrimDomain {
     public readonly active: boolean
     public readonly createdAt: string
     public readonly updatedAt: string
+    public readonly brandName: string
+    public readonly modelName: string
 
 
-    private constructor(id: number, makeId: number, modelId: number, arName: string, enName: string, active: boolean, createdAt: string, updatedAt: string) {
+    private constructor(id: number, makeId: number, modelId: number, arName: string, enName: string, active: boolean, createdAt: string, updatedAt: string,
+        brandName: string, modelName: string) {
 
         this.id = id
         this.makeId = makeId
@@ -19,16 +22,20 @@ export default class TrimDomain {
         this.enName = enName
         this.active = active
         this.createdAt = createdAt
-        this.updatedAt = updatedAt    
+        this.updatedAt = updatedAt
+        this.brandName = brandName
+        this.modelName = modelName
     }
 
     public static createFromObject(data: any) {
-        return new TrimDomain(data.id, data.makeId, data.modelId, data.arName, data.enName, data.active, data.createdAt, data.updatedAt)
+        return new TrimDomain(data.id, data.makeId, data.modelId, data.arName, data.enName, data.active, data.createdAt, data.updatedAt,
+            data.brandName, data.modelName)
     }
 
-    public static createFromArrOfObject(data: any) {        
+    public static createFromArrOfObject(data: any) {
         return data.map((el) => {
-            return new TrimDomain(el.id, el.makeId, el.modelId, el.arName, el.enName, el.active, el.createdAt, el.updatedAt)
+            return new TrimDomain(el.id, el.makeId, el.modelId, el.arName, el.enName, el.active, el.createdAt, el.updatedAt,
+                el.$extras.brandName, el.$extras.modelName)
         })
     }
 } 

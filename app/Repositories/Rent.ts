@@ -35,7 +35,6 @@ export default class RentRepo {
     }
 
     static async update(id: number, data: any, language: string) {
-        console.log(data);
         try {
             const rent = await Rent.findOrFail(id)
             rent.merge(data)

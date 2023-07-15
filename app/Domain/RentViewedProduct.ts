@@ -80,8 +80,6 @@ export default class RentViewedProductDomain {
     }
 
     public static createFromArrOfObject(data: any) {
-        console.log(data,'data');
-        
         return data.map((el) => {
             return new RentViewedProductDomain(el.id, el.productId, el.userId, el.deviceId, el.createdAt, el.updatedAt,
                 el.$extras.name, el.$extras.image, el.$extras.brand, el.$extras.price, el.originalPrice,

@@ -7,12 +7,15 @@ import Trim from 'App/Models/Trim'
 
 export default class TrimsController {
 
-	public async get() {
+    public async get({ request }: HttpContextContract) {
+        const payload = request.all()
+        let makeId = payload.makeId || ''
+        let modelId = payload.modelId || ''
 
         return {
             success: true,
             data: TrimDomain.createFromArrOfObject(
-                await TrimRepo.get()
+                await TrimRepo.get(makeId, modelId)
             ),
         };
     }
@@ -53,7 +56,7 @@ export default class TrimsController {
         const language = request.header('language') || 'en'
         const result = await TrimRepo.isEntryExist(params.id, language);
 
-        await TrimRepo.delete({ active: 0 },result, language);
+        await TrimRepo.delete({ active: 0 }, result, language);
         return {
             success: true,
             massage: SUCCESS.TRIM_DELETE[language]
