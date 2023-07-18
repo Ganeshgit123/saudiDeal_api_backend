@@ -55,11 +55,14 @@ export default class MotorpostsController {
 
     public async getAllPost({ request }: HttpContextContract) {
         const userId = request.header('userId') || ''
+        let motorPost = MotorPostDomain.createFromArrOfObject(
+            await MotorpostRepo.getAllPost(userId)
+        )
+        motorPost = await this.getRentFavourites(userId, motorPost)
+
         return {
             success: true,
-            data: MotorPostDomain.createFromArrOfObject(
-                await MotorpostRepo.getAllPost(userId)
-            ),
+            data: motorPost,
         };
     }
 

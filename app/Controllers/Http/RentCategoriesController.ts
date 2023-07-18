@@ -9,14 +9,22 @@ import RentCategory from 'App/Models/RentCategory'
 
 export default class RentCategoriesController {
 
-	public async get({ request }: HttpContextContract) {
+    public async get({ request }: HttpContextContract) {
         let payload = request.all();
+        const language = request.header('language') || 'en'
         let type = payload.type || ''
+        let rentCategory = RentCategoryDomain.createFromArrOfObject(
+            await RentCategoriesRepo.get(type)
+        )
+
+        if (rentCategory.length != 0) {
+            rentCategory.map((el) => {                
+                el.name = language == 'en' ? el.en_name : el.ar_name
+            })
+        }
         return {
             success: true,
-            data: RentCategoryDomain.createFromArrOfObject(
-                await RentCategoriesRepo.get(type)
-            ),
+            data: rentCategory,
         };
     }
 
@@ -56,7 +64,7 @@ export default class RentCategoriesController {
         const language = request.header('language') || 'en'
         const result = await RentCategoriesRepo.isEntryExist(params.id, language);
 
-        await RentCategoriesRepo.delete({ active: 0 },result, language);
+        await RentCategoriesRepo.delete({ active: 0 }, result, language);
         return {
             success: true,
             massage: SUCCESS.RENT_CATEGORY_DELETE[language]

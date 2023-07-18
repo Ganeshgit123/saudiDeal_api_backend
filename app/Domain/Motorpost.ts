@@ -50,6 +50,16 @@ export default class MotorPostDomain {
     public readonly userName: string
     public readonly userMobileNumber: string
     public readonly productId: number
+    public readonly isFavorites: number
+    public readonly interiorColor: string
+    public readonly exteriorColor: string
+    public readonly leatherSeat: boolean
+    public readonly parkingSensor: boolean
+    public readonly rearViewCamera: boolean
+    public readonly sunRoof: boolean
+    public readonly accidentFree: boolean
+    public readonly warranty: boolean
+    public readonly fullyMaintained: boolean
 
 
     private constructor(id: number, region: string, title: string, makeAndModel: string, trim: string,
@@ -62,7 +72,9 @@ export default class MotorPostDomain {
         rejectReason: string, userId: number, provinceId: number, cityId: number, finalDriveSystem: string, wheels: string,
         engineSize: string, bodyCondition: string, mechanicalCondition: string, cylinders: string, horsePower: string,
         capacity: string, provinceName: string, cityName: string, userName: string, userMobileNumber: string,
-        productId: number) {
+        productId: number, isFavorites: number, interiorColor: string, exteriorColor: string, leatherSeat: boolean,
+        parkingSensor: boolean, rearViewCamera: boolean, sunRoof: boolean, accidentFree: boolean, warranty: boolean,
+        fullyMaintained: boolean) {
 
         this.id = id
         this.region = region
@@ -114,6 +126,16 @@ export default class MotorPostDomain {
         this.userName = userName
         this.userMobileNumber = userMobileNumber
         this.productId = productId
+        this.isFavorites = isFavorites
+        this.interiorColor = interiorColor
+        this.exteriorColor = exteriorColor
+        this.leatherSeat = leatherSeat
+        this.parkingSensor = parkingSensor
+        this.rearViewCamera = rearViewCamera
+        this.sunRoof = sunRoof
+        this.accidentFree = accidentFree
+        this.warranty = warranty
+        this.fullyMaintained = fullyMaintained
     }
 
     public static createFromObject(data: any) {
@@ -126,7 +148,9 @@ export default class MotorPostDomain {
             data.isApprove, data.rejectReason, data.userId, data.provinceId, data.cityId, data.finalDriveSystem, data.wheels, data.engineSize,
             data.bodyCondition, data.mechanicalCondition, data.cylinders, data.horsePower, data.capacity, data.$extras ? data.$extras.provinceName : '',
             data.$extras ? data.$extras.cityName : '', data.$extras ? data.$extras.userName : '', data.$extras ? data.$extras.userMobileNumber : '',
-            data.id)
+            data.id, 0, data.$extras.interiorColor, data.$extras.exteriorColor,
+            data.$extras.leatherSeat, data.$extras.parkingSensor, data.$extras.rearViewCamera, data.$extras.sunRoof, data.$extras.accidentFree,
+            data.$extras.warranty, data.$extras.fullyMaintained)
     }
 
     public static createFromArrOfObject(data: any) {
@@ -141,7 +165,9 @@ export default class MotorPostDomain {
                 el.wheels, el.engineSize, el.bodyCondition, el.mechanicalCondition, el.cylinders, el.horsePower, el.capacity,
                 el.$extras ? el.$extras.provinceName : '',
                 el.$extras ? el.$extras.cityName : '', el.$extras ? el.$extras.userName : '', el.$extras ? el.$extras.userMobileNumber : '',
-                el.id)
+                el.id, 0, el.$extras.interiorColor || el.interiorColor, el.$extras.exteriorColor || el.exteriorColor, el.$extras.leatherSeat || el.leatherSeat, el.$extras.parkingSensor || el.parkingSensor,
+                el.$extras.rearViewCamera || el.rearViewCamera, el.$extras.sunRoof || el.sunRoof, el.$extras.accidentFree || el.accidentFree,
+                el.$extras.warranty || el.warranty, el.$extras.fullyMaintained || el.fullyMaintained)
         })
     }
 }

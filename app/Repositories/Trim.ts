@@ -50,10 +50,18 @@ export default class TrimRepo {
         return result
     }
 
-    static async adminGet(active, trimId) {
+    static async adminGet(active, trimId, makeId, modelId) {
         const result = await Trim.query()
             .select('trims.*')
+            .select('brands.name as brandName')
+            .select('models.model_name as modelName')
+            .innerJoin('brands', 'trims.make_id', 'brands.id')
+            .innerJoin('models', 'trims.model_id', 'models.id')
             .orderBy('trims.id', "desc")
+            .if(makeId, (query) =>
+                query.where('make_id', makeId))
+            .if(modelId, (query) =>
+                query.where('model_id', modelId))
             .if(active, (query) =>
                 query.where('trims.active', active))
             .if(trimId, (query) =>

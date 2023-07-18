@@ -11,12 +11,20 @@ export default class TrimsController {
         const payload = request.all()
         let makeId = payload.makeId || ''
         let modelId = payload.modelId || ''
+        const language = request.header('language') || 'en'
+
+        let trim = TrimDomain.createFromArrOfObject(
+            await TrimRepo.get(makeId, modelId)
+        )
+        if (trim.length != 0) {
+            trim.map((el) => {
+                el.name = language == 'en' ? el.enName : el.arName
+            })
+        }
 
         return {
             success: true,
-            data: TrimDomain.createFromArrOfObject(
-                await TrimRepo.get(makeId, modelId)
-            ),
+            data: trim,
         };
     }
 
@@ -80,11 +88,21 @@ export default class TrimsController {
 
     public async adminGet({ request }: HttpContextContract) {
         const payload = request.all()
+        const language = request.header('language') || 'en'
+        let makeId = payload.makeId || ''
+        let modelId = payload.modelId || ''
+        let trim = TrimDomain.createFromArrOfObject(
+            await TrimRepo.adminGet(payload.active, payload.trimId, makeId, modelId)
+        )
+        if (trim.length != 0) {
+            trim.map((el) => {
+                el.name = language == 'en' ? el.enName : el.arName
+            })
+        }
+
         return {
             success: true,
-            data: TrimDomain.createFromArrOfObject(
-                await TrimRepo.adminGet(payload.active, payload.trimId)
-            ),
+            data: trim,
         };
     }
 }
