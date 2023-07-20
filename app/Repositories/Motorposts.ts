@@ -16,9 +16,7 @@ export default class MotorpostRepo {
             await motorpost.save()
 
             return motorpost
-        } catch (error) {
-            console.log(error,'error');
-            
+        } catch (error) {            
             throw Exceptions.conflict(FAILURE.MOTOR_POST_CONFLICT[language])
         }
     }
@@ -93,6 +91,7 @@ export default class MotorpostRepo {
             .innerJoin('provinces', 'motor_posts.province_id', 'provinces.id')
             .innerJoin('cities', 'motor_posts.city_id', 'cities.id')
             .innerJoin('users', 'motor_posts.user_id', 'users.id')
+            .where('motor_posts.update_status_level', 3)
             .orderBy('motor_posts.id', "desc")
             .if(active, (query) =>
                 query.where('motor_posts.active', active))

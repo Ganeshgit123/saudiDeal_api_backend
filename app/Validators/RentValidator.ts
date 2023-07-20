@@ -35,7 +35,8 @@ export default class RentValidator {
     garage: schema.boolean.optional(),
     elevator: schema.boolean.optional(),
     waterSupply: schema.boolean.optional(),
-    electricitySupply: schema.boolean.optional()
+    electricitySupply: schema.boolean.optional(),
+    categoryId: schema.number()
   })
 
   public messages = {

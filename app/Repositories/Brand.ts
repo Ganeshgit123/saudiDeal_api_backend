@@ -21,7 +21,7 @@ export default class BrandRepo {
         }
     }
 
-    static async get(brandId, type) {        
+    static async get(brandId, type) {
         const result = await Brand.query()
             .if(brandId, (query) =>
                 query.where('id', brandId))
@@ -45,10 +45,12 @@ export default class BrandRepo {
         return result
     }
 
-    static async adminGet(brand) {
+    static async adminGet(brand, type) {
         const result = await Brand.query()
             .if(brand, (query) =>
                 query.where('active', brand))
+            .if(type, (query) =>
+                query.where('type', type))
         return result
     }
 

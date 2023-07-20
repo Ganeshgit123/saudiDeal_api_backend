@@ -32,10 +32,18 @@ export default class RentDomain {
     public readonly productId: number
     public readonly cityName: string
     public readonly provincesName: string
+    public readonly isFavorites: number
+    public readonly updateStatusLevel: number
+    public readonly provinceName: string
+    public readonly userName: string
+    public readonly userMobileNumber: string
+    public readonly arCategoryName: string
+    public readonly enCategoryName: string
 
 
     private constructor(id: number, price: string, areaInSqmt: string, widthInMtr: string, lengthInMtr: string, title: string, phoneNumber: string, ownerType: string, rentalTerm: string, streetLength: string, noBedrooms: string, noBathrooms: string, noFloors: string, provinceId: number, cityId: number, userId: number, location: string, images: string, description: string, propetyType: string, furnished: boolean, kitchen: boolean, garage: boolean, elevator: boolean, waterSupply: boolean, electricitySupply: boolean, createdAt: string, updatedAt: string, active: boolean,
-        productId: number, cityName: string, provincesName: string) {
+        productId: number, cityName: string, provincesName: string, isFavorites: number, updateStatusLevel: number,
+        provinceName: string, userName: string, userMobileNumber: string, arCategoryName: string, enCategoryName: string) {
 
         this.id = id
         this.price = price
@@ -69,17 +77,30 @@ export default class RentDomain {
         this.productId = productId
         this.cityName = cityName
         this.provincesName = provincesName
+        this.isFavorites = isFavorites
+        this.updateStatusLevel = updateStatusLevel
+        this.provinceName = provinceName
+        this.userName = userName
+        this.userMobileNumber = userMobileNumber
+        this.arCategoryName = arCategoryName
+        this.enCategoryName = enCategoryName
     }
 
     public static createFromObject(data: any) {
         return new RentDomain(data.id, data.price, data.areaInSqmt, data.widthInMtr, data.lengthInMtr, data.title, data.phoneNumber, data.ownerType, data.rentalTerm, data.streetLength, data.noBedrooms, data.noBathrooms, data.noFloors, data.provinceId, data.cityId, data.userId, data.location, data.images, data.description, data.propetyType, data.furnished, data.kitchen, data.garage, data.elevator, data.waterSupply, data.electricitySupply, data.createdAt, data.updatedAt, data.active,
-            data.id, data.$extras.cityName, data.$extras.provincesName)
+            data.id, data.$extras.cityName, data.$extras.provincesName, 0, data.$extras.update_status_level,
+            data.$extras ? data.$extras.provinceName : '',
+            data.$extras ? data.$extras.userName : '', data.$extras ? data.$extras.userMobileNumber : '',
+            data.$extras.arCategoryName, data.$extras.enCategoryName)
     }
 
     public static createFromArrOfObject(data: any) {
         return data.map((el) => {
             return new RentDomain(el.id, el.price, el.areaInSqmt, el.widthInMtr, el.lengthInMtr, el.title, el.phoneNumber, el.ownerType, el.rentalTerm, el.streetLength, el.noBedrooms, el.noBathrooms, el.noFloors, el.provinceId, el.cityId, el.userId, el.location, el.images, el.description, el.propetyType, el.furnished, el.kitchen, el.garage, el.elevator, el.waterSupply, el.electricitySupply, el.createdAt, el.updatedAt, el.active,
-                el.id, el.$extras.cityName, el.$extras.provincesName)
+                el.id, el.$extras.cityName, el.$extras.provincesName, 0, el.$extras.update_status_level,
+                el.$extras ? el.$extras.provinceName : '',
+                el.$extras ? el.$extras.userName : '', el.$extras ? el.$extras.userMobileNumber : '',
+                el.$extras.arCategoryName, el.$extras.enCategoryName)
         })
     }
 } 

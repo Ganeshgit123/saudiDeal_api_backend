@@ -61,11 +61,13 @@ export default class BrandsController {
     }
 
     public async adminGet({ request }: HttpContextContract) {
-        const payload = request.all()
+        const payload = request.all()        
+        let type = payload.type || ''
+
         return {
             success: true,
             data: BrandDomain.createFromArrOfObject(
-                await BrandRepo.adminGet(payload.active)
+                await BrandRepo.adminGet(payload.active, type)
             ),
         };
     }

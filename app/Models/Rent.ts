@@ -80,6 +80,9 @@ export default class Rent extends BaseModel {
   @column()
   public electricitySupply: boolean
 
+  @column()
+  public categoryId: number
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

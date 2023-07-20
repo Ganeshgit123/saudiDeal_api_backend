@@ -7,11 +7,13 @@ import Model from 'App/Models/Model'
 
 export default class ModelsController {
 
-    public async get({ params }: HttpContextContract) {
+    public async get({ request, params }: HttpContextContract) {
+        const payload = request.all()
+        let type = payload.type || ''
         return {
             success: true,
             data: ModelDomain.createFromArrOfObject(
-                await ModelRepo.get(params.id)
+                await ModelRepo.get(params.id, type)
             ),
         };
     }
@@ -59,10 +61,12 @@ export default class ModelsController {
 
     public async adminGet({ request }: HttpContextContract) {
         const payload = request.all()
+        let type = payload.type || ''
+
         return {
             success: true,
             data: ModelDomain.createFromArrOfObject(
-                await ModelRepo.adminGet(payload.active)
+                await ModelRepo.adminGet(payload.active, type)
             ),
         };
     }

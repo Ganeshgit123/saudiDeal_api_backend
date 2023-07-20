@@ -84,7 +84,7 @@ export default class RentsController {
 
         // let payload = request.all();
 
-        const language = request.header('language') || 'en'
+        const language = request.header('language') || 'en'        
         const RentDetails = await RentRepo.create(payload, language);
 
         return {
