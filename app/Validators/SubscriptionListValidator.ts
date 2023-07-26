@@ -1,7 +1,7 @@
 import { schema } from '@ioc:Adonis/Core/Validator'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
-export default class SubscriptionValidator {
+export default class SubscriptionListValidator {
   constructor(protected ctx: HttpContextContract) { }
 
   public get data() {
@@ -11,14 +11,12 @@ export default class SubscriptionValidator {
   }
 
   public schema = schema.create({
-    name: schema.string(),
-    imageType: schema.string.optional(),
-    price: schema.number(),
-    description: schema.string(),
-    subscriptionsTime: schema.number(),
+    subscriptionId: schema.number(),
+    userId: schema.number(),
+    startDate: schema.string(),
+    endDate: schema.string(),
     totalPost: schema.number(),
-    type: schema.string(),
-    userType: schema.string()
+    remainingDays: schema.number()
   })
 
   public messages = {

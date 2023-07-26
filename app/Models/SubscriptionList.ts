@@ -1,37 +1,27 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 
-export default class Subscription extends BaseModel {
+export default class SubscriptionList extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
   @column()
-  public name: string
+  public subscriptionId: number
 
   @column()
-  public imageType: string
+  public userId: number
 
   @column()
-  public price: number
+  public startDate: string
 
   @column()
-  public description: string
-
-  @column()
-  public active: boolean
-
-  @column()
-  public subscriptionsTime: number
+  public endDate: string
 
   @column()
   public totalPost: number
 
   @column()
-  public type: string
-
-  @column()
-  public userType: string
-
+  public remainingDays: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

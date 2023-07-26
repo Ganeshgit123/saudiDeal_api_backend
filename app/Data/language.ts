@@ -309,8 +309,8 @@ const SUCCESS = {
         'ar': 'تم حذف الواجهة بنجاح',
     },
     RENT_CREATE: {
-    'en': 'Rent created successfully',
-    'ar': 'تم إنشاء الفئة بنجاح',
+        'en': 'Rent created successfully',
+        'ar': 'تم إنشاء الفئة بنجاح',
     },
     RENT_UPDATE: {
         'en': 'Rent updated successfully',
@@ -325,8 +325,8 @@ const SUCCESS = {
         'ar': 'تم تحديث التعليق بنجاح',
     },
     RENT_CATEGORY_CREATE: {
-    'en': 'Rent Category created successfully',
-    'ar': 'تم إنشاء الفئة بنجاح',
+        'en': 'Rent Category created successfully',
+        'ar': 'تم إنشاء الفئة بنجاح',
     },
     RENT_CATEGORY_UPDATE: {
         'en': 'Rent Category updated successfully',
@@ -341,8 +341,8 @@ const SUCCESS = {
         'ar': 'تم تحديث التعليق بنجاح',
     },
     SUBSCRIPTION_CREATE: {
-    'en': 'Subscription created successfully',
-    'ar': 'تم إنشاء الفئة بنجاح',
+        'en': 'Subscription created successfully',
+        'ar': 'تم إنشاء الفئة بنجاح',
     },
     SUBSCRIPTION_UPDATE: {
         'en': 'Subscription updated successfully',
@@ -356,9 +356,13 @@ const SUCCESS = {
         'en': 'Subscription deleted successfully',
         'ar': 'تم تحديث التعليق بنجاح',
     },
+    SUBSCRIPTION_LIST_CREATE: {
+        'en': 'Subscription list created successfully',
+        'ar': 'تم إنشاء الفئة بنجاح',
+    },
     TRIM_CREATE: {
-    'en': 'Trim created successfully',
-    'ar': 'تم إنشاء الفئة بنجاح',
+        'en': 'Trim created successfully',
+        'ar': 'تم إنشاء الفئة بنجاح',
     },
     TRIM_UPDATE: {
         'en': 'Trim updated successfully',
@@ -373,8 +377,8 @@ const SUCCESS = {
         'ar': 'تم تحديث التعليق بنجاح',
     },
     TRANSLATIONSTRING_CREATE: {
-    'en': 'Translation String created successfully',
-    'ar': 'تم إنشاء الفئة بنجاح',
+        'en': 'Translation String created successfully',
+        'ar': 'تم إنشاء الفئة بنجاح',
     },
     TRANSLATIONSTRING_UPDATE: {
         'en': 'Translation String updated successfully',
@@ -656,8 +660,8 @@ const FAILURE = {
         'ar': 'خطأ في حذف الواجهة.',
     },
     RENT_CREATE: {
-    'en': 'Error in rent creation.',
-    'ar': 'خطأ في إنشاء الواجهة.',
+        'en': 'Error in rent creation.',
+        'ar': 'خطأ في إنشاء الواجهة.',
     },
     RENT_CONFLICT: {
         'en': 'Rent not found.',
@@ -668,8 +672,8 @@ const FAILURE = {
         'ar': 'خطأ في حذف الفئة.',
     },
     RENT_CATEGORY_CREATE: {
-    'en': 'Error in rent category creation.',
-    'ar': 'خطأ في إنشاء الواجهة.',
+        'en': 'Error in rent category creation.',
+        'ar': 'خطأ في إنشاء الواجهة.',
     },
     RENT_CATEGORY_CONFLICT: {
         'en': 'Rent Category not found.',
@@ -680,8 +684,8 @@ const FAILURE = {
         'ar': 'خطأ في حذف الفئة.',
     },
     SUBSCRIPTION_CREATE: {
-    'en': 'Error in Subscription creation.',
-    'ar': 'خطأ في إنشاء الواجهة.',
+        'en': 'Error in Subscription creation.',
+        'ar': 'خطأ في إنشاء الواجهة.',
     },
     SUBSCRIPTION_CONFLICT: {
         'en': 'Subscription not found.',
@@ -690,6 +694,10 @@ const FAILURE = {
     SUBSCRIPTION_DELETE_CONFLICT: {
         'en': 'Error in deleting the subscription.',
         'ar': 'خطأ في حذف الفئة.',
+    },
+    SUBSCRIPTION_LIST_CREATE: {
+        'en': 'Subscription list created successfully',
+        'ar': 'تم إنشاء الفئة بنجاح',
     },
     TRIM_CREATE: {
         'en': 'Error in trim creation.',
@@ -704,12 +712,12 @@ const FAILURE = {
         'ar': 'خطأ في حذف الفئة.',
     },
     TRANSLATIONSTRING_CREATE: {
-    'en': 'Translation String created successfully',
-    'ar': 'تم إنشاء الفئة بنجاح',
+        'en': 'Translation String created successfully',
+        'ar': 'تم إنشاء الفئة بنجاح',
     },
     TRANSALATIONSTRING_CREATE: {
-    'en': 'Error in Translation String creation.',
-    'ar': 'خطأ في إنشاء الواجهة.',
+        'en': 'Error in Translation String creation.',
+        'ar': 'خطأ في إنشاء الواجهة.',
     },
     TRANSALATIONSTRING_CONFLICT: {
         'en': 'Translation String not found.',

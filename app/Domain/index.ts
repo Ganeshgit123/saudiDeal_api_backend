@@ -25,11 +25,14 @@ import TrimDomain from "./Trim"
 import TranslationStringDomain from "./TranslationString"
 import RentViewedProductDomain from "./RentViewedProduct"
 import MotorViewedProductDomain from "./MotorViewedProduct"
+import SubscriptionListsDomain from "./SubscriptionLists"
 
 
 export {
     CategoryDomain, FavouritesDomain, RentFavouritesDomain, MotorFavouritesDomain,
     CouponDomain, AddressDomain, AdminDomain, RolesDomain, SubCategoryDomain,
     RecentViewedProductDomain, UserDomain, ReviewsDomain, MotorDomain, MotorCategoryDomain,
-    MotorSubCategory, BrandDomain, ModelDomain, MotorPostDomain, ProvinceDomain, CityDomain, RentDomain, RentCategoryDomain, SubscriptionDomain, TrimDomain, TranslationStringDomain, RentViewedProductDomain, MotorViewedProductDomain
+    MotorSubCategory, BrandDomain, ModelDomain, MotorPostDomain, ProvinceDomain, CityDomain,
+    RentDomain, RentCategoryDomain, SubscriptionDomain, TrimDomain, TranslationStringDomain,
+    RentViewedProductDomain, MotorViewedProductDomain, SubscriptionListsDomain
 };

@@ -186,6 +186,12 @@ Route.group(() => {
   Route.get('/home', 'HomeController.get')
   Route.get('/subscription', 'SubscriptionsController.get')
 
+    // Subscription List curd API
+    Route.group(() => {
+      Route.get('/', 'SubscriptionListsController.get')
+      Route.post('/', 'SubscriptionListsController.create')
+    }).prefix('/subscriptionList')
+
   // brand list API
   Route.group(() => {
     Route.get('/', 'BrandsController.get')
@@ -304,10 +310,10 @@ Route.group(() => {
   Route.group(() => {
     Route.get('/myPost', 'RentsController.get')
     Route.get('/', 'RentsController.getAllPost')
-    Route.post('/', 'RentsController.create')
     Route.post('/:id', 'RentsController.update')
     Route.delete('/:id', 'RentsController.delete')
     Route.delete('/delete/:id', 'RentsController.rentDelete')
+    Route.post('/', 'RentsController.create')
   }).prefix('/rent')
 
 }).prefix('/v1/user')

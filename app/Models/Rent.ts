@@ -91,4 +91,25 @@ export default class Rent extends BaseModel {
 
   @column()
   public active: boolean
+
+  @column()
+  public type: boolean
+
+  @column()
+  public isApprove: number
+
+  @column()
+  public rejectReason: string
+
+  @column()
+  public updateStatusLevel: number
+
+  @column()
+  public features: string
+
+  @column()
+  public noLivingRooms: string
+
+  @column()
+  public propertyAge: string
 }
