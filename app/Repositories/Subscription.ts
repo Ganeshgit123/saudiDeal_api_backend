@@ -3,9 +3,13 @@ import Subscription from 'App/Models/Subscription'
 import { FAILURE } from "../Data/language";
 
 export default class SubscriptionRepo {
-    
-	static async get() {
+
+    static async get(type, userType) {
         const result = await Subscription.query().where('active', 1)
+            .if(type, (query) =>
+                query.where('subscriptions.type', type))
+            .if(userType, (query) =>
+                query.where('subscriptions.user_type', userType))
         return result
     }
 
@@ -41,7 +45,7 @@ export default class SubscriptionRepo {
         return result
     }
 
-    static async adminGet(active, subscriptionId) {
+    static async adminGet(active, subscriptionId, type, userType) {
         const result = await Subscription.query()
             .select('subscriptions.*')
             .orderBy('subscriptions.id', "desc")
@@ -49,6 +53,10 @@ export default class SubscriptionRepo {
                 query.where('subscriptions.active', active))
             .if(subscriptionId, (query) =>
                 query.where('subscriptions.id', subscriptionId))
+            .if(type, (query) =>
+                query.where('subscriptions.type', type))
+            .if(userType, (query) =>
+                query.where('subscriptions.user_type', userType))
         return result
     }
 

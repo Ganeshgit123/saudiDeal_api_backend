@@ -9,7 +9,7 @@ export default class RentRepo {
             .if(userId, (query) =>
                 query.where('rents.user_id', userId))
             .if(rentPostId, (query) =>
-                query.where('rents.id', rentPostId))
+                query.where('rents.id', rentPostId))                
         return result
     }
 
@@ -43,7 +43,7 @@ export default class RentRepo {
             await rent.save()
 
             return rent
-        } catch (error) {
+        } catch (error) {            
             throw Exceptions.conflict(FAILURE.RENT_CONFLICT[language])
         }
     }
@@ -57,7 +57,7 @@ export default class RentRepo {
     }
 
     static async isEntryExist(id: number, language) {
-        const result = await Rent.query().where('id', id).first()
+        const result = await Rent.query().where('id', id).first()        
         if (!result) throw Exceptions.notFound(FAILURE.RENT_DELETE_CONFLICT[language])
         return result
     }

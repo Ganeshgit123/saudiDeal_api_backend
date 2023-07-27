@@ -7,12 +7,15 @@ import Subscription from 'App/Models/Subscription'
 
 export default class SubscriptionsController {
 
-	public async get() {
+    public async get({ request }: HttpContextContract) {
+        const payload = request.all()
+        let type = payload.type || ''
+        let userType = payload.userType || ''
 
         return {
             success: true,
             data: SubscriptionDomain.createFromArrOfObject(
-                await SubscriptionRepo.get()
+                await SubscriptionRepo.get(type, userType)
             ),
         };
     }
@@ -53,7 +56,7 @@ export default class SubscriptionsController {
         const language = request.header('language') || 'en'
         const result = await SubscriptionRepo.isEntryExist(params.id, language);
 
-        await SubscriptionRepo.delete({ active: 0 },result, language);
+        await SubscriptionRepo.delete({ active: 0 }, result, language);
         return {
             success: true,
             massage: SUCCESS.SUBSCRIPTION_DELETE[language]
@@ -76,10 +79,13 @@ export default class SubscriptionsController {
 
     public async adminGet({ request }: HttpContextContract) {
         const payload = request.all()
+        let type = payload.type || ''
+        let userType = payload.userType || ''
+
         return {
             success: true,
             data: SubscriptionDomain.createFromArrOfObject(
-                await SubscriptionRepo.adminGet(payload.active, payload.subscriptionId)
+                await SubscriptionRepo.adminGet(payload.active, payload.subscriptionId, type, userType)
             ),
         };
     }

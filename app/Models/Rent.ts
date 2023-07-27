@@ -54,7 +54,7 @@ export default class Rent extends BaseModel {
   public location: string
 
   @column()
-  public images: string
+  public image: string
 
   @column()
   public description: string

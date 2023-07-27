@@ -16,7 +16,8 @@ export default class SubscriptionListValidator {
     startDate: schema.string(),
     endDate: schema.string(),
     totalPost: schema.number(),
-    remainingDays: schema.number()
+    remainingDays: schema.number(),
+    remainingPost: schema.number()
   })
 
   public messages = {

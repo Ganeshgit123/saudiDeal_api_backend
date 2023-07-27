@@ -57,7 +57,7 @@ export default class AuthModel {
       // .whereNotIn('user_type', [0])
       .whereNotIn('id', [id])
       .where('active', 1)
-      
+
     return result
   }
 
@@ -84,8 +84,6 @@ export default class AuthModel {
 
       return userResult
     } catch (error) {
-      console.log(error,'error');
-      
       throw Exceptions.conflict(FAILURE.USER_CONFLICT[language])
     }
   }
