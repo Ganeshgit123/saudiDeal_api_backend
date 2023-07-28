@@ -10,7 +10,7 @@ export default class MotorViewedProductsRepo {
         return result
     }
 
-    static async get(userId) {
+    static async get(userId) {        
         // const result = await MotorViewedProduct.query()
         //     .innerJoin('motor_posts', 'motor_posts.id', 'motor_viewed_products.product_id')
         //     .where('motor_viewed_products.user_id', userId)
@@ -22,17 +22,18 @@ export default class MotorViewedProductsRepo {
             .select('cities.city as cityName')
             .select('motor_categories.motor_categories_name as motorCategoryName')
             .select('motor_sub_categories.motor_sub_categories_name as motorSubCategoryName')
-            .innerJoin('motors', 'motor_posts.main_motor_category_id', 'motors.id')
-            .innerJoin('motor_categories', 'motor_posts.motor_category_id', 'motor_categories.id')
-            .innerJoin('motor_sub_categories', 'motor_posts.motor_sub_category_id', 'motor_sub_categories.id')
-            .innerJoin('provinces', 'motor_posts.province_id', 'provinces.id')
-            .innerJoin('cities', 'motor_posts.city_id', 'cities.id')
-            .innerJoin('users', 'motor_posts.user_id', 'users.id')
-            .innerJoin('motor_viewed_products', 'motor_posts.id', 'motor_viewed_products.product_id')
+            .leftJoin('motors', 'motor_posts.main_motor_category_id', 'motors.id')
+            .leftJoin('motor_categories', 'motor_posts.motor_category_id', 'motor_categories.id')
+            .leftJoin('motor_sub_categories', 'motor_posts.motor_sub_category_id', 'motor_sub_categories.id')
+            .leftJoin('provinces', 'motor_posts.province_id', 'provinces.id')
+            .leftJoin('cities', 'motor_posts.city_id', 'cities.id')
+            .leftJoin('users', 'motor_posts.user_id', 'users.id')
+            .leftJoin('motor_viewed_products', 'motor_posts.id', 'motor_viewed_products.product_id')
             .where('motor_posts.update_status_level', 3)
             .orderBy('motor_posts.id', "desc")
             .if(userId, (query) =>
-                query.where('motor_posts.user_id', userId))
+                query.where('motor_viewed_products.user_id', userId))
+                
         return result
     }
 

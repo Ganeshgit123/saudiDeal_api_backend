@@ -9,7 +9,7 @@ export default class MotorViewedProductsController {
     public async get({ request }: HttpContextContract) {
         // const payload = request.all()
         const userId = request.header('userId') || 0
-
+                
         return {
             success: true,
             data: MotorViewedProductDomain.createFromArrOfObject(

@@ -5,11 +5,19 @@ import { FAILURE } from "../Data/language";
 export default class RentRepo {
 
     static async get(userId, rentPostId) {
-        const result = await Rent.query().where('active', 1)
+        const result = await Rent.query().where('rents.active', 1)
+            .select('rents.*')
+            .select('cities.city as cityName')
+            .select('provinces.name as provincesName')
+            .select('rent_categories.en_name as arCategoryName', 'rent_categories.ar_name as enCategoryName')
+            .leftJoin('cities', 'rents.city_id', 'cities.id')
+            .leftJoin('provinces', 'rents.province_id', 'provinces.id')
+            .leftJoin('rent_categories', 'rents.category_id', 'rent_categories.id')
             .if(userId, (query) =>
                 query.where('rents.user_id', userId))
             .if(rentPostId, (query) =>
-                query.where('rents.id', rentPostId))                
+                query.where('rents.id', rentPostId))
+
         return result
     }
 
@@ -43,7 +51,7 @@ export default class RentRepo {
             await rent.save()
 
             return rent
-        } catch (error) {            
+        } catch (error) {
             throw Exceptions.conflict(FAILURE.RENT_CONFLICT[language])
         }
     }
@@ -57,7 +65,7 @@ export default class RentRepo {
     }
 
     static async isEntryExist(id: number, language) {
-        const result = await Rent.query().where('id', id).first()        
+        const result = await Rent.query().where('id', id).first()
         if (!result) throw Exceptions.notFound(FAILURE.RENT_DELETE_CONFLICT[language])
         return result
     }

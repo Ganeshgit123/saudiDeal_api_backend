@@ -64,6 +64,7 @@ export default class HomeController {
             await RentViewedProductsRepo.get(userId)
         )
 
+
         let motorposts = MotorPostDomain.createFromArrOfObject(
             await MotorpostRepo.getAllPost('')
         )
@@ -72,12 +73,11 @@ export default class HomeController {
             await RentRepo.getAllPost('')
         )
 
-        rentViewedProducts = await this.getRentFavourites(userId, motorViewedProducts)
-        motorViewedProducts = await this.getMotorFavouritesRepo(userId, rentViewedProducts)
+        rentViewedProducts = await this.getRentFavourites(userId, rentViewedProducts)
+        motorViewedProducts = await this.getMotorFavouritesRepo(userId, motorViewedProducts)
 
-        rents = await this.getRentFavourites(userId, motorposts)
-        motorposts = await this.getMotorFavouritesRepo(userId, rents)
-
+        rents = await this.getRentFavourites(userId, rents)
+        motorposts = await this.getMotorFavouritesRepo(userId, motorposts)
 
         const language = request.header('language') || 'en'
 
@@ -111,7 +111,7 @@ export default class HomeController {
         if (motorposts.length != 0) {
             motorpostsList = {
                 "type": "PopularMotor",
-                "title": language == 'en' ? "Popular in Residential for Rent" : "تخفيض المنتج",
+                "title": language == 'en' ? "Popular in Motor post" : "تخفيض المنتج",
                 "data": motorposts
             }
             popularProducts.push(motorpostsList)
@@ -134,7 +134,7 @@ export default class HomeController {
             //     }
             // })
             rentsList = {
-                "type": "PopularRents",
+                "type": "PopularRents&sale",
                 "title": language == 'en' ? "Popular in Used Cars for Sale" : "المشاهدات الأخيرة",
                 "data": rents
             }
