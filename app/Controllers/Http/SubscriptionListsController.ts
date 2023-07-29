@@ -7,12 +7,14 @@ import Subscription from 'App/Models/Subscription'
 
 export default class SubscriptionListsController {
 
-    public async get() {
-
+    public async get({ request }: HttpContextContract) {
+        const payload = request.all()
+        const userId = request.header('userId') || 0
+        const subscriptionId = payload.subscriptionId
         return {
             success: true,
             data: SubscriptionListsDomain.createFromArrOfObject(
-                await SubscriptionListRepo.get()
+                await SubscriptionListRepo.get(userId, subscriptionId)
             ),
         };
     }

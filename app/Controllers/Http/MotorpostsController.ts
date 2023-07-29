@@ -1,7 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 // import Validators from "../../Validators";
-import { MotorPostDomain } from "../../Domain";
-import { MotorpostRepo, MotorFavouritesRepo } from "../../Repositories";
+import { MotorPostDomain, SubscriptionListsDomain } from "../../Domain";
+import { MotorpostRepo, MotorFavouritesRepo, SubscriptionListRepo } from "../../Repositories";
 import { SUCCESS } from "../../Data/language";
 
 export default class MotorpostsController {
@@ -69,11 +69,30 @@ export default class MotorpostsController {
     public async create({ request }: HttpContextContract) {
         let payload = request.all()
         const userId = request.header('userId') || ''
-        // const payload = await request.validate(Validators.BrandValidator);
 
         payload.userId = userId
         const language = request.header('language') || 'en'
         const motorPostDetails = await MotorpostRepo.create(payload, language);
+        let SubscriptionLists = SubscriptionListsDomain.createFromArrOfObject(
+            await SubscriptionListRepo.get(userId, 0)
+        )
+        if (SubscriptionLists.length == 0) {
+            return {
+                success: true,
+                massage: "you don't have Subscription plan"
+            }
+
+        } else {
+            let remainingPost = SubscriptionLists[0].remainingPost
+            remainingPost = remainingPost - 1
+            const UpdatePost = {
+                remainingPost
+            }
+
+            SubscriptionListsDomain.createFromObject(
+                await SubscriptionListRepo.update(SubscriptionLists[0].id, UpdatePost, language)
+            );
+        }
 
         return {
             success: true,

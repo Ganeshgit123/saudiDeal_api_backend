@@ -4,8 +4,13 @@ import { FAILURE } from "../Data/language";
 
 export default class SubscriptionListRepo {
 
-    static async get() {
+    static async get(userId, subscriptionId) {
         const result = await SubscriptionList.query()
+            .if(userId, (query) =>
+                query.where('user_id', userId))
+            .if(subscriptionId, (query) =>
+                query.where('id', subscriptionId))
+                .orderBy('id', 'desc')
         return result
     }
 
