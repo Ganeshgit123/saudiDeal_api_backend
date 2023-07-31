@@ -30,6 +30,7 @@ export default class RentRepo {
             .leftJoin('cities', 'rents.city_id', 'cities.id')
             .leftJoin('provinces', 'rents.province_id', 'provinces.id')
             .leftJoin('rent_categories', 'rents.category_id', 'rent_categories.id')
+            .orderBy('rents.id', 'desc')
             .if(userId, (query) =>
                 query.where('rents.user_id', userId))
         // .if(rentPostId, (query) =>

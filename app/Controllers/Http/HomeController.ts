@@ -57,12 +57,16 @@ export default class HomeController {
         // const payload = request.all()
         const userId = request.header('userId') || ''
 
-        let motorViewedProducts = MotorViewedProductDomain.createFromArrOfObject(
-            await MotorViewedProductsRepo.get(userId)
-        )
-        let rentViewedProducts = RentViewedProductDomain.createFromArrOfObject(
-            await RentViewedProductsRepo.get(userId)
-        )
+        let motorViewedProducts: any = []
+        let rentViewedProducts: ant = []
+        if (userId) {
+            motorViewedProducts = MotorViewedProductDomain.createFromArrOfObject(
+                await MotorViewedProductsRepo.get(userId)
+            )
+            rentViewedProducts = RentViewedProductDomain.createFromArrOfObject(
+                await RentViewedProductsRepo.get(userId)
+            )
+        }
 
 
         let motorposts = MotorPostDomain.createFromArrOfObject(

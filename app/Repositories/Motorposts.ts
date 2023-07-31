@@ -57,6 +57,7 @@ export default class MotorpostRepo {
             .innerJoin('cities', 'motor_posts.city_id', 'cities.id')
             .where('motor_posts.is_approve', 1)
             .where('motor_posts.active', 1)
+            .orderBy('motor_posts.id', 'desc')
             .if(userId, (query) =>
                 query.where('motor_posts.user_id', userId))
         return result
