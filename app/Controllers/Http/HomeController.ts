@@ -58,7 +58,7 @@ export default class HomeController {
         const userId = request.header('userId') || ''
 
         let motorViewedProducts: any = []
-        let rentViewedProducts: ant = []
+        let rentViewedProducts: any = []
         if (userId) {
             motorViewedProducts = MotorViewedProductDomain.createFromArrOfObject(
                 await MotorViewedProductsRepo.get(userId)
