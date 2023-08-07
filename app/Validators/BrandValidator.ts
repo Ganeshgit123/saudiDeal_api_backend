@@ -11,9 +11,11 @@ export default class BrandValidator {
   }
 
   public schema = schema.create({
-    name: schema.string(),
+    name: schema.string.optional(),
+    enName: schema.string(),
+    arName: schema.string(),
+    type: schema.string(),
     image: schema.string.optional(),
-    type: schema.string()
   })
 
   public messages = {

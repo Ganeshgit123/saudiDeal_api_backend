@@ -12,6 +12,12 @@ export default class Model extends BaseModel {
   public modelName: string
 
   @column()
+  public enModelName: string
+
+  @column()
+  public arModelName: string
+
+  @column()
   public type: string
 
   @column()

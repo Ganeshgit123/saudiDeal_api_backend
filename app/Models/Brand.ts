@@ -9,22 +9,16 @@ export default class Brand extends BaseModel {
   public name: string
 
   @column()
-  public price: number
+  public enName: string
 
   @column()
-  public area: string
-
-  @column()
-  public with: string
-
-  @column()
-  public length: string
-
-  @column()
-  public active: boolean
+  public arName: string
 
   @column()
   public type: string
+
+  @column()
+  public active: boolean
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

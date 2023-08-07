@@ -21,16 +21,14 @@ export default class ModelRepo {
         }
     }
 
-    static async get(brandId, type) {
+    static async get(brandId) {
         const result = await Model.query()
             .select('models.*')
-            .select('brands.name as brandName')
+            .select('brands.name as brandName', 'brands.en_name as enBrandName', 'brands.ar_name as arBrandName')
             .innerJoin('brands', 'models.brand_id', 'brands.id')
             .where('models.active', 1)
             .if(brandId, (query) =>
                 query.where('models.brand_id', brandId))
-            .if(type, (query) =>
-                query.where('models.type', type))
         return result
     }
 
@@ -48,15 +46,13 @@ export default class ModelRepo {
         return result
     }
 
-    static async adminGet(model, type) {
+    static async adminGet(model) {
         const result = await Model.query()
             .select('models.*')
-            .select('brands.name as brandName')
+            .select('brands.name as brandName', 'brands.en_name as enBrandName', 'brands.ar_name as arBrandName')
             .innerJoin('brands', 'models.brand_id', 'brands.id')
             .if(model, (query) =>
-                query.where('models.active', model))
-            .if(type, (query) =>
-                query.where('models.type', type))
+                query.where('active', model))
         return result
     }
 

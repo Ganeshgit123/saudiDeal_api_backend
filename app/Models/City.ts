@@ -9,8 +9,14 @@ export default class City extends BaseModel {
   public city: string
 
   @column()
+  public enCity: string
+
+  @column()
+  public arCity: string
+
+  @column()
   public provinceId: number
-  
+
   @column()
   public active: boolean
 

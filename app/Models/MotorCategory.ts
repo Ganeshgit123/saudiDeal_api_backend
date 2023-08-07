@@ -9,6 +9,12 @@ export default class MotorCategory extends BaseModel {
   public motorCategoriesName: string
 
   @column()
+  public enMotorCategoriesName: string
+
+  @column()
+  public arMotorCategoriesName: string
+
+  @column()
   public motorId: number
 
   @column()

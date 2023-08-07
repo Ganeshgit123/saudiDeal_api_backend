@@ -9,6 +9,12 @@ export default class Province extends BaseModel {
   public name: string
 
   @column()
+  public enName: string
+
+  @column()
+  public arName: string
+
+  @column()
   public active: boolean
 
   @column.dateTime({ autoCreate: true })

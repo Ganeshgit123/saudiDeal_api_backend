@@ -11,9 +11,11 @@ export default class ModelValidator {
   }
 
   public schema = schema.create({
-    modelName: schema.string(),
+    modelName: schema.string.optional(),
+    enModelName: schema.string(),
+    arModelName: schema.string(),
     brandId: schema.number(),
-    type: schema.string(),
+    type: schema.string()
   })
 
   public messages = {

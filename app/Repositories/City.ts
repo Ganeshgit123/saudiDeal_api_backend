@@ -24,7 +24,7 @@ export default class CityRepo {
     static async get(provinceId) {
         const result = await City.query()
             .select('cities.*')
-            .select('provinces.name as provinceName')
+            .select('provinces.name as provinceName', 'provinces.en_name as enProvinceName', 'provinces.ar_name as arProvinceName')
             .innerJoin('provinces', 'cities.province_id', 'provinces.id')
             .where('cities.active', 1)
             .if(provinceId, (query) =>
@@ -49,7 +49,7 @@ export default class CityRepo {
     static async adminGet(active) {
         const result = await City.query()
             .select('cities.*')
-            .select('provinces.name as provinceName')
+            .select('provinces.name as provinceName', 'provinces.en_name as enProvinceName', 'provinces.ar_name as arProvinceName')
             .innerJoin('provinces', 'cities.province_id', 'provinces.id')
             .if(active, (query) =>
                 query.where('active', active))
