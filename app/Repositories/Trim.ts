@@ -7,8 +7,8 @@ export default class TrimRepo {
     static async get(makeId, modelId) {
         const result = await Trim.query().where('trims.active', 1)
             .select('trims.*')
-            .select('brands.name as brandName')
-            .select('models.model_name as modelName')
+            .select('brands.name as brandName', 'brands.en_name as enBrandName', 'brands.ar_name as arBrandName')
+            .select('models.model_name as modelName', 'models.en_model_name as enModelName', 'models.ar_Model_name as arModelName')
             .innerJoin('brands', 'trims.make_id', 'brands.id')
             .innerJoin('models', 'trims.model_id', 'models.id')
             .if(makeId, (query) =>
@@ -53,8 +53,8 @@ export default class TrimRepo {
     static async adminGet(active, trimId, makeId, modelId) {
         const result = await Trim.query()
             .select('trims.*')
-            .select('brands.name as brandName')
-            .select('models.model_name as modelName')
+            .select('brands.name as brandName', 'brands.en_name as enBrandName', 'brands.ar_name as arBrandName')
+            .select('models.model_name as modelName', 'models.en_model_name as enModelName', 'models.ar_Model_name as arModelName')
             .innerJoin('brands', 'trims.make_id', 'brands.id')
             .innerJoin('models', 'trims.model_id', 'models.id')
             .orderBy('trims.id', "desc")
