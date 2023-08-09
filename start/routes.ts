@@ -158,6 +158,13 @@ Route.group(() => {
     Route.delete('/delete/:id', 'TrimsController.trimDelete')
   }).prefix('/trim')
 
+    // Trim curd API
+    Route.group(() => {
+      Route.get('/', 'MasterTrimsController.adminGet')
+      Route.post('/', 'MasterTrimsController.create')
+      Route.post('/:id', 'MasterTrimsController.update')
+    }).prefix('/masterTrim')
+
   // Translation String curd API
   Route.group(() => {
     Route.get('/', 'TranslationStringsController.adminGet')

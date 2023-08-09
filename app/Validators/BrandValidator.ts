@@ -11,8 +11,8 @@ export default class BrandValidator {
   }
 
   public schema = schema.create({
-    name: schema.string.optional(),
-    enName: schema.string(),
+    name: schema.string(),
+    enName: schema.string.optional(),
     arName: schema.string(),
     type: schema.string(),
     image: schema.string.optional(),

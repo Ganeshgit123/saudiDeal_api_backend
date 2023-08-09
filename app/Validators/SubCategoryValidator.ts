@@ -11,9 +11,9 @@ export default class SubCategoryValidator {
   }
 
   public schema = schema.create({
-    subCategoryName: schema.string.optional(),
+    subCategoryName: schema.string(),
     enSubCategoryName: schema.string.optional(),
-    arSubCategoryName: schema.string.optional(),
+    arSubCategoryName: schema.string(),
     image: schema.string.optional(),
     categoryId: schema.number()
   })

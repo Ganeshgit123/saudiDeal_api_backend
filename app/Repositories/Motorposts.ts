@@ -43,7 +43,7 @@ export default class MotorpostRepo {
         return result
     }
 
-    static async getAllPost(userId) {
+    static async getAllPost(userId, orderbyColumn, orderbyValue) {        
         const result = await Motorpost.query()
             .select('motor_posts.*')
             .select('motors.name as mainMotorCategoryName')
@@ -59,6 +59,7 @@ export default class MotorpostRepo {
             .where('motor_posts.is_approve', 1)
             .where('motor_posts.active', 1)
             .where('motor_posts.update_status_level', 3)
+            .orderBy(orderbyColumn, orderbyValue)
             .orderBy('motor_posts.id', 'desc')
             .if(userId, (query) =>
                 query.where('motor_posts.user_id', userId))

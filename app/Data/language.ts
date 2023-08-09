@@ -248,6 +248,18 @@ const SUCCESS = {
         'en': 'Already notified',
         'ar': 'فى المفضلة بالفعل',
     },
+    MASTER_TRIMS_CREATE: {
+        'en': 'Master trim created successfully',
+        'ar': 'تم إنشاء الواجهة بنجاح',
+    },
+    MASTER_TRIMS_UPDATE: {
+        'en': 'Master trim updated successfully',
+        'ar': 'تم تحديث الواجهة بنجاح',
+    },
+    MASTER_TRIMS_DELETE: {
+        'en': 'Master deleted successfully',
+        'ar': 'تم حذف الواجهة بنجاح',
+    },
     BRAND_CREATE: {
         'en': 'Brand created successfully',
         'ar': 'تم إنشاء الواجهة بنجاح',
@@ -577,6 +589,26 @@ const FAILURE = {
     },
     BRAND_DELETE_CONFLICT: {
         'en': 'Error in deleting the banner.',
+        'ar': 'خطأ في حذف الواجهة.',
+    },
+    MASTER_TRIMS_CREATE: {
+        'en': 'Master trime created successfully',
+        'ar': 'تم إنشاء الواجهة بنجاح',
+    },
+    MASTER_TRIMS_UPDATE: {
+        'en': 'Master trime updated successfully',
+        'ar': 'تم تحديث الواجهة بنجاح',
+    },
+    MASTER_TRIMS_DELETE: {
+        'en': 'Master trime deleted successfully',
+        'ar': 'تم حذف الواجهة بنجاح',
+    },
+    MASTER_TRIMS_CONFLICT: {
+        'en': 'Master trime not found.',
+        'ar': 'لم يتم العثور على واجهة.',
+    },
+    MASTER_TRIMS_DELETE_CONFLICT: {
+        'en': 'Error in deleting the Master trime.',
         'ar': 'خطأ في حذف الواجهة.',
     },
     PROVINCES_CREATE: {

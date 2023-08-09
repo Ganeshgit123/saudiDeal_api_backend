@@ -41,6 +41,9 @@ export default class User extends BaseModel {
   @column()
   public userType: string
 
+  @column()
+  public image: string
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

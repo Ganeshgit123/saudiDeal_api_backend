@@ -64,11 +64,16 @@ export default class RentsController {
     }
 
     public async getAllPost({ request }: HttpContextContract) {
+        const payload = request.all()
         const userId = request.header('userId') || ''
+        
+        let orderbyColumn: string = payload.orderbyColumn ? String(payload.orderbyColumn) : 'id'
+        let orderbyValue: string = payload.orderbyValue ? String(payload.orderbyValue) : 'DESC'
+
         return {
             success: true,
             data: RentDomain.createFromArrOfObject(
-                await RentRepo.getAllPost(userId)
+                await RentRepo.getAllPost(userId, orderbyColumn, orderbyValue)
             ),
         };
     }

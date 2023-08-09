@@ -11,8 +11,8 @@ export default class ModelValidator {
   }
 
   public schema = schema.create({
-    modelName: schema.string.optional(),
-    enModelName: schema.string(),
+    modelName: schema.string(),
+    enModelName: schema.string.optional(),
     arModelName: schema.string(),
     brandId: schema.number(),
     type: schema.string()

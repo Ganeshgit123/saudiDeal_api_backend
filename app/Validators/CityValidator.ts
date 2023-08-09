@@ -11,8 +11,8 @@ export default class CityValidator {
   }
 
   public schema = schema.create({
-    city: schema.string.optional(),
-    enCity: schema.string(),
+    city: schema.string(),
+    enCity: schema.string.optional(),
     arCity: schema.string(),
     provinceId: schema.number(),
   })

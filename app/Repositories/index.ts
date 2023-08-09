@@ -28,6 +28,7 @@ import TranslationStringRepo from "../Repositories/TranslationString"
 import RentViewedProductsRepo from "../Repositories/RentViewedProduct"
 import MotorViewedProductsRepo from "../Repositories/MotorViewedProduct"
 import SubscriptionListRepo from "../Repositories/SubscriptionLists"
+import MasterTrimRepo from "../Repositories/MasterTrims"
 
 export {
     CategoryRepo,
@@ -58,5 +59,6 @@ export {
     TranslationStringRepo,
     RentViewedProductsRepo,
     MotorViewedProductsRepo,
-    SubscriptionListRepo
+    SubscriptionListRepo,
+    MasterTrimRepo
 }

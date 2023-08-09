@@ -22,7 +22,7 @@ export default class RentRepo {
         return result
     }
 
-    static async getAllPost(userId) {
+    static async getAllPost(userId, orderbyColumn, orderbyValue) {        
         const result = await Rent.query().where('rents.active', 1)
             .select('rents.*')
             .select('cities.city as cityName')
@@ -33,6 +33,7 @@ export default class RentRepo {
             .leftJoin('rent_categories', 'rents.category_id', 'rent_categories.id')
             .where('rents.update_status_level', 4)
             .orderBy('rents.id', 'desc')
+            .orderBy(orderbyColumn, orderbyValue)
             .if(userId, (query) =>
                 query.where('rents.user_id', userId))
         // .if(rentPostId, (query) =>

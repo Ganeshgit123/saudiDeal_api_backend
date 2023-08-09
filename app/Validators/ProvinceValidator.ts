@@ -11,8 +11,8 @@ export default class ProvinceValidator {
   }
 
   public schema = schema.create({
-    name: schema.string.optional(),
-    enName: schema.string(),
+    name: schema.string(),
+    enName: schema.string.optional(),
     arName: schema.string(),
   })
 
