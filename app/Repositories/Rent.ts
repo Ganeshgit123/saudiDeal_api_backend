@@ -1,8 +1,35 @@
 import Exceptions from '../Exceptions'
 import Rent from 'App/Models/Rent'
 import { FAILURE } from "../Data/language";
+import Database from '@ioc:Adonis/Lucid/Database';
 
 export default class RentRepo {
+
+    static async getRentPostCount(type) {
+
+        if (type == "RENT") {
+            const result = await Database.rawQuery(`SELECT SUM(category_id = 7) as apartmentCount,
+            SUM(category_id = 8) as villaCount, 
+            SUM(category_id = 9) as commercialCount,
+            SUM(category_id = 10) as villaCompoundCount,
+            SUM(category_id = 11) as penthouseCount,
+            SUM(category_id = 12) as residentialBuildingCount,
+            SUM(category_id = 13) as landCount,
+            SUM(category_id = 14) as roomsForRentCount,
+            SUM(category_id = 15) as warehouseCount FROM rents where is_approve =1`)
+            return result[0]
+        } else {
+            const result = await Database.rawQuery(`SELECT SUM(category_id = 16) as apartmentCount,
+            SUM(category_id = 17) as villaCount, 
+            SUM(category_id = 18) as commercialCount,
+            SUM(category_id = 19) as villaCompoundCount,
+            SUM(category_id = 20) as penthouseCount,
+            SUM(category_id = 21) as residentialBuildingCount,
+            SUM(category_id = 22) as landCount,
+            SUM(category_id = 24) as warehouseCount FROM rents where is_approve =1`)
+            return result[0]
+        }
+    }
 
     static async get(userId, rentPostId) {
         const result = await Rent.query().where('rents.active', 1)
@@ -22,7 +49,7 @@ export default class RentRepo {
         return result
     }
 
-    static async getAllPost(userId, orderbyColumn, orderbyValue) {        
+    static async getAllPost(userId, orderbyColumn, orderbyValue) {
         const result = await Rent.query().where('rents.active', 1)
             .select('rents.*')
             .select('cities.city as cityName')

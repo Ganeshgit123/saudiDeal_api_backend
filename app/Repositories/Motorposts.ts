@@ -1,6 +1,7 @@
 import Exceptions from '../Exceptions'
 import Motorpost from 'App/Models/Motorpost'
 import { FAILURE } from "../Data/language";
+import Database from '@ioc:Adonis/Lucid/Database';
 
 export default class MotorpostRepo {
     static async create(data: any, language: string) {
@@ -16,9 +17,17 @@ export default class MotorpostRepo {
             await motorpost.save()
 
             return motorpost
-        } catch (error) {            
+        } catch (error) {
             throw Exceptions.conflict(FAILURE.MOTOR_POST_CONFLICT[language])
         }
+    }
+
+    static async getMotorPostCount() {
+        const result = await Database.rawQuery(`SELECT SUM(main_motor_category_id = 1) as usedCarCount,
+        SUM(main_motor_category_id = 2) as motorCycleCount, 
+        SUM(main_motor_category_id = 3) as heavyEquipmentCount, 
+        SUM(main_motor_category_id = 4) as boatCount FROM motor_posts where is_approve =1`)
+        return result[0]
     }
 
     static async get(userId, motorPostId) {
@@ -43,7 +52,7 @@ export default class MotorpostRepo {
         return result
     }
 
-    static async getAllPost(userId, orderbyColumn, orderbyValue) {        
+    static async getAllPost(userId, orderbyColumn, orderbyValue) {
         const result = await Motorpost.query()
             .select('motor_posts.*')
             .select('motors.name as mainMotorCategoryName')

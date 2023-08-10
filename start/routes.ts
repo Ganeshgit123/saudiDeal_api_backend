@@ -192,6 +192,8 @@ Route.group(() => {
   Route.get('/rentCategory', 'RentCategoriesController.get')
   Route.get('/home', 'HomeController.get')
   Route.get('/subscription', 'SubscriptionsController.get')
+  Route.get('/motorPostCount', 'MotorpostsController.getMotorPostCount')
+  Route.get('/rentPostCount', 'RentsController.getRentPostCount')
 
     // Subscription List curd API
     Route.group(() => {

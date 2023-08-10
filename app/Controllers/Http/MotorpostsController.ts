@@ -36,6 +36,14 @@ export default class MotorpostsController {
         }
     }
 
+    public async getMotorPostCount() {
+        let motorPostCount = await MotorpostRepo.getMotorPostCount()
+        return {
+            success: true,
+            data: motorPostCount,
+        };
+    }
+
     public async get({ request }: HttpContextContract) {
         const payload = request.all()
 
@@ -55,7 +63,7 @@ export default class MotorpostsController {
 
     public async getAllPost({ request }: HttpContextContract) {
         const payload = request.all()
-        
+
         const userId = request.header('userId') || ''
         let orderbyColumn: string = payload.orderbyColumn ? String(payload.orderbyColumn) : 'id'
         let orderbyValue: string = payload.orderbyValue ? String(payload.orderbyValue) : 'DESC'
