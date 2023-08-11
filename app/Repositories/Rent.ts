@@ -49,7 +49,7 @@ export default class RentRepo {
         return result
     }
 
-    static async getAllPost(userId, orderbyColumn, orderbyValue) {
+    static async getAllPost(userId, orderbyColumn, orderbyValue, payload) {
         const result = await Rent.query().where('rents.active', 1)
             .select('rents.*')
             .select('cities.city as cityName')
@@ -61,6 +61,26 @@ export default class RentRepo {
             .where('rents.update_status_level', 4)
             .orderBy('rents.id', 'desc')
             .orderBy(orderbyColumn, orderbyValue)
+            .if(payload.type, (query) =>
+                query.where('rents.type', payload.type))
+            .if(payload.categoryId, (query) =>
+                query.where('rents.category_id', payload.categoryId))
+            .if(payload.propertyAge, (query) =>
+                query.where('rents.property_age', payload.propertyAge))
+            .if(payload.noBedrooms, (query) =>
+                query.where('rents.no_bedrooms', payload.noBedrooms))
+            .if(payload.noBathrooms, (query) =>
+                query.where('rents.no_bathrooms', payload.noBathrooms))
+            .if(payload.provinceId, (query) =>
+                query.where('rents.province_id', payload.provinceId))
+            .if(payload.cityId, (query) =>
+                query.where('rents.city_id', payload.cityId))
+            // .if(payload.areaInSqmt, (query) =>
+            //     query.where('rents.endAreaInSqmt', payload.areaInSqmt))
+            .if(payload.startingPrice && payload.endingPrice, (query) =>
+                query.whereBetween('rents.price', [payload.startingPrice, payload.endingPrice]))
+            .if(payload.startingAreaInSqmt && payload.endAreaInSqmt, (query) =>
+                query.whereBetween('rents.area_in_sqmt', [payload.startingAreaInSqmt, payload.endAreaInSqmt]))
             .if(userId, (query) =>
                 query.where('rents.user_id', userId))
         // .if(rentPostId, (query) =>

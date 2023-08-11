@@ -69,7 +69,7 @@ export default class MotorpostsController {
         let orderbyValue: string = payload.orderbyValue ? String(payload.orderbyValue) : 'DESC'
 
         let motorPost = MotorPostDomain.createFromArrOfObject(
-            await MotorpostRepo.getAllPost(userId, orderbyColumn, orderbyValue)
+            await MotorpostRepo.getAllPost(userId, orderbyColumn, orderbyValue, payload)
         )
         motorPost = await this.getRentFavourites(userId, motorPost)
 

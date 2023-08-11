@@ -52,7 +52,7 @@ export default class MotorpostRepo {
         return result
     }
 
-    static async getAllPost(userId, orderbyColumn, orderbyValue) {
+    static async getAllPost(userId, orderbyColumn, orderbyValue, payload) {
         const result = await Motorpost.query()
             .select('motor_posts.*')
             .select('motors.name as mainMotorCategoryName')
@@ -70,6 +70,50 @@ export default class MotorpostRepo {
             .where('motor_posts.update_status_level', 3)
             .orderBy(orderbyColumn, orderbyValue)
             .orderBy('motor_posts.id', 'desc')
+            .if(payload.motorCategoryId, (query) =>
+                query.where('motor_posts.motor_category_id', payload.motorCategoryId))
+            .if(payload.mainMotorCategoryId, (query) =>
+                query.where('motor_posts.main_motor_category_id', payload.mainMotorCategoryId))
+            .if(payload.motorSubCategoryId, (query) =>
+                query.where('motor_posts.motor_sub_category_id', payload.motorSubCategoryId))
+            .if(payload.make, (query) =>
+                query.where('motor_posts.make', payload.make))
+            .if(payload.model, (query) =>
+                query.where('motor_posts.model', payload.model))
+            .if(payload.provinceId, (query) =>
+                query.where('motor_posts.province_id', payload.provinceId))
+            .if(payload.cityId, (query) =>
+                query.where('motor_posts.city_id', payload.cityId))
+            .if(payload.trim, (query) =>
+                query.where('motor_posts.trim', payload.trim))
+            .if(payload.regionalSpecs, (query) =>
+                query.where('motor_posts.regional_specs', payload.regionalSpecs))
+            .if(payload.bodyType, (query) =>
+                query.where('motor_posts.body_type', payload.bodyType))
+            .if(payload.transmissionType, (query) =>
+                query.where('motor_posts.transmission_type', payload.transmissionType))
+            .if(payload.interiorColor, (query) =>
+                query.where('motor_posts.interior_color', payload.interiorColor))
+            .if(payload.exteriorColor, (query) =>
+                query.where('motor_posts.exterior_color', payload.exteriorColor))
+            .if(payload.horsePower, (query) =>
+                query.where('motor_posts.horse_power', payload.horsePower))
+            .if(payload.cylinders, (query) =>
+                query.where('motor_posts.cylinders', payload.cylinders))
+            .if(payload.wheels, (query) =>
+                query.where('motor_posts.wheels', payload.wheels))
+            .if(payload.engineSize, (query) =>
+                query.where('motor_posts.engine_size', payload.engineSize))
+            .if(payload.length, (query) =>
+                query.where('motor_posts.length', payload.length))
+            .if(payload.warranty, (query) =>
+                query.where('motor_posts.warranty', payload.warranty))
+            .if(payload.startingPrice && payload.endingPrice, (query) =>
+                query.whereBetween('motor_posts.price', [payload.startingPrice, payload.endingPrice]))
+            .if(payload.startingKilometer && payload.endingKilometer, (query) =>
+                query.whereBetween('motor_posts.kilometer', [payload.startingKilometer, payload.endingKilometer]))
+            .if(payload.startingYear && payload.endingYear, (query) =>
+                query.whereBetween('motor_posts.year', [payload.startingYear, payload.endingYear]))
             .if(userId, (query) =>
                 query.where('motor_posts.user_id', userId))
         return result

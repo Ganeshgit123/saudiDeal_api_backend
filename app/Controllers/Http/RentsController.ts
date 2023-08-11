@@ -83,7 +83,7 @@ export default class RentsController {
         return {
             success: true,
             data: RentDomain.createFromArrOfObject(
-                await RentRepo.getAllPost(userId, orderbyColumn, orderbyValue)
+                await RentRepo.getAllPost(userId, orderbyColumn, orderbyValue, payload)
             ),
         };
     }

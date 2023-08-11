@@ -54,7 +54,7 @@ export default class HomeController {
     }
 
     public async get({ request }: HttpContextContract) {
-        // const payload = request.all()
+        const payload = request.all()
         const userId = request.header('userId') || ''
 
         let motorViewedProducts: any = []
@@ -70,11 +70,11 @@ export default class HomeController {
 
 
         let motorposts = MotorPostDomain.createFromArrOfObject(
-            await MotorpostRepo.getAllPost('', "id", 'DESC')
+            await MotorpostRepo.getAllPost('', "id", 'DESC', payload)
         )
 
         let rents = RentDomain.createFromArrOfObject(
-            await RentRepo.getAllPost('', "id", 'DESC')
+            await RentRepo.getAllPost('', "id", 'DESC', payload)
         )
 
         rentViewedProducts = await this.getRentFavourites(userId, rentViewedProducts)
