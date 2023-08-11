@@ -60,11 +60,11 @@ export default class MotorpostRepo {
             .select('cities.city as cityName')
             .select('motor_categories.motor_categories_name as motorCategoryName')
             .select('motor_sub_categories.motor_sub_categories_name as motorSubCategoryName')
-            .innerJoin('motors', 'motor_posts.main_motor_category_id', 'motors.id')
-            .innerJoin('motor_categories', 'motor_posts.motor_category_id', 'motor_categories.id')
-            .innerJoin('motor_sub_categories', 'motor_posts.motor_sub_category_id', 'motor_sub_categories.id')
-            .innerJoin('provinces', 'motor_posts.province_id', 'provinces.id')
-            .innerJoin('cities', 'motor_posts.city_id', 'cities.id')
+            .leftJoin('motors', 'motor_posts.main_motor_category_id', 'motors.id')
+            .leftJoin('motor_categories', 'motor_posts.motor_category_id', 'motor_categories.id')
+            .leftJoin('motor_sub_categories', 'motor_posts.motor_sub_category_id', 'motor_sub_categories.id')
+            .leftJoin('provinces', 'motor_posts.province_id', 'provinces.id')
+            .leftJoin('cities', 'motor_posts.city_id', 'cities.id')
             .where('motor_posts.is_approve', 1)
             .where('motor_posts.active', 1)
             .where('motor_posts.update_status_level', 3)
@@ -108,6 +108,8 @@ export default class MotorpostRepo {
                 query.where('motor_posts.length', payload.length))
             .if(payload.warranty, (query) =>
                 query.where('motor_posts.warranty', payload.warranty))
+            .if(payload.finalDriveSystem, (query) =>
+                query.where('motor_posts.final_drive_system', payload.finalDriveSystem))
             .if(payload.startingPrice && payload.endingPrice, (query) =>
                 query.whereBetween('motor_posts.price', [payload.startingPrice, payload.endingPrice]))
             .if(payload.startingKilometer && payload.endingKilometer, (query) =>
