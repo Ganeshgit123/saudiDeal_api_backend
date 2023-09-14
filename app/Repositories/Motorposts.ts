@@ -44,7 +44,7 @@ export default class MotorpostRepo {
             .leftJoin('provinces', 'motor_posts.province_id', 'provinces.id')
             .leftJoin('cities', 'motor_posts.city_id', 'cities.id')
             .where('motor_posts.active', 1)
-            .where('motor_posts.update_status_level', 3)
+            // .where('motor_posts.update_status_level', 3)
             .if(userId, (query) =>
                 query.where('motor_posts.user_id', userId))
             .if(motorPostId, (query) =>
