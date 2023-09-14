@@ -36,17 +36,17 @@ export default class MotorpostsController {
         }
     }
 
-    public getUserSubscription = async (productDetails: any) => {
-        let favorites: any = await MotorFavouritesRepo.getFavorites(loginUserId)
+    // public getUserSubscription = async (productDetails: any) => {
+    //     let favorites: any = await MotorFavouritesRepo.getFavorites(loginUserId)
 
-        if (favorites.length !== 0 && productDetails.length !== 0) {
+    //     if (favorites.length !== 0 && productDetails.length !== 0) {
 
-            return productDetails = await this.mergeArray(productDetails, favorites)
+    //         return productDetails = await this.mergeArray(productDetails, favorites)
 
-        } else {
-            return productDetails
-        }
-    }
+    //     } else {
+    //         return productDetails
+    //     }
+    // }
 
     public async getMotorPostCount() {
         let motorPostCount = await MotorpostRepo.getMotorPostCount()
@@ -66,9 +66,7 @@ export default class MotorpostsController {
             await MotorpostRepo.get(userId, motorPostId)
         )
         motorPost = await this.getRentFavourites(userId, motorPost)
-        let userSubscription = await this.getUserSubscription(motorPost)
-
-        console.log(userSubscription,'getUserSubscription');
+        // let userSubscription = await this.getUserSubscription(motorPost)
         
         return {
             success: true,
