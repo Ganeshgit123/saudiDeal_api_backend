@@ -127,21 +127,24 @@ export default class AuthController {
         if (!maybeUser) {
             await AuthRepo.create(data, language);
         } else {
-            const userId = maybeUser.id
+            // const userId = maybeUser.id
             if (maybeUser.active == false) {
                 return {
                     success: false,
                     massage: SUCCESS.USER_DEACTIVED[language]
                 };
             }
+            return {
+                success: false,
+                massage: SUCCESS.NEW_ALREADY[language]
+            };
+            // const userDetails = {
+            //     // otp: mobileNumber == 1234567890 ? 1234 : otp,
+            //     otp: 1234,
+            //     countryCode: countryCode
+            // }
 
-            const userDetails = {
-                // otp: mobileNumber == 1234567890 ? 1234 : otp,
-                otp: 1234,
-                countryCode: countryCode
-            }
-
-            await UserRepo.update(userId, userDetails, language)
+            // await UserRepo.update(userId, userDetails, language)
         }
         return {
             success: true,

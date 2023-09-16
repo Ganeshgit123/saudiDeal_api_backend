@@ -49,6 +49,24 @@ export default class RentRepo {
         return result
     }
 
+    static async myRentGet(userId, rentPostId) {
+        const result = await Rent.query().where('rents.active', 1)
+            .select('rents.*')
+            .select('cities.city as cityName')
+            .select('provinces.name as provincesName')
+            .select('rent_categories.en_name as arCategoryName', 'rent_categories.ar_name as enCategoryName')
+            .leftJoin('cities', 'rents.city_id', 'cities.id')
+            .leftJoin('provinces', 'rents.province_id', 'provinces.id')
+            .leftJoin('rent_categories', 'rents.category_id', 'rent_categories.id')
+            // .where('rents.update_status_level', 4)
+            .if(userId, (query) =>
+                query.where('rents.user_id', userId))
+            .if(rentPostId, (query) =>
+                query.where('rents.id', rentPostId))
+
+        return result
+    }
+
     static async getAllPost(userId, orderbyColumn, orderbyValue, payload) {
         const result = await Rent.query().where('rents.active', 1)
             .select('rents.*')
@@ -76,6 +94,8 @@ export default class RentRepo {
                 query.where('rents.province_id', payload.provinceId))
             .if(payload.cityId, (query) =>
                 query.where('rents.city_id', payload.cityId))
+            .if(payload.rentalTerm, (query) =>
+                query.where('rents.rental_term', payload.rentalTerm))
             // .if(payload.areaInSqmt, (query) =>
             //     query.where('rents.endAreaInSqmt', payload.areaInSqmt))
             .if(payload.startingPrice && payload.endingPrice, (query) =>

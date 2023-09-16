@@ -23,8 +23,28 @@ export default class RentViewedProductsRepo {
             .leftJoin('provinces', 'rents.province_id', 'provinces.id')
             .innerJoin('rent_viewed_products', 'rent_viewed_products.product_id', 'rents.id')
             .where('rent_viewed_products.user_id', userId)
-            // .if(userId, (query) =>
-            //     query.where('rents.user_id', userId))
+        // .if(userId, (query) =>
+        //     query.where('rents.user_id', userId))
+        return result
+    }
+
+    static async rentViewedProductsGet(userId) {
+        // const result = await RentViewedProduct.query()
+        //     .innerJoin('rents', 'rents.id', 'rent_viewed_products.product_id')
+        //     .where('rent_viewed_products.user_id', userId)
+
+        const result = await Rent.query().where('rents.active', 1)
+            .select('rents.*')
+            .select('cities.city as cityName')
+            .select('users.user_name as userName', 'users.mobile_number as userMobileNumber', 'users.id as favUserId')
+            .select('provinces.name as provincesName')
+            .leftJoin('cities', 'rents.city_id', 'cities.id')
+            .leftJoin('provinces', 'rents.province_id', 'provinces.id')
+            .innerJoin('rent_viewed_products', 'rent_viewed_products.product_id', 'rents.id')
+            .innerJoin('users', 'rent_viewed_products.user_id', 'users.id')
+            .where('rent_viewed_products.user_id', userId)
+        // .if(userId, (query) =>
+        //     query.where('rents.user_id', userId))
         return result
     }
 

@@ -24,6 +24,10 @@ const SUCCESS = {
         'en': 'please create an account',
         'ar': 'تم إرسال رمز التحقق بنجاح',
     },
+    NEW_ALREADY: {
+        'en': 'User already exits please login',
+        'ar': 'تم إرسال رمز التحقق بنجاح',
+    },
     LOGOUT: {
         'en': 'Logout successfully',
         'ar': 'تم تسجيل الخروج بنجاح ',

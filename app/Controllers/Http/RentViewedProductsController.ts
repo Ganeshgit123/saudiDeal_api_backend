@@ -13,7 +13,7 @@ export default class RentViewedProductsController {
         return {
             success: true,
             data: RentViewedProductDomain.createFromArrOfObject(
-                await RentViewedProductsRepo.get(userId)
+                await RentViewedProductsRepo.rentViewedProductsGet(userId)
             ),
         };
     }

@@ -13,7 +13,7 @@ export default class MotorViewedProductsController {
         return {
             success: true,
             data: MotorViewedProductDomain.createFromArrOfObject(
-                await MotorViewedProductsRepo.get(userId)
+                await MotorViewedProductsRepo.motorViewedProductGet(userId)
             ),
         };
     }

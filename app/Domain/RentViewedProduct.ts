@@ -39,11 +39,13 @@ export default class RentDomain {
     public readonly userMobileNumber: string
     public readonly arCategoryName: string
     public readonly enCategoryName: string
+    public readonly favUserId: number
 
 
     private constructor(id: number, price: string, areaInSqmt: string, widthInMtr: string, lengthInMtr: string, title: string, phoneNumber: string, ownerType: string, rentalTerm: string, streetLength: string, noBedrooms: string, noBathrooms: string, noFloors: string, provinceId: number, cityId: number, userId: number, location: string, images: string, description: string, propetyType: string, furnished: boolean, kitchen: boolean, garage: boolean, elevator: boolean, waterSupply: boolean, electricitySupply: boolean, createdAt: string, updatedAt: string, active: boolean,
         productId: number, cityName: string, provincesName: string, isFavorites: number, updateStatusLevel: number,
-        provinceName: string, userName: string, userMobileNumber: string, arCategoryName: string, enCategoryName: string) {
+        provinceName: string, userName: string, userMobileNumber: string, arCategoryName: string, enCategoryName: string,
+        favUserId) {
 
         this.id = id
         this.price = price
@@ -84,6 +86,7 @@ export default class RentDomain {
         this.userMobileNumber = userMobileNumber
         this.arCategoryName = arCategoryName
         this.enCategoryName = enCategoryName
+        this.favUserId = favUserId
     }
 
     public static createFromObject(data: any) {
@@ -91,7 +94,7 @@ export default class RentDomain {
             data.id, data.$extras.cityName, data.$extras.provincesName, 0, data.$extras.update_status_level,
             data.$extras ? data.$extras.provinceName : '',
             data.$extras ? data.$extras.userName : '', data.$extras ? data.$extras.userMobileNumber : '',
-            data.$extras.arCategoryName, data.$extras.enCategoryName)
+            data.$extras.arCategoryName, data.$extras.enCategoryName, data.$extras.favUserId)
     }
 
     public static createFromArrOfObject(data: any) {
@@ -100,7 +103,7 @@ export default class RentDomain {
                 el.id, el.$extras.cityName, el.$extras.provincesName, 0, el.$extras.update_status_level,
                 el.$extras ? el.$extras.provinceName : '',
                 el.$extras ? el.$extras.userName : '', el.$extras ? el.$extras.userMobileNumber : '',
-                el.$extras.arCategoryName, el.$extras.enCategoryName)
+                el.$extras.arCategoryName, el.$extras.enCategoryName, el.$extras.favUserId)
         })
     }
 } 
