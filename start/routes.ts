@@ -158,12 +158,12 @@ Route.group(() => {
     Route.delete('/delete/:id', 'TrimsController.trimDelete')
   }).prefix('/trim')
 
-    // Trim curd API
-    Route.group(() => {
-      Route.get('/', 'MasterTrimsController.adminGet')
-      Route.post('/', 'MasterTrimsController.create')
-      Route.post('/:id', 'MasterTrimsController.update')
-    }).prefix('/masterTrim')
+  // Trim curd API
+  Route.group(() => {
+    Route.get('/', 'MasterTrimsController.adminGet')
+    Route.post('/', 'MasterTrimsController.create')
+    Route.post('/:id', 'MasterTrimsController.update')
+  }).prefix('/masterTrim')
 
   // Translation String curd API
   Route.group(() => {
@@ -195,21 +195,29 @@ Route.group(() => {
   Route.get('/motorPostCount', 'MotorpostsController.getMotorPostCount')
   Route.get('/rentPostCount', 'RentsController.getRentPostCount')
 
-    // Subscription List curd API
-    Route.group(() => {
-      Route.get('/', 'SubscriptionListsController.get')
-      Route.post('/', 'SubscriptionListsController.create')
-    }).prefix('/subscriptionList')
+  // Subscription List curd API
+  Route.group(() => {
+    Route.get('/', 'SubscriptionListsController.get')
+    Route.post('/', 'SubscriptionListsController.create')
+  }).prefix('/subscriptionList')
+
+  Route.group(() => {
+    Route.get('/', 'NotificationsController.get')
+    Route.get('/readAll', 'NotificationsController.readAll')
+    Route.patch('/:id', 'NotificationsController.update')
+    Route.delete('/', 'NotificationsController.delete')
+    Route.delete('/deleteAll', 'NotificationsController.deleteAll')
+  }).prefix('/notification')
 
   // brand list API
   Route.group(() => {
     Route.get('/', 'BrandsController.get')
   }).prefix('/brand')
 
-    // trime list API
-    Route.group(() => {
-      Route.get('/', 'TrimsController.get')
-    }).prefix('/trim')
+  // trime list API
+  Route.group(() => {
+    Route.get('/', 'TrimsController.get')
+  }).prefix('/trim')
 
   // model list API
   Route.group(() => {
