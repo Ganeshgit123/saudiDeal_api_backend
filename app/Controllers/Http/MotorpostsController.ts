@@ -1,7 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 // import Validators from "../../Validators";
 import { MotorPostDomain, SubscriptionListsDomain } from "../../Domain";
-import { MotorpostRepo, MotorFavouritesRepo, SubscriptionListRepo } from "../../Repositories";
+import { MotorpostRepo, MotorFavouritesRepo, SubscriptionListRepo, NotificationRepo } from "../../Repositories";
 import { SUCCESS } from "../../Data/language";
 
 export default class MotorpostsController {
@@ -67,7 +67,7 @@ export default class MotorpostsController {
         )
         motorPost = await this.getRentFavourites(userId, motorPost)
         // let userSubscription = await this.getUserSubscription(motorPost)
-        
+
         return {
             success: true,
             data: motorPost,
@@ -136,6 +136,26 @@ export default class MotorpostsController {
         const updateResult = MotorPostDomain.createFromObject(
             await MotorpostRepo.update(params.id, UpdatePost, language)
         );
+
+        if (UpdatePost.isApprove == 1) {
+            const notificationData = {
+                "productId": updateResult.id,
+                "userId": updateResult.userId,
+                "type": "MOTOR",
+                "message": "Moter post approved."
+            }
+            await NotificationRepo.create(notificationData, language)
+
+        } else {
+            const notificationData = {
+                "productId": updateResult.id,
+                "userId": updateResult.userId,
+                "type": "MOTOR",
+                "message": "Moter post rejected."
+            }
+            await NotificationRepo.create(notificationData, language)
+        }
+
         return {
             success: true,
             result: updateResult,

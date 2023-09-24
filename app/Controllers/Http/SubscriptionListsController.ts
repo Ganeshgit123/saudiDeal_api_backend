@@ -19,6 +19,17 @@ export default class SubscriptionListsController {
         };
     }
 
+    public async checkSubscriptionList({ request }: HttpContextContract) {
+        const userId = request.header('userId') || 0
+        
+        return {
+            success: true,
+            data: SubscriptionListsDomain.createFromArrOfObject(
+                await SubscriptionListRepo.checkSubscriptionList(userId)
+            ),
+        };
+    }
+
     public async create({ request }: HttpContextContract) {
 
         const payload = await request.validate(Validators.SubscriptionListValidator);

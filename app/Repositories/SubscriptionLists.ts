@@ -1,6 +1,7 @@
 import Exceptions from '../Exceptions'
 import SubscriptionList from 'App/Models/SubscriptionList'
 import { FAILURE } from "../Data/language";
+import { format } from 'date-fns'
 
 export default class SubscriptionListRepo {
 
@@ -10,7 +11,18 @@ export default class SubscriptionListRepo {
                 query.where('user_id', userId))
             .if(subscriptionId, (query) =>
                 query.where('id', subscriptionId))
-                .orderBy('id', 'desc')
+            .orderBy('id', 'desc')
+        return result
+    }
+
+    static async checkSubscriptionList(userId) {
+        const startTime = format(new Date(), 'dd/MM/yyyy')        
+        const result = await SubscriptionList.query()
+            .if(startTime, (query) =>
+                query.where('end_date', startTime))
+            .if(userId, (query) =>
+                query.where('user_id', userId))
+            .orderBy('id', 'desc')
         return result
     }
 

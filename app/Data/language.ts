@@ -408,6 +408,10 @@ const SUCCESS = {
         'en': 'Translation String deleted successfully',
         'ar': 'تم تحديث التعليق بنجاح',
     },
+    NOTIFICATION_CREATE: {
+        'en': 'Notification send successfully.',
+        'ar': 'خطأ في إنشاء التنبيه',
+    },
 }
 
 const FAILURE = {

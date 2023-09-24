@@ -1,6 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { NotificationRepo } from "../../Repositories";
-// import Validators from "../../Validators";
+import Validators from "../../Validators";
 import { SUCCESS } from "../../Data/language";
 import { NotificationDomain } from "../../Domain";
 // import FcmNotification from "../../Listeners/Notification";
@@ -10,6 +10,18 @@ import Env from '@ioc:Adonis/Core/Env'
 const JWT_SECRET_KEY = Env.get('JWT_SECRET_KEY')
 
 export default class NotificationsController {
+
+    public async create({ request }: HttpContextContract) {
+        const payload = await request.validate(Validators.NotificationValidator);
+        const language = request.header('language') || 'en'
+
+        await NotificationRepo.create(payload, language)
+
+        return {
+            success: true,
+            massage: SUCCESS.NOTIFICATION_CREATE[language]
+        };
+    }
 
     public async update({ request, params }: HttpContextContract) {
         const payload = request.all()

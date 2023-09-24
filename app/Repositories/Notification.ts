@@ -14,9 +14,8 @@ export default class NotificationRepo {
 
     static async create(data: any, language) {
 
-        const result = await Notification.create(data)
-
-        if (!result) throw Exceptions.notFound(FAILURE.NOTIFICATION_CREATE[language])
+        const result = await Notification.create(data)        
+        if (!result) throw Exceptions.notFound(FAILURE.NOTIFICATION_CREATE[language])        
         return result
     }
 

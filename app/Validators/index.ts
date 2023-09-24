@@ -33,6 +33,7 @@ import RentViewedProductValidator from "../Validators/RentViewedProductValidator
 import MotorViewedProductValidator from "../Validators/MotorViewedProductValidator"
 import SubscriptionListValidator from "../Validators/SubscriptionListValidator"
 import MasterTrimValidator from "../Validators/MasterTrimValidator"
+import NotificationValidator from "../Validators/NotificationValidator"
 
 export default {
     CategoryValidator,
@@ -69,5 +70,6 @@ export default {
     RentViewedProductValidator,
     MotorViewedProductValidator,
     SubscriptionListValidator,
-    MasterTrimValidator
+    MasterTrimValidator,
+    NotificationValidator
 }

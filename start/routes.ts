@@ -34,6 +34,10 @@ Route.group(() => {
   Route.post('/changePassword', 'AdminsController.changePassword').middleware('auth')
 
   Route.group(() => {
+    Route.post('/send', 'NotificationsController.create')
+  }).prefix('/notification')
+
+  Route.group(() => {
     Route.get('/', 'MotorpostsController.adminGet')
     Route.post('/:id', 'MotorpostsController.update')
     Route.delete('/:id', 'MotorpostsController.delete')
@@ -68,6 +72,7 @@ Route.group(() => {
   // user API
   Route.group(() => {
     Route.get('/', 'UsersController.getAllUser')
+    Route.post('/update', 'UsersController.update')
   }).prefix('/user').middleware('auth')
 
   // dashboard API
@@ -198,6 +203,7 @@ Route.group(() => {
   // Subscription List curd API
   Route.group(() => {
     Route.get('/', 'SubscriptionListsController.get')
+    Route.get('/check', 'SubscriptionListsController.checkSubscriptionList')
     Route.post('/', 'SubscriptionListsController.create')
   }).prefix('/subscriptionList')
 

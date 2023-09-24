@@ -26,6 +26,9 @@ export default class SubscriptionList extends BaseModel {
   @column()
   public remainingPost: number
 
+  @column()
+  public type: string
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

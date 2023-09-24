@@ -63,7 +63,11 @@ export default class UsersController {
         const userDetails = request.all()
         const userId: any = request.header('userId') || ''
         const language = request.header('language') || 'en'
+        console.log(userId,'userId');
+        
         if (!userId) {
+            console.log('in');
+            
             return {
                 success: false,
                 massage: SUCCESS.USER_Id_NOTEXIST[language]

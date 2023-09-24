@@ -1,6 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { RentDomain } from "../../Domain";
-import { RentRepo, RentFavouritesRepo } from "../../Repositories";
+import { RentRepo, RentFavouritesRepo, NotificationRepo } from "../../Repositories";
 import Validators from "../../Validators";
 import { SUCCESS } from "../../Data/language";
 import Rent from 'App/Models/Rent'
@@ -118,6 +118,26 @@ export default class RentsController {
         const updateResult = RentDomain.createFromObject(
             await RentRepo.update(params.id, UpdatePost, language)
         );
+
+        if (UpdatePost.isApprove == 1) {
+            const notificationData = {
+                "productId": updateResult.id,
+                "userId": updateResult.userId,
+                "type": "RENT",
+                "message": "Rent post approved."
+            }
+            await NotificationRepo.create(notificationData, language)
+
+        } else {
+            const notificationData = {
+                "productId": updateResult.id,
+                "userId": updateResult.userId,
+                "type": "RENT",
+                "message": "Rent post rejected."
+            }
+            await NotificationRepo.create(notificationData, language)
+        }
+
         return {
             success: true,
             result: updateResult,
