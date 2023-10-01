@@ -11,6 +11,9 @@ export default class Motor extends BaseModel {
   @column()
   public active: boolean
 
+  @column()
+  public arName: string
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

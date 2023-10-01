@@ -43,6 +43,7 @@ export default class MotorpostRepo {
             .leftJoin('motor_sub_categories', 'motor_posts.motor_sub_category_id', 'motor_sub_categories.id')
             .leftJoin('provinces', 'motor_posts.province_id', 'provinces.id')
             .leftJoin('cities', 'motor_posts.city_id', 'cities.id')
+            .where('motor_posts.is_approve', 1)
             .where('motor_posts.active', 1)
             // .where('motor_posts.update_status_level', 3)
             .if(userId, (query) =>

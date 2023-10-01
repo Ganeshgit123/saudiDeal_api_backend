@@ -134,10 +134,18 @@ export default class AuthController {
                     massage: SUCCESS.USER_DEACTIVED[language]
                 };
             }
-            return {
-                success: false,
-                massage: SUCCESS.NEW_ALREADY[language]
-            };
+
+            if(maybeUser.email == email) {
+                return {
+                    success: false,
+                    massage: SUCCESS.EMAIL_ALREADY[language]
+                };
+            } else {
+                return {
+                    success: false,
+                    massage: SUCCESS.MOBILE_ALREADY[language]
+                };
+            }
             // const userDetails = {
             //     // otp: mobileNumber == 1234567890 ? 1234 : otp,
             //     otp: 1234,

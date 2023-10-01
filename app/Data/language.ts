@@ -28,6 +28,14 @@ const SUCCESS = {
         'en': 'User already exits please login',
         'ar': 'تم إرسال رمز التحقق بنجاح',
     },
+    EMAIL_ALREADY: {
+        'en': 'Email already exits please login',
+        'ar': 'تم إرسال رمز التحقق بنجاح',
+    },
+    MOBILE_ALREADY: {
+        'en': 'Mobile number already exits please login',
+        'ar': 'تم إرسال رمز التحقق بنجاح',
+    },
     LOGOUT: {
         'en': 'Logout successfully',
         'ar': 'تم تسجيل الخروج بنجاح ',
