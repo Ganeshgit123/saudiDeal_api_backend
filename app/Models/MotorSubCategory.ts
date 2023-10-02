@@ -17,6 +17,8 @@ export default class MotorSubCategory extends BaseModel {
   @column()
   public active: boolean
 
+  @column()
+  public arMotorSubCategoriesName: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

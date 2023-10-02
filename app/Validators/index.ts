@@ -34,6 +34,9 @@ import MotorViewedProductValidator from "../Validators/MotorViewedProductValidat
 import SubscriptionListValidator from "../Validators/SubscriptionListValidator"
 import MasterTrimValidator from "../Validators/MasterTrimValidator"
 import NotificationValidator from "../Validators/NotificationValidator"
+import MotorValidator from "../Validators/MotorValidator"
+import MotorCategoryValidator from "../Validators/MotorCategoryValidator"
+import MotorSubCategoryValidator from '../Validators/MotorSubCategoryValidator'
 
 export default {
     CategoryValidator,
@@ -71,5 +74,8 @@ export default {
     MotorViewedProductValidator,
     SubscriptionListValidator,
     MasterTrimValidator,
-    NotificationValidator
+    NotificationValidator,
+    MotorValidator,
+    MotorCategoryValidator,
+    MotorSubCategoryValidator
 }

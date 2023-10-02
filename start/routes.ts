@@ -72,7 +72,7 @@ Route.group(() => {
   // user API
   Route.group(() => {
     Route.get('/', 'UsersController.getAllUser')
-    Route.post('/update', 'UsersController.update')
+    Route.post('/update/:id', 'UsersController.adminUpdate')
   }).prefix('/user').middleware('auth')
 
   // dashboard API
@@ -82,14 +82,20 @@ Route.group(() => {
 
   Route.group(() => {
     Route.get('/', 'MotorSubCategoriesController.adminGet')
+    Route.post('/', 'MotorSubCategoriesController.create')
+    Route.post('/:id', 'MotorSubCategoriesController.update')  
   }).prefix('/motorSubCategory')
 
   Route.group(() => {
     Route.get('/', 'MotorCategoriesController.adminGet')
+    Route.post('/', 'MotorCategoriesController.create')
+    Route.post('/:id', 'MotorCategoriesController.update')
   }).prefix('/motorCategory')
 
   Route.group(() => {
     Route.get('/', 'MotorsController.adminGet')
+    Route.post('/', 'MotorsController.create')
+    Route.post('/:id', 'MotorsController.update')
   }).prefix('/motor')
 
   // brand curd API

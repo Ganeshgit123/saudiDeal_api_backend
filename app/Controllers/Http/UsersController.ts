@@ -63,11 +63,11 @@ export default class UsersController {
         const userDetails = request.all()
         const userId: any = request.header('userId') || ''
         const language = request.header('language') || 'en'
-        console.log(userId,'userId');
-        
+        console.log(userId, 'userId');
+
         if (!userId) {
             console.log('in');
-            
+
             return {
                 success: false,
                 massage: SUCCESS.USER_Id_NOTEXIST[language]
@@ -119,6 +119,35 @@ export default class UsersController {
             userDetails: UserDomain.createFromArrOfObject(
                 await UserRepo.get(params.id, language)
             ),
+        };
+    }
+
+    public async adminUpdate({ request, params }: HttpContextContract) {
+        // const updateProposal = await request.validate(Validators.UpdatePost);
+        const userDetails = request.all()
+        // const userId: any = request.header('userId') || ''
+        const userId = params.id
+        const language = request.header('language') || 'en'
+        console.log(userId, 'userId');
+
+        if (!userId) {
+            console.log('in');
+
+            return {
+                success: false,
+                massage: SUCCESS.USER_Id_NOTEXIST[language]
+            };
+        }
+
+        await UserRepo.isEntryExist(userId, language);
+
+        const updateResult = UserDomain.createFromObject(
+            await UserRepo.update(userId, userDetails, language)
+        );
+        return {
+            success: true,
+            result: updateResult,
+            massage: SUCCESS.USER_UPDATE[language]
         };
     }
 }

@@ -272,6 +272,14 @@ const SUCCESS = {
         'en': 'Master deleted successfully',
         'ar': 'تم حذف الواجهة بنجاح',
     },
+    MOTOR_CREATE: {
+        'en': 'Motor created successfully',
+        'ar': 'تم إنشاء الواجهة بنجاح',
+    },
+    MOTOR_UPDATE: {
+        'en': 'Motor updated successfully',
+        'ar': 'تم تحديث الواجهة بنجاح',
+    },
     BRAND_CREATE: {
         'en': 'Brand created successfully',
         'ar': 'تم إنشاء الواجهة بنجاح',
@@ -307,6 +315,22 @@ const SUCCESS = {
     CITY_DELETE: {
         'en': 'City deleted successfully',
         'ar': 'تم حذف الواجهة بنجاح',
+    },
+    MOTOR_CATEGORY_CREATE: {
+        'en': 'Motor category created successfully',
+        'ar': 'تم إنشاء الواجهة بنجاح',
+    },
+    MOTOR_CATEGORY_UPDATE: {
+        'en': 'Motor category updated successfully',
+        'ar': 'تم إنشاء الواجهة بنجاح',
+    },
+    MOTOR_SUB_CATEGORY_CREATE: {
+        'en': 'Motor sub category created successfully',
+        'ar': 'تم إنشاء الواجهة بنجاح',
+    },
+    MOTOR_SUB_CATEGORY_UPDATE: {
+        'en': 'Motor sub category updated successfully',
+        'ar': 'تم إنشاء الواجهة بنجاح',
     },
     MOTOR_POST_CREATE: {
         'en': 'Motor post created successfully',
@@ -602,6 +626,30 @@ const FAILURE = {
     BRAND_CONFLICT: {
         'en': 'Banner not found.',
         'ar': 'لم يتم العثور على واجهة.',
+    },
+    MOTOR_CONFLICT: {
+        'en': 'Motor not found.',
+        'ar': 'لم يتم العثور على واجهة.',
+    },
+    MOTOR_CATEGORY_CONFLICT: {
+        'en': 'Motor category not found.',
+        'ar': 'لم يتم العثور على واجهة.',
+    },
+    MOTOR_SUB_CATEGORY_CONFLICT: {
+        'en': 'Motor sub category not found.',
+        'ar': 'لم يتم العثور على واجهة.',
+    },
+    MOTOR_CREATE: {
+        'en': 'Motor created successfully',
+        'ar': 'تم إنشاء الواجهة بنجاح',
+    },
+    MOTOR_CATEGORY_CREATE: {
+        'en': 'Motor category created successfully',
+        'ar': 'تم إنشاء الواجهة بنجاح',
+    },
+    MOTOR_SUB_CATEGORY_CREATE: {
+        'en': 'Motor sub category created successfully',
+        'ar': 'تم إنشاء الواجهة بنجاح',
     },
     BRAND_DELETE_CONFLICT: {
         'en': 'Error in deleting the banner.',
