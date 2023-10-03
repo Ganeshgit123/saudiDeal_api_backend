@@ -14,7 +14,8 @@ export default class RentCategoryValidator {
     name: schema.string.optional(),
     en_name: schema.string.optional(),
     ar_name: schema.string.optional(),
-    image: schema.string.optional()
+    image: schema.string.optional(),
+    type: schema.string()
   })
 
 

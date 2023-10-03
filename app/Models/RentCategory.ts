@@ -14,6 +14,9 @@ export default class RentCategory extends BaseModel {
   @column()
   public active: boolean
 
+  @column()
+  public type: string
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

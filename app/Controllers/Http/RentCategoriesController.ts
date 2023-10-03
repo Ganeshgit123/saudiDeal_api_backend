@@ -49,7 +49,7 @@ export default class RentCategoriesController {
 
         const language = request.header('language') || 'en'
         await RentCategoriesRepo.isEntryExist(params.id, language);
-
+        
         const updateResult = RentCategoryDomain.createFromObject(
             await RentCategoriesRepo.update(params.id, UpdatePost, language)
         );

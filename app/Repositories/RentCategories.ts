@@ -25,7 +25,7 @@ export default class RentCategoriesRepo {
             await rent.save()
 
             return rent
-        } catch (error) {
+        } catch (error) {            
             throw Exceptions.conflict(FAILURE.RENT_CATEGORY_CONFLICT[language])
         }
     }
@@ -39,7 +39,7 @@ export default class RentCategoriesRepo {
     }
 
     static async isEntryExist(id: number, language) {
-        const result = await RentCategory.query().where('id', id).first()
+        const result = await RentCategory.query().where('id', id).first()        
         if (!result) throw Exceptions.notFound(FAILURE.RENT_CATEGORY_DELETE_CONFLICT[language])
         return result
     }
