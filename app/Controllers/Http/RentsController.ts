@@ -61,9 +61,12 @@ export default class RentsController {
         const payload = request.all()
 
         const rentPostId = payload.rentPostId
+        const isApprove = payload.isApprove
+        const active = payload.active
+
         const userId = request.header('userId') || ''
         let rentPost = RentDomain.createFromArrOfObject(
-            await RentRepo.myRentGet(userId, rentPostId)
+            await RentRepo.myRentGet(userId, rentPostId, isApprove, active)
         )
         rentPost = await this.getRentFavourites(userId, rentPost)
 

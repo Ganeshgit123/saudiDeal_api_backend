@@ -30,7 +30,7 @@ export default class MotorpostRepo {
         return result[0]
     }
 
-    static async get(userId, motorPostId) {
+    static async get(userId, motorPostId, isApprove, active) {
         const result = await Motorpost.query()
             .select('motor_posts.*')
             .select('motors.name as mainMotorCategoryName')
@@ -43,9 +43,13 @@ export default class MotorpostRepo {
             .leftJoin('motor_sub_categories', 'motor_posts.motor_sub_category_id', 'motor_sub_categories.id')
             .leftJoin('provinces', 'motor_posts.province_id', 'provinces.id')
             .leftJoin('cities', 'motor_posts.city_id', 'cities.id')
-            .where('motor_posts.is_approve', 1)
-            .where('motor_posts.active', 1)
+            // .where('motor_posts.is_approve', 1)
+            // .where('motor_posts.active', 1)
             // .where('motor_posts.update_status_level', 3)
+            .if(isApprove, (query) =>
+                query.where('motor_posts.is_approve', isApprove))
+            .if(active, (query) =>
+                query.where('motor_posts.active', active))
             .if(userId, (query) =>
                 query.where('motor_posts.user_id', userId))
             .if(motorPostId, (query) =>

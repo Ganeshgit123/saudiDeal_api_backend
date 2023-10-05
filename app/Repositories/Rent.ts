@@ -50,7 +50,7 @@ export default class RentRepo {
         return result
     }
 
-    static async myRentGet(userId, rentPostId) {
+    static async myRentGet(userId, rentPostId, isApprove, active) {
         const result = await Rent.query().where('rents.active', 1)
             .select('rents.*')
             .select('cities.city as cityName')
@@ -60,6 +60,10 @@ export default class RentRepo {
             .leftJoin('provinces', 'rents.province_id', 'provinces.id')
             .leftJoin('rent_categories', 'rents.category_id', 'rent_categories.id')
             // .where('rents.update_status_level', 4)
+            .if(isApprove, (query) =>
+                query.where('rents.is_approve', isApprove))
+            .if(active, (query) =>
+                query.where('rents.active', active))
             .if(userId, (query) =>
                 query.where('rents.user_id', userId))
             .if(rentPostId, (query) =>
@@ -68,7 +72,7 @@ export default class RentRepo {
         return result
     }
 
-    static async getAllPost(userId, orderbyColumn, orderbyValue, payload) {        
+    static async getAllPost(userId, orderbyColumn, orderbyValue, payload) {
         const result = await Rent.query().where('rents.active', 1)
             .select('rents.*')
             .select('cities.city as cityName')

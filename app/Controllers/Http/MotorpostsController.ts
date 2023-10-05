@@ -60,10 +60,13 @@ export default class MotorpostsController {
         const payload = request.all()
 
         const motorPostId = payload.motorPostId
+        const isApprove = payload.isApprove
+        const active = payload.active
+
         const userId = request.header('userId') || ''
 
         let motorPost = MotorPostDomain.createFromArrOfObject(
-            await MotorpostRepo.get(userId, motorPostId)
+            await MotorpostRepo.get(userId, motorPostId, isApprove, active)
         )
         motorPost = await this.getRentFavourites(userId, motorPost)
         // let userSubscription = await this.getUserSubscription(motorPost)
