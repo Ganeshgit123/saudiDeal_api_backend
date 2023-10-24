@@ -55,12 +55,15 @@ export default class MotorFavouritesController {
 
     public async get({ request }: HttpContextContract) {
 
+        const payload = request.all()
         const userId: any = request.header('userId') || ''
         // const guestUserId: any = request.header('guestUserId') || ''
         // let userId: any = loginUserId ?  loginUserId: guestUserId
-        
+        const offset = payload.offset ? Number(payload.offset) : 1;
+        const limit = payload.offset ? Number(payload.limit) : 25;
+
         let result = MotorFavouritesDomain.createFromArrOfObject(
-            await MotorFavouritesRepo.get(userId)
+            await MotorFavouritesRepo.get(userId, offset, limit)
         )
         await result.map((el) => {
             el.isFavorites = 1

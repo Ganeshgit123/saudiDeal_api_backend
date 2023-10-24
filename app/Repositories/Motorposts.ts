@@ -18,6 +18,8 @@ export default class MotorpostRepo {
 
             return motorpost
         } catch (error) {
+            console.log(error, 'error');
+
             throw Exceptions.conflict(FAILURE.MOTOR_POST_CONFLICT[language])
         }
     }
@@ -30,7 +32,7 @@ export default class MotorpostRepo {
         return result[0]
     }
 
-    static async get(userId, motorPostId, isApprove, active) {
+    static async get(userId, motorPostId, isApprove, active, offset, limit) {
         const result = await Motorpost.query()
             .select('motor_posts.*')
             .select('motors.name as mainMotorCategoryName')
@@ -54,10 +56,13 @@ export default class MotorpostRepo {
                 query.where('motor_posts.user_id', userId))
             .if(motorPostId, (query) =>
                 query.where('motor_posts.id', motorPostId))
+            .if(offset && limit, (query) => {
+                query.forPage(offset, limit)
+            })
         return result
     }
 
-    static async getAllPost(userId, orderbyColumn, orderbyValue, payload) {
+    static async getAllPost(userId, orderbyColumn, orderbyValue, payload, offset, limit) {
         const result = await Motorpost.query()
             .select('motor_posts.*')
             .select('motors.name as mainMotorCategoryName')
@@ -125,6 +130,9 @@ export default class MotorpostRepo {
                 query.whereBetween('motor_posts.year', [payload.startingYear, payload.endingYear]))
             .if(userId, (query) =>
                 query.where('motor_posts.user_id', userId))
+            .if(offset && limit, (query) => {
+                query.forPage(offset, limit)
+            })
         return result
     }
 
@@ -142,7 +150,7 @@ export default class MotorpostRepo {
         return result
     }
 
-    static async adminGet(active, motorPostId) {
+    static async adminGet(active, motorPostId, limit, offset) {
         const result = await Motorpost.query()
             .select('motor_posts.*')
             .select('users.user_name as userName', 'users.mobile_number as userMobileNumber')
@@ -163,6 +171,9 @@ export default class MotorpostRepo {
                 query.where('motor_posts.active', active))
             .if(motorPostId, (query) =>
                 query.where('motor_posts.id', motorPostId))
+            .if(offset && limit, (query) => {
+                query.forPage(offset, limit)
+            })
         return result
     }
 

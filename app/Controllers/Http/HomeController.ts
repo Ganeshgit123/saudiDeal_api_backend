@@ -70,11 +70,11 @@ export default class HomeController {
 
 
         let motorposts = MotorPostDomain.createFromArrOfObject(
-            await MotorpostRepo.getAllPost('', "id", 'DESC', payload)
+            await MotorpostRepo.getAllPost('', "id", 'DESC', payload, '', '')
         )
 
         let rents = RentDomain.createFromArrOfObject(
-            await RentRepo.getAllPost('', "id", 'DESC', payload)
+            await RentRepo.getAllPost('', "id", 'DESC', payload, '', '')
         )
 
         rentViewedProducts = await this.getRentFavourites(userId, rentViewedProducts)

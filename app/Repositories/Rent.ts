@@ -31,7 +31,7 @@ export default class RentRepo {
         }
     }
 
-    static async get(userId, rentPostId) {
+    static async get(userId, rentPostId, offset, limit) {
         const result = await Rent.query().where('rents.active', 1)
             .select('rents.*')
             .select('cities.city as cityName')
@@ -46,11 +46,14 @@ export default class RentRepo {
                 query.where('rents.user_id', userId))
             .if(rentPostId, (query) =>
                 query.where('rents.id', rentPostId))
+            .if(offset && limit, (query) => {
+                query.forPage(offset, limit)
+            })
 
         return result
     }
 
-    static async myRentGet(userId, rentPostId, isApprove, active) {
+    static async myRentGet(userId, rentPostId, isApprove, active, offset, limit) {
         const result = await Rent.query().where('rents.active', 1)
             .select('rents.*')
             .select('cities.city as cityName')
@@ -68,11 +71,14 @@ export default class RentRepo {
                 query.where('rents.user_id', userId))
             .if(rentPostId, (query) =>
                 query.where('rents.id', rentPostId))
+            .if(offset && limit, (query) => {
+                query.forPage(offset, limit)
+            })
 
         return result
     }
 
-    static async getAllPost(userId, orderbyColumn, orderbyValue, payload) {
+    static async getAllPost(userId, orderbyColumn, orderbyValue, payload, offset, limit) {
         const result = await Rent.query().where('rents.active', 1)
             .select('rents.*')
             .select('cities.city as cityName')
@@ -109,8 +115,11 @@ export default class RentRepo {
                 query.whereBetween('rents.area_in_sqmt', [payload.startingAreaInSqmt, payload.endAreaInSqmt]))
             .if(userId, (query) =>
                 query.where('rents.user_id', userId))
-        // .if(rentPostId, (query) =>
-        //     query.where('rents.id', rentPostId))
+            // .if(rentPostId, (query) =>
+            //     query.where('rents.id', rentPostId))
+            .if(offset && limit, (query) => {
+                query.forPage(offset, limit)
+            })
 
         return result
     }
@@ -147,7 +156,7 @@ export default class RentRepo {
         return result
     }
 
-    static async adminGet(active, rentId) {
+    static async adminGet(active, rentId, offset, limit) {
         const result = await Rent.query()
             .select('rents.*')
             .select('users.user_name as userName', 'users.mobile_number as userMobileNumber')
@@ -164,6 +173,9 @@ export default class RentRepo {
                 query.where('rents.active', active))
             .if(rentId, (query) =>
                 query.where('rents.id', rentId))
+            .if(offset && limit, (query) => {
+                query.forPage(offset, limit)
+            })
         return result
     }
 

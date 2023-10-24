@@ -63,10 +63,12 @@ export default class RentsController {
         const rentPostId = payload.rentPostId
         const isApprove = payload.isApprove
         const active = payload.active
+        const offset = payload.offset ? Number(payload.offset) : 1;
+        const limit = payload.offset ? Number(payload.limit) : 25;
 
         const userId = request.header('userId') || ''
         let rentPost = RentDomain.createFromArrOfObject(
-            await RentRepo.myRentGet(userId, rentPostId, isApprove, active)
+            await RentRepo.myRentGet(userId, rentPostId, isApprove, active, offset, limit)
         )
         rentPost = await this.getRentFavourites(userId, rentPost)
 
@@ -82,11 +84,13 @@ export default class RentsController {
 
         let orderbyColumn: string = payload.orderbyColumn ? String(payload.orderbyColumn) : 'id'
         let orderbyValue: string = payload.orderbyValue ? String(payload.orderbyValue) : 'DESC'
+        const offset = payload.offset ? Number(payload.offset) : 1;
+        const limit = payload.offset ? Number(payload.limit) : 25;
 
         return {
             success: true,
             data: RentDomain.createFromArrOfObject(
-                await RentRepo.getAllPost(userId, orderbyColumn, orderbyValue, payload)
+                await RentRepo.getAllPost(userId, orderbyColumn, orderbyValue, payload, offset, limit)
             ),
         };
     }
@@ -175,10 +179,13 @@ export default class RentsController {
 
     public async adminGet({ request }: HttpContextContract) {
         const payload = request.all()
+        const offset = payload.offset ? Number(payload.offset) : 1;
+        const limit = payload.offset ? Number(payload.limit) : 25;
+
         return {
             success: true,
             data: RentDomain.createFromArrOfObject(
-                await RentRepo.adminGet(payload.active, payload.rentId)
+                await RentRepo.adminGet(payload.active, payload.rentId, offset, limit)
             ),
         };
     }

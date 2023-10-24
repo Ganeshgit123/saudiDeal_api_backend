@@ -64,9 +64,11 @@ export default class MotorpostsController {
         const active = payload.active
 
         const userId = request.header('userId') || ''
+        const offset = payload.offset ? Number(payload.offset) : 1;
+        const limit = payload.offset ? Number(payload.limit) : 25;
 
         let motorPost = MotorPostDomain.createFromArrOfObject(
-            await MotorpostRepo.get(userId, motorPostId, isApprove, active)
+            await MotorpostRepo.get(userId, motorPostId, isApprove, active, offset, limit)
         )
         motorPost = await this.getRentFavourites(userId, motorPost)
         // let userSubscription = await this.getUserSubscription(motorPost)
@@ -83,9 +85,11 @@ export default class MotorpostsController {
         const userId = request.header('userId') || ''
         let orderbyColumn: string = payload.orderbyColumn ? String(payload.orderbyColumn) : 'id'
         let orderbyValue: string = payload.orderbyValue ? String(payload.orderbyValue) : 'DESC'
+        const offset = payload.offset ? Number(payload.offset) : 1;
+        const limit = payload.offset ? Number(payload.limit) : 25;
 
         let motorPost = MotorPostDomain.createFromArrOfObject(
-            await MotorpostRepo.getAllPost(userId, orderbyColumn, orderbyValue, payload)
+            await MotorpostRepo.getAllPost(userId, orderbyColumn, orderbyValue, payload, offset, limit)
         )
         motorPost = await this.getRentFavourites(userId, motorPost)
 
@@ -180,10 +184,12 @@ export default class MotorpostsController {
 
     public async adminGet({ request }: HttpContextContract) {
         const payload = request.all()
+        const offset = payload.offset ? Number(payload.offset) : 1;
+        const limit = payload.offset ? Number(payload.limit) : 25;
         return {
             success: true,
             data: MotorPostDomain.createFromArrOfObject(
-                await MotorpostRepo.adminGet(payload.active, payload.motorPostId)
+                await MotorpostRepo.adminGet(payload.active, payload.motorPostId, limit, offset)
             ),
         };
     }
