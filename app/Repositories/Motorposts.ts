@@ -28,7 +28,7 @@ export default class MotorpostRepo {
         const result = await Database.rawQuery(`SELECT SUM(main_motor_category_id = 1) as usedCarCount,
         SUM(main_motor_category_id = 2) as motorCycleCount, 
         SUM(main_motor_category_id = 3) as heavyEquipmentCount, 
-        SUM(main_motor_category_id = 4) as boatCount FROM motor_posts where is_approve =1`)
+        SUM(main_motor_category_id = 4) as boatCount FROM motor_posts where is_approve =1 and active =1 and update_status_level =3`)
         return result[0]
     }
 
