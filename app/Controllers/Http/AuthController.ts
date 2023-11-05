@@ -5,6 +5,7 @@ import JWT from 'jsonwebtoken'
 import Env from '@ioc:Adonis/Core/Env'
 const JWT_SECRET_KEY = Env.get('JWT_SECRET_KEY')
 import { SUCCESS } from "../../Data/language";
+import axios, { AxiosRequestConfig } from 'axios'
 
 export default class AuthController {
 
@@ -13,14 +14,15 @@ export default class AuthController {
 
         const language = request.header('language') || 'en'
 
-        // var otp = Math.floor(1000 + Math.random() * 9000);
-        const otp = 1234
+        var otp = Math.floor(1000 + Math.random() * 9000);
+
+        // const otp = 1234
 
         // const data = {
         //     mobileNumber: mobileNumber,
         //     countryCode: countryCode,
-        //     // otp: mobileNumber == 1234567890 ? 1234 : otp
-        //     otp: mobileNumber == 1234
+        //     otp: mobileNumber == 1234567890 ? 1234 : otp
+        //     // otp: mobileNumber == 1234
         // }
 
         const maybeUser = await AuthRepo.isEntryExist(mobileNumber);
@@ -42,13 +44,59 @@ export default class AuthController {
             }
 
             const userDetails = {
-                // otp: mobileNumber == 1234567890 ? 1234 : otp,
-                otp: 1234,
+                otp: mobileNumber == 1234567890 ? 1234 : otp,
+                // otp: 1234,
                 countryCode: countryCode
             }
 
             await UserRepo.update(userId, userDetails, language)
         }
+
+        let messageText
+        if (language == 'en') {
+            messageText = `SaudiDeal: Your code is ${otp} FA+9qCX9VSu`
+        } else {
+            messageText = `SaudiDeal: Your code is ${otp} FA+9qCX9VSu`
+        }
+
+        const config: AxiosRequestConfig = {
+            method: 'post',
+            url:`https://api.taqnyat.sa/v1/messages`,
+            headers: { 
+                'Authorization': 'Bearer 33f57fccf15c0501e5bea82fe074c21c'
+            },
+            data: {
+                "recipients": [
+                    mobileNumber
+                ],
+                "body": messageText,
+                "sender":"SaudiDeal"
+            }
+        }
+        
+        let otpResult = await axios(config).then(async function (response) {
+                
+                if (response.status == 201) {
+                    return true
+                } else {
+                    return false
+                }
+            })
+            .catch(console.log)
+
+        if (otpResult) {
+            return {
+                success: true,
+                otp: otp,
+                massage: SUCCESS.SENT_OTP[language]
+            };
+        } else {
+            return {
+                success: true,
+                massage: SUCCESS.OTP_NOT_SEND[language]
+            };
+        }
+
         return {
             success: true,
             otp: otp,
@@ -74,7 +122,7 @@ export default class AuthController {
         }
 
         let result = {}
-        
+
         if (userData) {
             result = {
                 id: userData.id,
@@ -108,8 +156,8 @@ export default class AuthController {
 
         const language = request.header('language') || 'en'
 
-        // var otp = Math.floor(1000 + Math.random() * 9000);
-        const otp = 1234
+        var otp = Math.floor(1000 + Math.random() * 9000);
+        // const otp = 1234
 
         const data = {
             mobileNumber: mobileNumber,
@@ -118,8 +166,8 @@ export default class AuthController {
             email: email,
             isNewUser: 0,
             userType: userType,
-            // otp: mobileNumber == 1234567890 ? 1234 : otp
-            otp: 1234
+            otp: mobileNumber == 1234567890 ? 1234 : otp
+            // otp: 1234
         }
 
         const maybeUser = await AuthRepo.isEntryExist(mobileNumber);
@@ -135,7 +183,7 @@ export default class AuthController {
                 };
             }
 
-            if(maybeUser.email == email) {
+            if (maybeUser.email == email) {
                 return {
                     success: false,
                     massage: SUCCESS.EMAIL_ALREADY[language]
@@ -146,14 +194,53 @@ export default class AuthController {
                     massage: SUCCESS.MOBILE_ALREADY[language]
                 };
             }
-            // const userDetails = {
-            //     // otp: mobileNumber == 1234567890 ? 1234 : otp,
-            //     otp: 1234,
-            //     countryCode: countryCode
-            // }
-
-            // await UserRepo.update(userId, userDetails, language)
         }
+
+        let messageText
+        if (language == 'en') {
+            messageText = `SaudiDeal: Your code is ${otp} FA+9qCX9VSu`
+        } else {
+            messageText = `SaudiDeal: Your code is ${otp} FA+9qCX9VSu`
+        }
+
+        const config: AxiosRequestConfig = {
+            method: 'post',
+            url:`https://api.taqnyat.sa/v1/messages`,
+            headers: { 
+                'Authorization': 'Bearer 33f57fccf15c0501e5bea82fe074c21c'
+            },
+            data: {
+                "recipients": [
+                    mobileNumber
+                ],
+                "body": messageText,
+                "sender":"SaudiDeal"
+            }
+        }
+
+        let otpResult = await axios(config)
+            .then(async function (response) {
+                if (response.status == 201) {
+                    return true
+                } else {
+                    return false
+                }
+            })
+            .catch(console.log)
+
+        if (otpResult) {
+            return {
+                success: true,
+                otp: otp,
+                massage: SUCCESS.SENT_OTP[language]
+            };
+        } else {
+            return {
+                success: true,
+                massage: SUCCESS.OTP_NOT_SEND[language]
+            };
+        }
+
         return {
             success: true,
             isNewUser: 1,

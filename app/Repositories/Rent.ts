@@ -16,7 +16,7 @@ export default class RentRepo {
             SUM(category_id = 12) as residentialBuildingCount,
             SUM(category_id = 13) as landCount,
             SUM(category_id = 14) as roomsForRentCount,
-            SUM(category_id = 15) as warehouseCount FROM rents where is_approve =1`)
+            SUM(category_id = 15) as warehouseCount FROM rents where is_approve =1 and active =1 and update_status_level =4`)
             return result[0]
         } else {
             const result = await Database.rawQuery(`SELECT SUM(category_id = 16) as apartmentCount,
@@ -26,7 +26,7 @@ export default class RentRepo {
             SUM(category_id = 20) as penthouseCount,
             SUM(category_id = 21) as residentialBuildingCount,
             SUM(category_id = 22) as landCount,
-            SUM(category_id = 24) as warehouseCount FROM rents where is_approve =1`)
+            SUM(category_id = 24) as warehouseCount FROM rents where is_approve =1 and active =1 and update_status_level =4`)
             return result[0]
         }
     }
@@ -89,6 +89,7 @@ export default class RentRepo {
             .leftJoin('rent_categories', 'rents.category_id', 'rent_categories.id')
             .where('rents.is_approve', 1)
             .where('rents.update_status_level', 4)
+            .where('rents.active', 1)
             // .orderBy('rents.id', 'desc')
             .orderBy(`rents.${orderbyColumn}`, orderbyValue)
             .if(payload.type, (query) =>
