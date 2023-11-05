@@ -6,27 +6,26 @@ import Database from '@ioc:Adonis/Lucid/Database';
 export default class RentRepo {
 
     static async getRentPostCount(type) {
-
         if (type == "RENT") {
-            const result = await Database.rawQuery(`SELECT SUM(category_id = 7) as apartmentCount,
-            SUM(category_id = 8) as villaCount, 
-            SUM(category_id = 9) as commercialCount,
-            SUM(category_id = 10) as villaCompoundCount,
-            SUM(category_id = 11) as penthouseCount,
-            SUM(category_id = 12) as residentialBuildingCount,
-            SUM(category_id = 13) as landCount,
-            SUM(category_id = 14) as roomsForRentCount,
-            SUM(category_id = 15) as warehouseCount FROM rents where is_approve =1`)
+            const result = await Database.rawQuery(`SELECT SUM(category_id = 1) as apartmentCount,
+            SUM(category_id = 2) as villaCount, 
+            SUM(category_id = 3) as commercialCount,
+            SUM(category_id = 4) as villaCompoundCount,
+            SUM(category_id = 5) as penthouseCount,
+            SUM(category_id = 6) as residentialBuildingCount,
+            SUM(category_id = 7) as landCount,
+            SUM(category_id = 8) as roomsForRentCount,
+            SUM(category_id = 9) as warehouseCount FROM rents where is_approve =1  and active =1 and update_status_level =4`)
             return result[0]
         } else {
-            const result = await Database.rawQuery(`SELECT SUM(category_id = 16) as apartmentCount,
-            SUM(category_id = 17) as villaCount, 
-            SUM(category_id = 18) as commercialCount,
-            SUM(category_id = 19) as villaCompoundCount,
-            SUM(category_id = 20) as penthouseCount,
-            SUM(category_id = 21) as residentialBuildingCount,
-            SUM(category_id = 22) as landCount,
-            SUM(category_id = 24) as warehouseCount FROM rents where is_approve =1`)
+            const result = await Database.rawQuery(`SELECT SUM(category_id = 10) as apartmentCount,
+            SUM(category_id = 11) as villaCount, 
+            SUM(category_id = 12) as commercialCount,
+            SUM(category_id = 13) as villaCompoundCount,
+            SUM(category_id = 14) as penthouseCount,
+            SUM(category_id = 15) as residentialBuildingCount,
+            SUM(category_id = 16) as landCount,
+            SUM(category_id = 17) as warehouseCount FROM rents where is_approve =1  and active =1 and update_status_level =4`)
             return result[0]
         }
     }
@@ -89,6 +88,7 @@ export default class RentRepo {
             .leftJoin('rent_categories', 'rents.category_id', 'rent_categories.id')
             .where('rents.is_approve', 1)
             .where('rents.update_status_level', 4)
+            .where('rents.active', 1)
             // .orderBy('rents.id', 'desc')
             .orderBy(`rents.${orderbyColumn}`, orderbyValue)
             .if(payload.type, (query) =>
