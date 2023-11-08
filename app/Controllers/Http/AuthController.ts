@@ -170,7 +170,7 @@ export default class AuthController {
             // otp: 1234
         }
 
-        const maybeUser = await AuthRepo.isEntryExist(mobileNumber);
+        const maybeUser = await AuthRepo.isUserExist(mobileNumber, email);
 
         if (!maybeUser) {
             await AuthRepo.create(data, language);

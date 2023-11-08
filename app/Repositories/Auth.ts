@@ -35,6 +35,14 @@ export default class AuthModel {
     return result
   }
 
+  static async isUserExist(mobileNumber, email) {
+    const result = await User.query()
+      .where('mobileNumber', mobileNumber)
+      .orWhere('email', email)
+      .first()
+    return result
+  }
+
   static async checkAdmin(email, password) {
     const result = await Admin.query()
       // .where('user_type', 1)
