@@ -54,9 +54,9 @@ export default class AuthController {
 
         let messageText
         if (language == 'en') {
-            messageText = `SaudiDeal: Your code is ${otp} FA+9qCX9VSu`
+            messageText = `SaudiDeal: Your code is ${otp}`
         } else {
-            messageText = `SaudiDeal: Your code is ${otp} FA+9qCX9VSu`
+            messageText = `SaudiDeal: Your code is ${otp}`
         }
 
         const config: AxiosRequestConfig = {
@@ -75,7 +75,7 @@ export default class AuthController {
         }
         
         let otpResult = await axios(config).then(async function (response) {
-                
+                console.log(response)
                 if (response.status == 201) {
                     return true
                 } else {

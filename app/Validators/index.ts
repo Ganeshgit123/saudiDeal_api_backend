@@ -37,6 +37,7 @@ import NotificationValidator from "../Validators/NotificationValidator"
 import MotorValidator from "../Validators/MotorValidator"
 import MotorCategoryValidator from "../Validators/MotorCategoryValidator"
 import MotorSubCategoryValidator from '../Validators/MotorSubCategoryValidator'
+import HttpContextContract from "../Validators/ContactValidator"
 
 export default {
     CategoryValidator,
@@ -77,5 +78,6 @@ export default {
     NotificationValidator,
     MotorValidator,
     MotorCategoryValidator,
-    MotorSubCategoryValidator
+    MotorSubCategoryValidator,
+    HttpContextContract
 }

@@ -28,6 +28,7 @@ import MotorViewedProductDomain from "./MotorViewedProduct"
 import SubscriptionListsDomain from "./SubscriptionLists"
 import MasterTrimsDomain from "./MasterTrims"
 import NotificationDomain from "./Notification"
+import ContactDomain from "./Contact"
 
 export {
     CategoryDomain, FavouritesDomain, RentFavouritesDomain, MotorFavouritesDomain,
@@ -36,5 +37,5 @@ export {
     MotorSubCategory, BrandDomain, ModelDomain, MotorPostDomain, ProvinceDomain, CityDomain,
     RentDomain, RentCategoryDomain, SubscriptionDomain, TrimDomain, TranslationStringDomain,
     RentViewedProductDomain, MotorViewedProductDomain, SubscriptionListsDomain,
-    MasterTrimsDomain, NotificationDomain
+    MasterTrimsDomain, NotificationDomain, ContactDomain
 };
