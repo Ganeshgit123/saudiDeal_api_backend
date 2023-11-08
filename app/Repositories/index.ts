@@ -30,6 +30,7 @@ import MotorViewedProductsRepo from "../Repositories/MotorViewedProduct"
 import SubscriptionListRepo from "../Repositories/SubscriptionLists"
 import MasterTrimRepo from "../Repositories/MasterTrims"
 import NotificationRepo from "../Repositories/Notification"
+import ContactRepo from "../Repositories/Contacts"
 
 export {
     CategoryRepo,
@@ -62,5 +63,6 @@ export {
     MotorViewedProductsRepo,
     SubscriptionListRepo,
     MasterTrimRepo,
-    NotificationRepo
+    NotificationRepo,
+    ContactRepo
 }

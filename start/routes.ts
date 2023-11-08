@@ -32,6 +32,7 @@ Route.group(() => {
   Route.post('/login', 'AdminsController.login')
   Route.get('/logout', 'AdminsController.logout')
   Route.post('/changePassword', 'AdminsController.changePassword').middleware('auth')
+  Route.get('/contact', 'ContactsController.adminGet')
 
   Route.group(() => {
     Route.post('/send', 'NotificationsController.create')
@@ -83,7 +84,7 @@ Route.group(() => {
   Route.group(() => {
     Route.get('/', 'MotorSubCategoriesController.adminGet')
     Route.post('/', 'MotorSubCategoriesController.create')
-    Route.post('/:id', 'MotorSubCategoriesController.update')  
+    Route.post('/:id', 'MotorSubCategoriesController.update')
   }).prefix('/motorSubCategory')
 
   Route.group(() => {
@@ -205,6 +206,10 @@ Route.group(() => {
   Route.get('/subscription', 'SubscriptionsController.get')
   Route.get('/motorPostCount', 'MotorpostsController.getMotorPostCount')
   Route.get('/rentPostCount', 'RentsController.getRentPostCount')
+
+  Route.group(() => {
+    Route.post('/', 'ContactsController.create')
+  }).prefix('/contact')
 
   // Subscription List curd API
   Route.group(() => {

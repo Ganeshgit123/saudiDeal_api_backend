@@ -280,6 +280,10 @@ const SUCCESS = {
         'en': 'Motor updated successfully',
         'ar': 'تم تحديث الواجهة بنجاح',
     },
+    CONTACT_CREATE: {
+        'en': 'Contact created successfully',
+        'ar': 'تم إنشاء الواجهة بنجاح',
+    },
     BRAND_CREATE: {
         'en': 'Brand created successfully',
         'ar': 'تم إنشاء الواجهة بنجاح',
