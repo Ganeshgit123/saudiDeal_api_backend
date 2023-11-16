@@ -98,6 +98,7 @@ export default class UsersController {
         const endDate = payload.endDate ? payload.endDate : '';
 
         let orderBy = payload.orderBy || 'id'
+        const active = payload.active || ''
 
         orderBy = `users.${orderBy}`;
 
@@ -106,7 +107,7 @@ export default class UsersController {
         return {
             success: true,
             data: UserDomain.createFromArrOfObject(
-                await UserRepo.getAll(offset, limit, startDate, endDate, orderBy, orderByValue)
+                await UserRepo.getAll(offset, limit, startDate, endDate, orderBy, orderByValue, active)
             ),
         };
     }

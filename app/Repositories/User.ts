@@ -35,8 +35,10 @@ export default class UserRepo {
         return result
     }
 
-    static async getAll(offset, limit, startDate, endDate, orderBy, orderByValue) {
+    static async getAll(offset, limit, startDate, endDate, orderBy, orderByValue, active) {
         const result = await User.query()
+            .if(active, (query) =>
+                query.where('active', active))
             .if(offset && limit, (query) => {
                 query.forPage(offset, limit)
             })
