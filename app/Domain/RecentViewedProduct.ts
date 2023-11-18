@@ -59,7 +59,7 @@ export default class RecentViewedProductDomain {
             data.$extras.sub_category_id)
     }
 
-    public static createFromArrOfObject(data: any) {
+    public static createFromArrOfObject(data: any) {        
         return data.map((el) => {
             return new RecentViewedProductDomain(el.id, el.productId, el.userId, el.deviceId, el.createdAt, el.updatedAt,
                 el.$extras.name, el.$extras.image, el.$extras.brand, el.$extras.price, el.$extras.original_price,

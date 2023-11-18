@@ -76,8 +76,8 @@ export default class HomeController {
         let rents = RentDomain.createFromArrOfObject(
             await RentRepo.getAllPost('', "id", 'DESC', payload, '', '')
         )
-
-        rentViewedProducts = await this.getRentFavourites(userId, rentViewedProducts)
+        
+        rentViewedProducts = await this.getRentFavourites(userId, rentViewedProducts)        
         motorViewedProducts = await this.getMotorFavouritesRepo(userId, motorViewedProducts)
 
         rents = await this.getRentFavourites(userId, rents)

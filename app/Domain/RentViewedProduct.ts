@@ -99,7 +99,7 @@ export default class RentDomain {
 
     public static createFromArrOfObject(data: any) {
         return data.map((el) => {
-            return new RentDomain(el.id, el.price, el.areaInSqmt, el.widthInMtr, el.lengthInMtr, el.title, el.phoneNumber, el.ownerType, el.rentalTerm, el.streetLength, el.noBedrooms, el.noBathrooms, el.noFloors, el.provinceId, el.cityId, el.userId, el.location, el.images, el.description, el.propetyType, el.furnished, el.kitchen, el.garage, el.elevator, el.waterSupply, el.electricitySupply, el.createdAt, el.updatedAt, el.active,
+            return new RentDomain(el.id, el.price, el.areaInSqmt, el.widthInMtr, el.lengthInMtr, el.title, el.phoneNumber, el.ownerType, el.rentalTerm, el.streetLength, el.noBedrooms, el.noBathrooms, el.noFloors, el.provinceId, el.cityId, el.userId, el.location, el.image, el.description, el.propetyType, el.furnished, el.kitchen, el.garage, el.elevator, el.waterSupply, el.electricitySupply, el.createdAt, el.updatedAt, el.active,
                 el.id, el.$extras.cityName, el.$extras.provincesName, 0, el.$extras.update_status_level,
                 el.$extras ? el.$extras.provinceName : '',
                 el.$extras ? el.$extras.userName : '', el.$extras ? el.$extras.userMobileNumber : '',
