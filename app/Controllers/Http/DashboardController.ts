@@ -5,22 +5,22 @@ export default class DashboardController {
 
     public async get() {
 
-        const productCount = await DashboardRepo.getProductCount()
-        const categoryCount = await DashboardRepo.getCategoryCount()
-        const subCategoryCount = await DashboardRepo.getSubCategoryCount()
-        const brandCount = await DashboardRepo.getBrandCount()
+        const motorCount = await DashboardRepo.getMotorCount()
+        const rentCount = await DashboardRepo.getRentCount()
+        const sellCount = await DashboardRepo.getSellCount()
+        const propertiesCount = await DashboardRepo.getPropertiesCount()
         const userCount = await DashboardRepo.getUserCount()
-        const adminCount = await DashboardRepo.getAdminCount()
+        // const adminCount = await DashboardRepo.getAdminCount()
 
         return {
             success: true,
             data: [{
-                productCount: productCount[0],
+                motorCount: motorCount[0],
                 userCount: userCount[0],
-                adminCount: adminCount[0],
-                categoryCount: categoryCount[0],
-                subCategoryCount: subCategoryCount[0],
-                brandCount: brandCount[0]
+                rentCount: rentCount[0],
+                sellCount: sellCount[0],
+                propertiesCount: propertiesCount[0],
+                // brandCount: brandCount[0]
             }]
         };
     }

@@ -47,6 +47,9 @@ export default class User extends BaseModel {
   @column()
   public isBlock: boolean
 
+  @column()
+  public remarks: string
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
