@@ -35,6 +35,11 @@ export default class UserRepo {
         return result
     }
 
+    static async getEmail(email, userId) {
+        const result = await User.query().where('email', email).whereNot('id', userId).first()
+        return result
+    }
+
     static async getAll(offset, limit, startDate, endDate, orderBy, orderByValue, active) {
         const result = await User.query()
             .if(active, (query) =>
