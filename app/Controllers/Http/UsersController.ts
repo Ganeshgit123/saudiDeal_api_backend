@@ -63,15 +63,22 @@ export default class UsersController {
         const userDetails = request.all()
         const userId: any = request.header('userId') || ''
         const language = request.header('language') || 'en'
-        console.log(userId, 'userId');
 
         if (!userId) {
-            console.log('in');
-
             return {
                 success: false,
                 massage: SUCCESS.USER_Id_NOTEXIST[language]
             };
+        }
+
+        if (userDetails.email) {
+            let result = await UserRepo.getEmail(userDetails.email, userId);
+            if (result != null && result.email == userDetails.email) {
+                return {
+                    success: false,
+                    massage: SUCCESS.EMAIL_ALREADY_EXITS[language]
+                };
+            }
         }
 
         await UserRepo.isEntryExist(userId, language);

@@ -32,6 +32,10 @@ const SUCCESS = {
         'en': 'Email already exits please login',
         'ar': 'تم إرسال رمز التحقق بنجاح',
     },
+    EMAIL_ALREADY_EXITS: {
+        'en': 'Email already exits',
+        'ar': 'تم إرسال رمز التحقق بنجاح',
+    },
     MOBILE_ALREADY: {
         'en': 'Mobile number already exits please login',
         'ar': 'تم إرسال رمز التحقق بنجاح',
