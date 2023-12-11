@@ -133,7 +133,8 @@ export default class AuthController {
                 token: token,
                 isNewUser: userData.isNewUser,
                 userName: userData.userName,
-                userType: userData.userType
+                userType: userData.userType,
+                isOtpVerify: 1
                 // image: userData.image,
             }
             // const userId = userData.id
@@ -141,6 +142,10 @@ export default class AuthController {
             //     otp: 0
             // }
             // await UserRepo.update(userId, userDetails, language)
+            const userDetails = {
+                isOtpVerify: 1
+            }
+            await UserRepo.update(userData.id, userDetails, language)
         }
 
         return {
@@ -157,7 +162,6 @@ export default class AuthController {
         const language = request.header('language') || 'en'
 
         var otp = Math.floor(1000 + Math.random() * 9000);
-        // const otp = 1234
 
         const data = {
             mobileNumber: mobileNumber,
@@ -167,7 +171,6 @@ export default class AuthController {
             isNewUser: 0,
             userType: userType,
             otp: mobileNumber == 1234567890 ? 1234 : otp
-            // otp: 1234
         }
 
         const maybeUser = await AuthRepo.isUserExist(mobileNumber, email);
@@ -186,11 +189,13 @@ export default class AuthController {
             if (maybeUser.email == email) {
                 return {
                     success: false,
+                    isOtpVerify: maybeUser.isOtpVerify,
                     massage: SUCCESS.EMAIL_ALREADY[language]
                 };
             } else {
                 return {
                     success: false,
+                    isOtpVerify: maybeUser.isOtpVerify,
                     massage: SUCCESS.MOBILE_ALREADY[language]
                 };
             }

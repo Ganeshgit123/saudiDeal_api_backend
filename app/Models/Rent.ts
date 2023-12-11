@@ -112,4 +112,10 @@ export default class Rent extends BaseModel {
 
   @column()
   public propertyAge: string
+
+  @column()
+  public latitude: string
+
+  @column()
+  public longitude: string
 }

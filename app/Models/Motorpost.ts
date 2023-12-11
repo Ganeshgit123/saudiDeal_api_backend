@@ -149,6 +149,11 @@ export default class MotorPost extends BaseModel {
   @column()
   public fullyMaintained: boolean
 
+  @column()
+  public latitude: string
+
+  @column()
+  public longitude: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

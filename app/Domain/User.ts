@@ -26,11 +26,12 @@ export default class UserDomain {
     public readonly isNewUser: boolean
     public readonly isBlock: boolean
     public readonly remarks: string
+    public readonly isOtpVerify: boolean
 
     private constructor(id: number, userName: string, firstName: string, lastName: string, image: string, email: string, address: string, description: string, createdAt: string, updatedAt: string, cityId: number, isNotification: boolean, deviceToken: string,
         mobileNumber: string, isBadge: boolean, userCommission: number, gender: string, os: string,
         countryCode: string, userType: string, active: boolean, roles: string, dob: string, isNewUser: boolean,
-        isBlock: boolean, remarks: string) {
+        isBlock: boolean, remarks: string, isOtpVerify: boolean) {
 
         this.id = id
         this.userName = userName
@@ -58,19 +59,20 @@ export default class UserDomain {
         this.isNewUser = isNewUser
         this.isBlock = isBlock
         this.remarks = remarks
+        this.isOtpVerify = isOtpVerify
     }
 
     public static createFromObject(data: any) {
         return new UserDomain(data.id, data.userName, data.firstName, data.lastName, data.image, data.email, data.address, data.description, data.createdAt, data.updatedAt, data.cityId, data.isNotification, data.deviceToken,
             data.mobileNumber, data.isBadge, data.userCommission, data.gender, data.os, data.countryCode, data.userType, data.active,
-            data.roles, data.dob, data.isNewUser, data.isBlock, data.remarks)
+            data.roles, data.dob, data.isNewUser, data.isBlock, data.remarks, data.isOtpVerify)
     }
 
     public static createFromArrOfObject(data: any) {
         return data.map((el) => {
             return new UserDomain(el.id, el.userName, el.firstName, el.lastName, el.image, el.email, el.address, el.description, el.createdAt, el.updatedAt, el.cityId, el.isNotification, el.deviceToken,
                 el.mobileNumber, el.isBadge, el.userCommission, el.gender, el.os, el.countryCode, el.userType, el.active,
-                el.roles, el.dob, el.isNewUser, el.isBlock, el.remarks)
+                el.roles, el.dob, el.isNewUser, el.isBlock, el.remarks, el.isOtpVerify)
         })
     }
 } 

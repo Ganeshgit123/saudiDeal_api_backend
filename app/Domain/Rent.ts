@@ -45,13 +45,14 @@ export default class RentDomain {
     public readonly noLivingRooms: number
     public readonly propertyAge: number
     public readonly rejectReason: string
-
+    public readonly latitude: string
+    public readonly longitude: string
 
     private constructor(id: number, price: string, areaInSqmt: string, widthInMtr: string, lengthInMtr: string, title: string, phoneNumber: string, ownerType: string, rentalTerm: string, streetLength: string, noBedrooms: string, noBathrooms: string, noFloors: string, provinceId: number, cityId: number, userId: number, location: string, image: string, description: string, propetyType: string, furnished: boolean, kitchen: boolean, garage: boolean, elevator: boolean, waterSupply: boolean, electricitySupply: boolean, createdAt: string, updatedAt: string, active: boolean,
         productId: number, cityName: string, provincesName: string, isFavorites: number, updateStatusLevel: number,
         provinceName: string, userName: string, userMobileNumber: string, arCategoryName: string, enCategoryName: string,
         isApprove: number, categoryId: number, type: string, noLivingRooms: number, propertyAge: number,
-        rejectReason: string) {
+        rejectReason: string, latitude: string, longitude: string) {
 
         this.id = id
         this.price = price
@@ -98,6 +99,8 @@ export default class RentDomain {
         this.noLivingRooms = noLivingRooms
         this.propertyAge = propertyAge
         this.rejectReason = rejectReason
+        this.latitude = latitude
+        this.longitude = longitude
     }
 
     public static createFromObject(data: any) {
@@ -106,7 +109,7 @@ export default class RentDomain {
             data.$extras ? data.$extras.provinceName : '',
             data.$extras ? data.$extras.userName : '', data.$extras ? data.$extras.userMobileNumber : '',
             data.$extras.arCategoryName, data.$extras.enCategoryName, data.isApprove, data.categoryId,
-            data.type, data.noLivingRooms, data.propertyAge, data.rejectReason)
+            data.type, data.noLivingRooms, data.propertyAge, data.rejectReason, data.latitude, data.longitude)
     }
 
     public static createFromArrOfObject(data: any) {
@@ -116,7 +119,7 @@ export default class RentDomain {
                 el.$extras ? el.$extras.provinceName : '',
                 el.$extras ? el.$extras.userName : '', el.$extras ? el.$extras.userMobileNumber : '',
                 el.$extras.arCategoryName, el.$extras.enCategoryName, el.isApprove, el.categoryId,
-                el.type, el.noLivingRooms, el.propertyAge, el.rejectReason)
+                el.type, el.noLivingRooms, el.propertyAge, el.rejectReason, el.latitude, el.longitude)
         })
     }
 } 
