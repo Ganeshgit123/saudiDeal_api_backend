@@ -50,6 +50,9 @@ export default class User extends BaseModel {
   @column()
   public remarks: string
 
+  @column()
+  public isOtpVerify: string
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

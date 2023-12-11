@@ -1,5 +1,5 @@
 import { schema } from '@ioc:Adonis/Core/Validator'
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 export default class RentValidator {
   constructor(protected ctx: HttpContextContract) {}
@@ -36,7 +36,9 @@ export default class RentValidator {
     elevator: schema.boolean.optional(),
     waterSupply: schema.boolean.optional(),
     electricitySupply: schema.boolean.optional(),
-    categoryId: schema.number()
+    categoryId: schema.number.optional(),
+    latitude: schema.number.optional(),
+    longitude: schema.number.optional()
   })
 
   public messages = {
