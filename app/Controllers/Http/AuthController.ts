@@ -4,7 +4,7 @@ import { AuthRepo, UserRepo } from "../../Repositories";
 import JWT from 'jsonwebtoken'
 import Env from '@ioc:Adonis/Core/Env'
 const JWT_SECRET_KEY = Env.get('JWT_SECRET_KEY')
-import { SUCCESS } from "../../Data/language";
+import { SUCCESS, FAILURE } from "../../Data/language";
 import axios, { AxiosRequestConfig } from 'axios'
 
 export default class AuthController {
@@ -61,8 +61,8 @@ export default class AuthController {
 
         const config: AxiosRequestConfig = {
             method: 'post',
-            url:`https://api.taqnyat.sa/v1/messages`,
-            headers: { 
+            url: `https://api.taqnyat.sa/v1/messages`,
+            headers: {
                 'Authorization': 'Bearer 33f57fccf15c0501e5bea82fe074c21c'
             },
             data: {
@@ -70,18 +70,18 @@ export default class AuthController {
                     mobileNumber
                 ],
                 "body": messageText,
-                "sender":"SaudiDeal"
+                "sender": "SaudiDeal"
             }
         }
-        
+
         let otpResult = await axios(config).then(async function (response) {
-                console.log(response)
-                if (response.status == 201) {
-                    return true
-                } else {
-                    return false
-                }
-            })
+            console.log(response)
+            if (response.status == 201) {
+                return true
+            } else {
+                return false
+            }
+        })
             .catch(console.log)
 
         if (otpResult) {
@@ -111,6 +111,18 @@ export default class AuthController {
         let userData = await AuthRepo.checkOtp(mobileNumber, otp, language)
 
         let token
+        // if (userData) {
+
+        //     let data = {
+        //         id: userData.id,
+        //         firstName: userData.firstName,
+        //         lastName: userData.lastName
+        //     }
+        //     token = JWT.sign(data, JWT_SECRET_KEY);
+        // }
+
+        let result = {}
+
         if (userData) {
 
             let data = {
@@ -118,12 +130,9 @@ export default class AuthController {
                 firstName: userData.firstName,
                 lastName: userData.lastName
             }
-            token = JWT.sign(data, JWT_SECRET_KEY);
-        }
 
-        let result = {}
+            token = await JWT.sign(data, JWT_SECRET_KEY);
 
-        if (userData) {
             result = {
                 id: userData.id,
                 email: userData.email,
@@ -143,17 +152,23 @@ export default class AuthController {
             // }
             // await UserRepo.update(userId, userDetails, language)
             const userDetails = {
-                isOtpVerify: 1
+                isOtpVerify: 1,
+                otp: 0
             }
+            
             await UserRepo.update(userData.id, userDetails, language)
+            return {
+                success: false,
+                token: token,
+                massage: SUCCESS.VERIFY_OTP[language],
+                data: result
+            };
+        } else {
+            return {
+                success: true,
+                massage: FAILURE.OTP_NOT_MATCH[language],
+            };
         }
-
-        return {
-            success: true,
-            token: token,
-            massage: SUCCESS.VERIFY_OTP[language],
-            data: result
-        };
     }
 
     public async create({ request }: HttpContextContract) {
@@ -210,8 +225,8 @@ export default class AuthController {
 
         const config: AxiosRequestConfig = {
             method: 'post',
-            url:`https://api.taqnyat.sa/v1/messages`,
-            headers: { 
+            url: `https://api.taqnyat.sa/v1/messages`,
+            headers: {
                 'Authorization': 'Bearer 33f57fccf15c0501e5bea82fe074c21c'
             },
             data: {
@@ -219,7 +234,7 @@ export default class AuthController {
                     mobileNumber
                 ],
                 "body": messageText,
-                "sender":"SaudiDeal"
+                "sender": "SaudiDeal"
             }
         }
 

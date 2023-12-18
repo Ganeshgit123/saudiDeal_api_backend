@@ -24,6 +24,8 @@ export default class AuthModel {
 
       return userResult
     } catch (error) {
+      console.log(error,'error');
+      
       throw Exceptions.conflict(FAILURE.USER_CONFLICT[language])
     }
   }
