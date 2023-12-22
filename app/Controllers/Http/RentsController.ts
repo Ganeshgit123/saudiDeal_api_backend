@@ -135,7 +135,8 @@ export default class RentsController {
             }
             await NotificationRepo.create(notificationData, language)
 
-        } else {
+        }
+        if (UpdatePost.isApprove == 2) {
             const notificationData = {
                 "productId": updateResult.id,
                 "userId": updateResult.userId,
