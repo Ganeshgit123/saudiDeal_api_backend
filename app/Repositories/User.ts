@@ -42,6 +42,7 @@ export default class UserRepo {
 
     static async getAll(offset, limit, startDate, endDate, orderBy, orderByValue, active) {
         const result = await User.query()
+            .where('isOtpVerify', 1)
             .if(active, (query) =>
                 query.where('active', active))
             .if(offset && limit, (query) => {
