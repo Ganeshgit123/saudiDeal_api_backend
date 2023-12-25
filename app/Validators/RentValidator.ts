@@ -38,7 +38,8 @@ export default class RentValidator {
     electricitySupply: schema.boolean.optional(),
     categoryId: schema.number.optional(),
     latitude: schema.number.optional(),
-    longitude: schema.number.optional()
+    longitude: schema.number.optional(),
+    type: schema.string()
   })
 
   public messages = {
