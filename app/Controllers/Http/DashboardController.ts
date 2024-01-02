@@ -20,6 +20,20 @@ export default class DashboardController {
         const getDailyPropertyPost: any = await DashboardRepo.getDailyPropertyPost()
         const getWeekPropertyPost: any = await DashboardRepo.getWeekPropertyPost()
         const getYearPropertyPost: any = await DashboardRepo.getYearPropertyPost()
+
+
+        const getDailyMotorPostCount: any = await DashboardRepo.getDailyMotorPostCount()
+        const getWeekMotorPostCount: any = await DashboardRepo.getWeekMotorPostCount()
+        const getYearMotorPostCount: any = await DashboardRepo.getYearMotorPostCount()
+
+        const getDailyRentPostCount: any = await DashboardRepo.getDailyRentPostCount()
+        const getWeekRentPostCount: any = await DashboardRepo.getWeekRentPostCount()
+        const getYearRentPostCount: any = await DashboardRepo.getYearRentPostCount()
+
+        const getDailySalePostCount: any = await DashboardRepo.getDailySalePostCount()
+        const getWeekSalePostCount: any = await DashboardRepo.getWeekSalePostCount()
+        const getYearSalePostCount: any = await DashboardRepo.getYearSalePostCount()
+
         
         return {
             success: true,
@@ -37,7 +51,16 @@ export default class DashboardController {
                 yearlyMotorPostCount: getYearMotorPost ? getYearMotorPost[0].$extras.yearlyMotorPostCount : 0,
                 dailyPropertyPostCount: getDailyPropertyPost ? getDailyPropertyPost[0].$extras.dailyPropertyPostCount : 0,
                 weekPropertyPostCount: getWeekPropertyPost ? getWeekPropertyPost[0].$extras.weeklyPropertyCount : 0,
-                yearPropertyPostCount: getYearPropertyPost ? getYearPropertyPost[0].$extras.yearlyPropertyCount : 0
+                yearPropertyPostCount: getYearPropertyPost ? getYearPropertyPost[0].$extras.yearlyPropertyCount : 0,
+                getDailyMotorPostCount:getDailyMotorPostCount,
+                getWeekMotorPostCount: getWeekMotorPostCount,
+                getYearMotorPostCount: getYearMotorPostCount,
+                getDailyRentPostCount: getDailyRentPostCount,
+                getWeekRentPostCount: getWeekRentPostCount,
+                getYearRentPostCount: getYearRentPostCount,
+                getDailySalePostCount: getDailySalePostCount,
+                getWeekSalePostCount: getWeekSalePostCount,
+                getYearSalePostCount: getYearSalePostCount
             }]
         };
     }
