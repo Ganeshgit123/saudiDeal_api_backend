@@ -10,8 +10,17 @@ export default class DashboardController {
         const sellCount = await DashboardRepo.getSellCount()
         const propertiesCount = await DashboardRepo.getPropertiesCount()
         const userCount = await DashboardRepo.getUserCount()
-        // const adminCount = await DashboardRepo.getAdminCount()
+        const getDailyUser: any = await DashboardRepo.getDailyUser()
+        const getWeekUser: any = await DashboardRepo.getWeekUser()
+        const getYearUser: any = await DashboardRepo.getYearUser()
+        const getDailyMotorPost: any = await DashboardRepo.getDailyMotorPost()
+        const getWeekMotorPost: any = await DashboardRepo.getWeekMotorPost()
+        const getYearMotorPost: any = await DashboardRepo.getYearMotorPost()
 
+        const getDailyPropertyPost: any = await DashboardRepo.getDailyPropertyPost()
+        const getWeekPropertyPost: any = await DashboardRepo.getWeekPropertyPost()
+        const getYearPropertyPost: any = await DashboardRepo.getYearPropertyPost()
+        
         return {
             success: true,
             data: [{
@@ -20,7 +29,15 @@ export default class DashboardController {
                 rentCount: rentCount[0],
                 sellCount: sellCount[0],
                 propertiesCount: propertiesCount[0],
-                // brandCount: brandCount[0]
+                dailyUserCount: getDailyUser ? getDailyUser[0].$extras.dailyUserCount : 0,
+                weeklyUserCount: getWeekUser ? getWeekUser[0].$extras.weeklyUserCount : 0,
+                yearlyUserCount: getYearUser ? getYearUser[0].$extras.yearlyUserCount : 0,
+                dailyMotorPostCount: getDailyMotorPost ? getDailyMotorPost[0].$extras.dailyMotorPostCount : 0,
+                weeklyMotorPostCount: getWeekMotorPost ? getWeekMotorPost[0].$extras.weeklyMotorPostCount : 0,
+                yearlyMotorPostCount: getYearMotorPost ? getYearMotorPost[0].$extras.yearlyMotorPostCount : 0,
+                dailyPropertyPostCount: getDailyPropertyPost ? getDailyPropertyPost[0].$extras.dailyPropertyPostCount : 0,
+                weekPropertyPostCount: getWeekPropertyPost ? getWeekPropertyPost[0].$extras.weeklyPropertyCount : 0,
+                yearPropertyPostCount: getYearPropertyPost ? getYearPropertyPost[0].$extras.yearlyPropertyCount : 0
             }]
         };
     }
