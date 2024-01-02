@@ -182,4 +182,151 @@ export default class DashboardRepo {
         return result
     }
 
+    static async getDailyMotorPostCount() {
+        var datetime: any = new Date();
+        datetime = format(datetime, 'yyyy-MM-dd')
+        const startDate: any = datetime
+
+        const result = await Database.rawQuery(`SELECT Count(*) as total, SUM(main_motor_category_id = 1) as usedCarCount,
+        SUM(main_motor_category_id = 2) as motorCycleCount, 
+        SUM(main_motor_category_id = 3) as heavyEquipmentCount, 
+        SUM(main_motor_category_id = 4) as boatCount FROM motor_posts where is_approve =1 and active =1 and update_status_level =3 and (created_at BETWEEN ${startDate} AND ${datetime})`)
+        return result[0]
+    }
+
+    static async getWeekMotorPostCount() {
+        var datetime: any = new Date();
+        var startDate: any = format(datetime, 'yyyy-MM-dd')
+
+        var endDate: any = subMonths(datetime, 1);
+        endDate = format(endDate, 'yyyy-MM-dd')
+
+        const result = await Database.rawQuery(`SELECT Count(*) as total, SUM(main_motor_category_id = 1) as usedCarCount,
+        SUM(main_motor_category_id = 2) as motorCycleCount, 
+        SUM(main_motor_category_id = 3) as heavyEquipmentCount, 
+        SUM(main_motor_category_id = 4) as boatCount FROM motor_posts where is_approve =1 and active =1 and update_status_level =3 and (created_at BETWEEN ${startDate} AND ${endDate})`)
+        return result[0]
+    }
+
+    static async getYearMotorPostCount() {
+        var datetime: any = new Date();
+        var startDate: any = format(datetime, 'yyyy-MM-dd')
+
+        var endDate: any = subYears(datetime, 1);
+        endDate = format(endDate, 'yyyy-MM-dd')
+
+        const result = await Database.rawQuery(`SELECT Count(*) as total, SUM(main_motor_category_id = 1) as usedCarCount,
+        SUM(main_motor_category_id = 2) as motorCycleCount, 
+        SUM(main_motor_category_id = 3) as heavyEquipmentCount, 
+        SUM(main_motor_category_id = 4) as boatCount FROM motor_posts where is_approve =1 and active =1 and update_status_level =3 and (created_at BETWEEN ${startDate} AND ${endDate})`)
+        return result[0]
+    }
+
+    static async getDailyRentPostCount() {
+        var datetime: any = new Date();
+        datetime = format(datetime, 'yyyy-MM-dd')
+        const startDate: any = datetime
+
+        const result = await Database.rawQuery(`SELECT Count(*) as total, SUM(category_id = 7) as apartmentCount,
+        SUM(category_id = 8) as villaCount, 
+        SUM(category_id = 9) as commercialCount,
+        SUM(category_id = 10) as villaCompoundCount,
+        SUM(category_id = 11) as penthouseCount,
+        SUM(category_id = 12) as residentialBuildingCount,
+        SUM(category_id = 13) as landCount,
+        SUM(category_id = 14) as roomsForRentCount,
+        SUM(category_id = 15) as warehouseCount FROM rents where is_approve =1 and active =1 and update_status_level =4 and (created_at BETWEEN ${startDate} AND ${datetime})`)
+        return result[0]
+    }
+
+    static async getWeekRentPostCount() {
+        var datetime: any = new Date();
+        var startDate: any = format(datetime, 'yyyy-MM-dd')
+
+        var endDate: any = subMonths(datetime, 1);
+        endDate = format(endDate, 'yyyy-MM-dd')
+
+        const result = await Database.rawQuery(`SELECT Count(*) as total, SUM(category_id = 7) as apartmentCount,
+        SUM(category_id = 8) as villaCount, 
+        SUM(category_id = 9) as commercialCount,
+        SUM(category_id = 10) as villaCompoundCount,
+        SUM(category_id = 11) as penthouseCount,
+        SUM(category_id = 12) as residentialBuildingCount,
+        SUM(category_id = 13) as landCount,
+        SUM(category_id = 14) as roomsForRentCount,
+        SUM(category_id = 15) as warehouseCount FROM rents where is_approve =1 and active =1 and update_status_level =4 and (created_at BETWEEN ${startDate} AND ${endDate})`)
+        return result[0]
+    }
+
+    static async getYearRentPostCount() {
+        var datetime: any = new Date();
+        var startDate: any = format(datetime, 'yyyy-MM-dd')
+
+        var endDate: any = subYears(datetime, 1);
+        endDate = format(endDate, 'yyyy-MM-dd')
+
+        const result = await Database.rawQuery(`SELECT Count(*) as total, SUM(category_id = 7) as apartmentCount,
+        SUM(category_id = 8) as villaCount, 
+        SUM(category_id = 9) as commercialCount,
+        SUM(category_id = 10) as villaCompoundCount,
+        SUM(category_id = 11) as penthouseCount,
+        SUM(category_id = 12) as residentialBuildingCount,
+        SUM(category_id = 13) as landCount,
+        SUM(category_id = 14) as roomsForRentCount,
+        SUM(category_id = 15) as warehouseCount FROM rents where is_approve =1 and active =1 and update_status_level =4 and (created_at BETWEEN ${startDate} AND ${endDate})`)
+        return result[0]
+    }
+
+    static async getDailySalePostCount() {
+        var datetime: any = new Date();
+        datetime = format(datetime, 'yyyy-MM-dd')
+        const startDate: any = datetime
+
+        const result = await Database.rawQuery(`SELECT Count(*) as total, SUM(category_id = 16) as apartmentCount,
+        SUM(category_id = 17) as villaCount, 
+        SUM(category_id = 18) as commercialCount,
+        SUM(category_id = 19) as villaCompoundCount,
+        SUM(category_id = 20) as penthouseCount,
+        SUM(category_id = 21) as residentialBuildingCount,
+        SUM(category_id = 22) as landCount,
+        SUM(category_id = 24) as warehouseCount FROM rents where is_approve =1 and active =1 and update_status_level =4 and (created_at BETWEEN ${startDate} AND ${datetime})`)
+        return result[0]
+    }
+
+    static async getWeekSalePostCount() {
+        var datetime: any = new Date();
+        var startDate: any = format(datetime, 'yyyy-MM-dd')
+
+        var endDate: any = subMonths(datetime, 1);
+        endDate = format(endDate, 'yyyy-MM-dd')
+
+        const result = await Database.rawQuery(`SELECT Count(*) as total, SUM(category_id = 16) as apartmentCount,
+        SUM(category_id = 17) as villaCount, 
+        SUM(category_id = 18) as commercialCount,
+        SUM(category_id = 19) as villaCompoundCount,
+        SUM(category_id = 20) as penthouseCount,
+        SUM(category_id = 21) as residentialBuildingCount,
+        SUM(category_id = 22) as landCount,
+        SUM(category_id = 24) as warehouseCount FROM rents where is_approve =1 and active =1 and update_status_level =4 and (created_at BETWEEN ${startDate} AND ${endDate})`)
+        return result[0]
+    }
+
+    static async getYearSalePostCount() {
+        var datetime: any = new Date();
+        var startDate: any = format(datetime, 'yyyy-MM-dd')
+
+        var endDate: any = subYears(datetime, 1);
+        endDate = format(endDate, 'yyyy-MM-dd')
+
+        const result = await Database.rawQuery(`SELECT Count(*) as total, SUM(category_id = 16) as apartmentCount,
+        SUM(category_id = 17) as villaCount, 
+        SUM(category_id = 18) as commercialCount,
+        SUM(category_id = 19) as villaCompoundCount,
+        SUM(category_id = 20) as penthouseCount,
+        SUM(category_id = 21) as residentialBuildingCount,
+        SUM(category_id = 22) as landCount,
+        SUM(category_id = 24) as warehouseCount FROM rents where is_approve =1 and active =1 and update_status_level =4 and (created_at BETWEEN ${startDate} AND ${endDate})`)
+        return result[0]
+    }
+
 }
