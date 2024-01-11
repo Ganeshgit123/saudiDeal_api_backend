@@ -28,10 +28,10 @@ export default class MotorCategoriesRepo {
         return result
     }
 
-    static async get(moterId) {
+    static async get(motorId) {
         const result = await MotorCategory.query().where('active', 1)
-            .if(moterId, (query) =>
-                query.where('motor_id', moterId))
+            .if(motorId, (query) =>
+                query.where('motor_id', motorId))
         return result
     }
 
