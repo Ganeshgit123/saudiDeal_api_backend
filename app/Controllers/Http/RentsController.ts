@@ -119,6 +119,7 @@ export default class RentsController {
     public async update({ request, params }: HttpContextContract) {
         const UpdatePost = request.all()
 
+        const rejectReason = UpdatePost.rejectReason || ''
         const language = request.header('language') || 'en'
         await RentRepo.isEntryExist(params.id, language);
 
@@ -141,7 +142,7 @@ export default class RentsController {
                 "productId": updateResult.id,
                 "userId": updateResult.userId,
                 "type": "RENT",
-                "message": "Rent post rejected."
+                "message": `Rent post rejected. Reason: ${rejectReason}`
             }
             await NotificationRepo.create(notificationData, language)
         }

@@ -137,6 +137,8 @@ export default class MotorpostsController {
     public async update({ request, params }: HttpContextContract) {
         const UpdatePost = request.all()
 
+        const rejectReason = UpdatePost.rejectReason || ''
+
         const language = request.header('language') || 'en'
         await MotorpostRepo.isEntryExist(params.id, language);
 
@@ -159,7 +161,7 @@ export default class MotorpostsController {
                 "productId": updateResult.id,
                 "userId": updateResult.userId,
                 "type": "MOTOR",
-                "message": "Motor post rejected."
+                "message": `Motor post rejected. Reason: ${rejectReason}`
             }
             await NotificationRepo.create(notificationData, language)
         }
