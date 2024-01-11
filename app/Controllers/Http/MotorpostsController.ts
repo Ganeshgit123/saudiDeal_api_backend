@@ -149,7 +149,7 @@ export default class MotorpostsController {
                 "productId": updateResult.id,
                 "userId": updateResult.userId,
                 "type": "MOTOR",
-                "message": "Moter post approved."
+                "message": "Motor post approved."
             }
             await NotificationRepo.create(notificationData, language)
 
@@ -159,7 +159,7 @@ export default class MotorpostsController {
                 "productId": updateResult.id,
                 "userId": updateResult.userId,
                 "type": "MOTOR",
-                "message": "Moter post rejected."
+                "message": "Motor post rejected."
             }
             await NotificationRepo.create(notificationData, language)
         }
