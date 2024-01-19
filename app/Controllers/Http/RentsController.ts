@@ -1,6 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import { RentDomain } from "../../Domain";
-import { RentRepo, RentFavouritesRepo, NotificationRepo } from "../../Repositories";
+import { RentDomain, SubscriptionListsDomain } from "../../Domain";
+import { RentRepo, RentFavouritesRepo, NotificationRepo, SubscriptionListRepo } from "../../Repositories";
 import Validators from "../../Validators";
 import { SUCCESS } from "../../Data/language";
 import Rent from 'App/Models/Rent'
@@ -135,6 +135,20 @@ export default class RentsController {
                 "message": "Rent post approved."
             }
             await NotificationRepo.create(notificationData, language)
+
+            let SubscriptionLists = SubscriptionListsDomain.createFromArrOfObject(
+                await SubscriptionListRepo.get(updateResult.userId, 0)
+            )
+
+            let remainingPost = SubscriptionLists[0].remainingPost
+            remainingPost = remainingPost - 1
+            const UpdatePost = {
+                remainingPost
+            }
+
+            SubscriptionListsDomain.createFromObject(
+                await SubscriptionListRepo.update(SubscriptionLists[0].id, UpdatePost, language)
+            );
 
         }
         if (UpdatePost.isApprove == 2) {
