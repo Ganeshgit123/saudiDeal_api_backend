@@ -16,7 +16,7 @@ export default class RentDomain {
     public readonly provinceId: number
     public readonly cityId: number
     public readonly userId: number
-    public readonly location: string
+    public readonly location: number
     public readonly image: string
     public readonly description: string
     public readonly propetyType: string
@@ -48,7 +48,7 @@ export default class RentDomain {
     public readonly latitude: string
     public readonly longitude: string
 
-    private constructor(id: number, price: string, areaInSqmt: string, widthInMtr: string, lengthInMtr: string, title: string, phoneNumber: string, ownerType: string, rentalTerm: string, streetLength: string, noBedrooms: string, noBathrooms: string, noFloors: string, provinceId: number, cityId: number, userId: number, location: string, image: string, description: string, propetyType: string, furnished: boolean, kitchen: boolean, garage: boolean, elevator: boolean, waterSupply: boolean, electricitySupply: boolean, createdAt: string, updatedAt: string, active: boolean,
+    private constructor(id: number, price: string, areaInSqmt: string, widthInMtr: string, lengthInMtr: string, title: string, phoneNumber: string, ownerType: string, rentalTerm: string, streetLength: string, noBedrooms: string, noBathrooms: string, noFloors: string, provinceId: number, cityId: number, userId: number, location: number, image: string, description: string, propetyType: string, furnished: boolean, kitchen: boolean, garage: boolean, elevator: boolean, waterSupply: boolean, electricitySupply: boolean, createdAt: string, updatedAt: string, active: boolean,
         productId: number, cityName: string, provincesName: string, isFavorites: number, updateStatusLevel: number,
         provinceName: string, userName: string, userMobileNumber: string, arCategoryName: string, enCategoryName: string,
         isApprove: number, categoryId: number, type: string, noLivingRooms: number, propertyAge: number,

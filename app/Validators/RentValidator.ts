@@ -26,7 +26,7 @@ export default class RentValidator {
     provinceId: schema.number.optional(),
     cityId: schema.number.optional(),
     userId: schema.number.optional(),
-    location: schema.string.optional(),
+    location: schema.number.optional(),
     images: schema.string.optional(),
     description: schema.string.optional(),
     propetyType: schema.string.optional(),
