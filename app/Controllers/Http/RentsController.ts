@@ -109,6 +109,29 @@ export default class RentsController {
         const language = request.header('language') || 'en'
         const RentDetails = await RentRepo.create(payload, language);
 
+        let SubscriptionLists = SubscriptionListsDomain.createFromArrOfObject(
+            await SubscriptionListRepo.get(userId, 0)
+        )
+
+        if (SubscriptionLists.length == 0) {
+            return {
+                success: true,
+                massage: "you don't have Subscription plan"
+            }
+
+        } else {
+
+            let remainingPost = SubscriptionLists[0].remainingPost
+            remainingPost = remainingPost - 1
+            const UpdatePost = {
+                remainingPost
+            }
+
+            SubscriptionListsDomain.createFromObject(
+                await SubscriptionListRepo.update(SubscriptionLists[0].id, UpdatePost, language)
+            );
+        }
+
         return {
             success: true,
             result: RentDomain.createFromObject(RentDetails),
@@ -136,19 +159,19 @@ export default class RentsController {
             }
             await NotificationRepo.create(notificationData, language)
 
-            let SubscriptionLists = SubscriptionListsDomain.createFromArrOfObject(
-                await SubscriptionListRepo.get(updateResult.userId, 0)
-            )
+            // let SubscriptionLists = SubscriptionListsDomain.createFromArrOfObject(
+            //     await SubscriptionListRepo.get(updateResult.userId, 0)
+            // )
 
-            let remainingPost = SubscriptionLists[0].remainingPost
-            remainingPost = remainingPost - 1
-            const UpdatePost = {
-                remainingPost
-            }
+            // let remainingPost = SubscriptionLists[0].remainingPost
+            // remainingPost = remainingPost - 1
+            // const UpdatePost = {
+            //     remainingPost
+            // }
 
-            SubscriptionListsDomain.createFromObject(
-                await SubscriptionListRepo.update(SubscriptionLists[0].id, UpdatePost, language)
-            );
+            // SubscriptionListsDomain.createFromObject(
+            //     await SubscriptionListRepo.update(SubscriptionLists[0].id, UpdatePost, language)
+            // );
 
         }
         if (UpdatePost.isApprove == 2) {

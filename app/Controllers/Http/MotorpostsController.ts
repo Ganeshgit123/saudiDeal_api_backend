@@ -106,26 +106,26 @@ export default class MotorpostsController {
         payload.userId = userId
         const language = request.header('language') || 'en'
         const motorPostDetails = await MotorpostRepo.create(payload, language);
-        // let SubscriptionLists = SubscriptionListsDomain.createFromArrOfObject(
-        //     await SubscriptionListRepo.get(userId, 0)
-        // )
-        // if (SubscriptionLists.length == 0) {
-        //     return {
-        //         success: true,
-        //         massage: "you don't have Subscription plan"
-        //     }
+        let SubscriptionLists = SubscriptionListsDomain.createFromArrOfObject(
+            await SubscriptionListRepo.get(userId, 0)
+        )
+        if (SubscriptionLists.length == 0) {
+            return {
+                success: true,
+                massage: "you don't have Subscription plan"
+            }
 
-        // } else {
-        //     let remainingPost = SubscriptionLists[0].remainingPost
-        //     remainingPost = remainingPost - 1
-        //     const UpdatePost = {
-        //         remainingPost
-        //     }
+        } else {
+            let remainingPost = SubscriptionLists[0].remainingPost
+            remainingPost = remainingPost - 1
+            const UpdatePost = {
+                remainingPost
+            }
 
-        //     SubscriptionListsDomain.createFromObject(
-        //         await SubscriptionListRepo.update(SubscriptionLists[0].id, UpdatePost, language)
-        //     );
-        // }
+            SubscriptionListsDomain.createFromObject(
+                await SubscriptionListRepo.update(SubscriptionLists[0].id, UpdatePost, language)
+            );
+        }
 
         return {
             success: true,
@@ -155,19 +155,19 @@ export default class MotorpostsController {
             }
             await NotificationRepo.create(notificationData, language)
 
-            let SubscriptionLists = SubscriptionListsDomain.createFromArrOfObject(
-                await SubscriptionListRepo.get(updateResult.userId, 0)
-            )
+            // let SubscriptionLists = SubscriptionListsDomain.createFromArrOfObject(
+            //     await SubscriptionListRepo.get(updateResult.userId, 0)
+            // )
 
-            let remainingPost = SubscriptionLists[0].remainingPost
-            remainingPost = remainingPost - 1
-            const UpdatePost = {
-                remainingPost
-            }
+            // let remainingPost = SubscriptionLists[0].remainingPost
+            // remainingPost = remainingPost - 1
+            // const UpdatePost = {
+            //     remainingPost
+            // }
 
-            SubscriptionListsDomain.createFromObject(
-                await SubscriptionListRepo.update(SubscriptionLists[0].id, UpdatePost, language)
-            );
+            // SubscriptionListsDomain.createFromObject(
+            //     await SubscriptionListRepo.update(SubscriptionLists[0].id, UpdatePost, language)
+            // );
 
         }
         if (UpdatePost.isApprove == 2) {
