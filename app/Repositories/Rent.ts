@@ -180,4 +180,29 @@ export default class RentRepo {
         return result
     }
 
+    static async adminGetExpiryPost(active, rentId, offset, limit, userIds) {
+        const result = await Rent.query()
+            .select('rents.*')
+            .select('users.user_name as userName', 'users.mobile_number as userMobileNumber')
+            .select('cities.city as cityName')
+            .select('provinces.name as provincesName')
+            .select('rent_categories.en_name as arCategoryName', 'rent_categories.ar_name as enCategoryName')
+            .leftJoin('cities', 'rents.city_id', 'cities.id')
+            .leftJoin('provinces', 'rents.province_id', 'provinces.id')
+            .innerJoin('users', 'rents.user_id', 'users.id')
+            .leftJoin('rent_categories', 'rents.category_id', 'rent_categories.id')
+            .where('rents.update_status_level', 4)
+            .orderBy('rents.id', "desc")
+            .if(userIds, (query) =>
+                query.whereIn('rents.user_id', userIds))
+            .if(active, (query) =>
+                query.where('rents.active', active))
+            .if(rentId, (query) =>
+                query.where('rents.id', rentId))
+            .if(offset && limit, (query) => {
+                query.forPage(offset, limit)
+            })
+        return result
+    }
+
 }

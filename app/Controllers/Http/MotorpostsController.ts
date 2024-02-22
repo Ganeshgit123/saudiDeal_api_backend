@@ -65,7 +65,7 @@ export default class MotorpostsController {
 
         const userId = request.header('userId') || ''
         const offset = payload.offset ? Number(payload.offset) : 1;
-        const limit = payload.offset ? Number(payload.limit) : 25;
+        const limit = payload.offset ? Number(payload.limit) : 100;
 
         let motorPost = MotorPostDomain.createFromArrOfObject(
             await MotorpostRepo.get(userId, motorPostId, isApprove, active, offset, limit)
@@ -91,6 +91,20 @@ export default class MotorpostsController {
         let motorPost = MotorPostDomain.createFromArrOfObject(
             await MotorpostRepo.getAllPost(userId, orderbyColumn, orderbyValue, payload, offset, limit)
         )
+
+        if (motorPost.length != 0) {
+            motorPost.map(async (el) => {
+                let data = SubscriptionListsDomain.createFromArrOfObject(
+                    await SubscriptionListRepo.checkSubscriptionList(el.userId)
+                )
+                if (data.length == 0) {
+                    el.expiry = 1
+                } else {
+                    el.expiry = 0
+                }
+            })
+        }
+
         motorPost = await this.getRentFavourites(userId, motorPost)
 
         return {
@@ -208,7 +222,42 @@ export default class MotorpostsController {
             data: MotorPostDomain.createFromArrOfObject(
                 await MotorpostRepo.adminGet(payload.active, payload.motorPostId, limit, offset)
             ),
+
         };
+    }
+
+    public async adminExpiryGet({ request }: HttpContextContract) {
+        const payload = request.all()
+        const offset = payload.offset ? Number(payload.offset) : 1;
+        const limit = payload.offset ? Number(payload.limit) : 100;
+        let userList = await SubscriptionListsDomain.createFromArrOfObject(
+            await SubscriptionListRepo.checkSubscriptionList('')
+        )
+        if (userList.length == 0) {
+            let motorPost = MotorPostDomain.createFromArrOfObject(
+                await MotorpostRepo.adminGetExpiryPost(payload.active, payload.motorPostId, limit, offset, '')
+            )
+            return {
+                success: true,
+                data: motorPost,
+
+            };
+
+        } else {
+            let userIds:any = []
+            await userList.map(async (el) => {
+                userIds.push(el.userId)
+            })
+            let motorPost = MotorPostDomain.createFromArrOfObject(
+                await MotorpostRepo.adminGetExpiryPost(payload.active, payload.motorPostId, limit, offset, userIds)
+            )
+
+            return {
+                success: true,
+                data: motorPost,
+
+            };
+        }
     }
 }
 
