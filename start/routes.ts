@@ -40,6 +40,7 @@ Route.group(() => {
 
   Route.group(() => {
     Route.get('/', 'MotorpostsController.adminGet')
+    Route.get('/expiryPost', 'MotorpostsController.adminExpiryGet')
     Route.post('/:id', 'MotorpostsController.update')
     Route.delete('/:id', 'MotorpostsController.delete')
   }).prefix('/motorPost')
@@ -138,6 +139,7 @@ Route.group(() => {
   // Rent Admin API
   Route.group(() => {
     Route.get('/', 'RentsController.adminGet')
+    Route.get('/expiryPost', 'RentsController.adminExpiryGet')
     Route.post('/:id', 'RentsController.update')
     Route.delete('/:id', 'RentsController.delete')
   }).prefix('/rent')

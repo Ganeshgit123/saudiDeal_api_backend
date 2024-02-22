@@ -177,4 +177,33 @@ export default class MotorpostRepo {
         return result
     }
 
+    static async adminGetExpiryPost(active, motorPostId, limit, offset, userIds) {
+        const result = await Motorpost.query()
+            .select('motor_posts.*')
+            .select('users.user_name as userName', 'users.mobile_number as userMobileNumber')
+            .select('motors.name as mainMotorCategoryName')
+            .select('provinces.name as provinceName')
+            .select('cities.city as cityName')
+            .select('motor_categories.motor_categories_name as motorCategoryName')
+            .select('motor_sub_categories.motor_sub_categories_name as motorSubCategoryName')
+            .leftJoin('motors', 'motor_posts.main_motor_category_id', 'motors.id')
+            .leftJoin('motor_categories', 'motor_posts.motor_category_id', 'motor_categories.id')
+            .leftJoin('motor_sub_categories', 'motor_posts.motor_sub_category_id', 'motor_sub_categories.id')
+            .innerJoin('provinces', 'motor_posts.province_id', 'provinces.id')
+            .innerJoin('cities', 'motor_posts.city_id', 'cities.id')
+            .innerJoin('users', 'motor_posts.user_id', 'users.id')
+            .where('motor_posts.update_status_level', 3)
+            .orderBy('motor_posts.id', "desc")
+            .if(userIds, (query) =>
+                query.whereIn('motor_posts.user_id', userIds))
+            .if(active, (query) =>
+                query.where('motor_posts.active', active))
+            .if(motorPostId, (query) =>
+                query.where('motor_posts.id', motorPostId))
+            .if(offset && limit, (query) => {
+                query.forPage(offset, limit)
+            })
+        return result
+    }
+
 }
