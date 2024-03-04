@@ -100,11 +100,28 @@ export default class RentsController {
         const offset = payload.offset ? Number(payload.offset) : 1;
         const limit = payload.offset ? Number(payload.limit) : 25;
 
+
+        let rentPost = RentDomain.createFromArrOfObject(
+            await RentRepo.getAllPost(userId, orderbyColumn, orderbyValue, payload, offset, limit)
+        )
+                
+        if (rentPost.length != 0) {
+            rentPost.map(async (el) => {
+                let data = SubscriptionListsDomain.createFromArrOfObject(
+                    await SubscriptionListRepo.checkSubscriptionList(el.userId)
+                )
+                if (data.length == 0) {
+                    el.expiry = 1
+                } else {
+                    el.expiry = 0
+                }
+            })
+        }
+        rentPost = await this.getRentFavourites(userId, rentPost)
+
         return {
             success: true,
-            data: RentDomain.createFromArrOfObject(
-                await RentRepo.getAllPost(userId, orderbyColumn, orderbyValue, payload, offset, limit)
-            ),
+            data: rentPost,
         };
     }
 

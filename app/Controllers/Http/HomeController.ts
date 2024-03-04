@@ -1,11 +1,12 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 // import Validators from "../../Validators";
 import {
-    MotorViewedProductDomain, RentViewedProductDomain, MotorPostDomain, RentDomain
+    MotorViewedProductDomain, RentViewedProductDomain, MotorPostDomain, RentDomain,
+    SubscriptionListsDomain
 } from "../../Domain";
 import {
     MotorViewedProductsRepo, RentViewedProductsRepo, MotorpostRepo, RentRepo, RentFavouritesRepo,
-    MotorFavouritesRepo
+    MotorFavouritesRepo, SubscriptionListRepo
 } from "../../Repositories";
 // import { SUCCESS } from "../../Data/language";
 // import Env from '@ioc:Adonis/Core/Env'
@@ -26,6 +27,22 @@ export default class HomeController {
                     post[j].isFavorites = 0
                 }
             }
+        }
+        return post
+    }
+
+    public setExpiry = async (post: any) => {
+        if (post.length != 0) {
+            post.map(async (el) => {
+                let data = SubscriptionListsDomain.createFromArrOfObject(
+                    await SubscriptionListRepo.checkSubscriptionList(el.userId)
+                )
+                if (data.length == 0) {
+                    el.expiry = 1
+                } else {
+                    el.expiry = 0
+                }
+            })
         }
         return post
     }
@@ -63,19 +80,25 @@ export default class HomeController {
             motorViewedProducts = MotorViewedProductDomain.createFromArrOfObject(
                 await MotorViewedProductsRepo.get(userId)
             )
+            motorViewedProducts = await this.setExpiry(motorViewedProducts)
+
             rentViewedProducts = RentViewedProductDomain.createFromArrOfObject(
                 await RentViewedProductsRepo.get(userId)
             )
+            rentViewedProducts = await this.setExpiry(rentViewedProducts)
+
         }
 
 
         let motorposts = MotorPostDomain.createFromArrOfObject(
             await MotorpostRepo.getAllPost('', "id", 'DESC', payload, '', '')
         )
+        motorposts = await this.setExpiry(motorposts)
 
         let rents = RentDomain.createFromArrOfObject(
             await RentRepo.getAllPost('', "id", 'DESC', payload, '', '')
         )
+        rents = await this.setExpiry(rents)
         
         rentViewedProducts = await this.getRentFavourites(userId, rentViewedProducts)        
         motorViewedProducts = await this.getMotorFavouritesRepo(userId, motorViewedProducts)
