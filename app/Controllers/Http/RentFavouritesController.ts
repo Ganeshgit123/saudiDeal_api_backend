@@ -1,7 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Validators from "../../Validators";
-import { RentFavouritesDomain } from "../../Domain";
-import { RentFavouritesRepo } from "../../Repositories";
+import { RentFavouritesDomain, SubscriptionListsDomain } from "../../Domain";
+import { RentFavouritesRepo, SubscriptionListRepo } from "../../Repositories";
 import { SUCCESS } from "../../Data/language";
 
 export default class RentFavouritesController {
@@ -61,9 +61,18 @@ export default class RentFavouritesController {
         // let userId: any = loginUserId ?  loginUserId: guestUserId
         const offset = payload.offset ? Number(payload.offset) : 1;
         const limit = payload.offset ? Number(payload.limit) : 25;
+        let SubscriptionList = SubscriptionListsDomain.createFromArrOfObject(
+            await SubscriptionListRepo.checkSubscriptionList(userId)
+        )
+        let userList: any = []
+        if (SubscriptionList.length != 0) {
+            SubscriptionList.map(async (el) => {
+                userList.push(el.userId)
+            })
+        }
 
         let result = RentFavouritesDomain.createFromArrOfObject(
-            await RentFavouritesRepo.get(userId, offset, limit)
+            await RentFavouritesRepo.get(userId, offset, limit, userList)
         )
         await result.map((el) => {
             el.isFavorites = 1

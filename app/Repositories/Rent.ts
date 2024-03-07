@@ -2,10 +2,12 @@ import Exceptions from '../Exceptions'
 import Rent from 'App/Models/Rent'
 import { FAILURE } from "../Data/language";
 import Database from '@ioc:Adonis/Lucid/Database';
+import { format } from 'date-fns'
 
 export default class RentRepo {
 
     static async getRentPostCount(type) {
+        const startTime = format(new Date(), 'dd/MM/yyyy')
 
         if (type == "RENT") {
             const result = await Database.rawQuery(`SELECT SUM(category_id = 7) as apartmentCount,
@@ -16,7 +18,8 @@ export default class RentRepo {
             SUM(category_id = 12) as residentialBuildingCount,
             SUM(category_id = 13) as landCount,
             SUM(category_id = 14) as roomsForRentCount,
-            SUM(category_id = 15) as warehouseCount FROM rents where is_approve =1 and active =1 and update_status_level =4`)
+            SUM(category_id = 15) as warehouseCount FROM rents where is_approve =1 and active =1 and update_status_level =4
+            and user_id IN (SELECT user_id FROM saudideal.subscription_lists WHERE end_date >= '${startTime}')`)
             return result[0]
         } else {
             const result = await Database.rawQuery(`SELECT SUM(category_id = 16) as apartmentCount,
@@ -26,7 +29,8 @@ export default class RentRepo {
             SUM(category_id = 20) as penthouseCount,
             SUM(category_id = 21) as residentialBuildingCount,
             SUM(category_id = 22) as landCount,
-            SUM(category_id = 24) as warehouseCount FROM rents where is_approve =1 and active =1 and update_status_level =4`)
+            SUM(category_id = 24) as warehouseCount FROM rents where is_approve =1 and active =1 and update_status_level =4
+            and user_id IN (SELECT user_id FROM saudideal.subscription_lists WHERE end_date >= '${startTime}')`)
             return result[0]
         }
     }

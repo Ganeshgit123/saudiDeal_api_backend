@@ -22,12 +22,13 @@ export default class MotorFavouritesRepo {
         }
     }
 
-    static async get(userId, offset, limit) {
+    static async get(userId, offset, limit, userList) {
         const result = await MotorFavourite.query()
             .select('motor_favourites.id as favouritesId', 'motor_favourites.product_id as productId', 'motor_favourites.user_id as userId')
             .select('motor_posts.*')
             .innerJoin('motor_posts', 'motor_posts.id', 'motor_favourites.product_id')
             .where('motor_favourites.user_id', userId)
+            .whereIn('motor_posts.user_id', userList)
             .if(offset && limit, (query) => {
                 query.forPage(offset, limit)
             })
