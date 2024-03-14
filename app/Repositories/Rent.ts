@@ -7,7 +7,7 @@ import { format } from 'date-fns'
 export default class RentRepo {
 
     static async getRentPostCount(type) {
-        const startTime = format(new Date(), 'dd/MM/yyyy')
+        const startTime = format(new Date(), 'yyyy-MM-dd')                
 
         if (type == "RENT") {
             const result = await Database.rawQuery(`SELECT SUM(category_id = 7) as apartmentCount,
