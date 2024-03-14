@@ -104,6 +104,8 @@ export default class RentsController {
         let rentPost = RentDomain.createFromArrOfObject(
             await RentRepo.getAllPost(userId, orderbyColumn, orderbyValue, payload, offset, limit)
         )
+        console.log(rentPost,'rentPost');
+        
                 
         if (rentPost.length != 0) {
             rentPost.map(async (el) => {
