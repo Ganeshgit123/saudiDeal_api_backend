@@ -110,6 +110,7 @@ export default class RentsController {
                 let data = SubscriptionListsDomain.createFromArrOfObject(
                     await SubscriptionListRepo.checkSubscriptionList(el.userId)
                 )
+                console.log(data,'data')
                 if (data.length == 0) {
                     el.expiry = 1
                 } else {

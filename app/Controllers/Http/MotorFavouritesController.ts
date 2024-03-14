@@ -1,7 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Validators from "../../Validators";
-import { MotorFavouritesDomain } from "../../Domain";
-import { MotorFavouritesRepo } from "../../Repositories";
+import { MotorFavouritesDomain, SubscriptionListsDomain } from "../../Domain";
+import { MotorFavouritesRepo, SubscriptionListRepo } from "../../Repositories";
 import { SUCCESS } from "../../Data/language";
 
 export default class MotorFavouritesController {
@@ -61,9 +61,18 @@ export default class MotorFavouritesController {
         // let userId: any = loginUserId ?  loginUserId: guestUserId
         const offset = payload.offset ? Number(payload.offset) : 1;
         const limit = payload.offset ? Number(payload.limit) : 25;
-
+        let SubscriptionList = SubscriptionListsDomain.createFromArrOfObject(
+            await SubscriptionListRepo.checkSubscriptionList(userId)
+        )
+        let userList: any = []
+        if (SubscriptionList.length != 0) {
+            SubscriptionList.map(async (el) => {
+                userList.push(el.userId)
+            })
+        }
+        
         let result = MotorFavouritesDomain.createFromArrOfObject(
-            await MotorFavouritesRepo.get(userId, offset, limit)
+            await MotorFavouritesRepo.get(userId, offset, limit, userList)
         )
         await result.map((el) => {
             el.isFavorites = 1

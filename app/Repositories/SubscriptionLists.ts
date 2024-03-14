@@ -19,7 +19,7 @@ export default class SubscriptionListRepo {
         const startTime = format(new Date(), 'dd/MM/yyyy')        
         const result = await SubscriptionList.query()
             .if(startTime, (query) =>
-                query.where('end_date', startTime))
+                query.where('end_date', '>=',startTime))
             .if(userId, (query) =>
                 query.where('user_id', userId))
             .orderBy('id', 'desc')
