@@ -7,10 +7,9 @@ import { format } from 'date-fns'
 export default class RentRepo {
 
     static async getRentPostCount(type) {
-        const startTime = format(new Date(), 'yyyy-MM-dd')                
-
-        if (type == "RENT") {
-            const result = await Database.rawQuery(`SELECT SUM(category_id = 7) as apartmentCount,
+         var datetime: any = new Date();
+        var startTime: any = format(datetime, 'yyyy-MM-dd') 
+        console.log(`SELECT SUM(category_id = 7) as apartmentCount,
             SUM(category_id = 8) as villaCount, 
             SUM(category_id = 9) as commercialCount,
             SUM(category_id = 10) as villaCompoundCount,
@@ -20,16 +19,28 @@ export default class RentRepo {
             SUM(category_id = 14) as roomsForRentCount,
             SUM(category_id = 15) as warehouseCount FROM rents where is_approve =1 and active =1 and update_status_level =4
             and user_id IN (SELECT user_id FROM subscription_lists WHERE end_date >= '${startTime}')`)
+
+        if (type == "RENT") {
+            const result = await Database.rawQuery(`SELECT SUM(category_id = 1) as apartmentCount,
+            SUM(category_id = 2) as villaCount, 
+            SUM(category_id = 5) as commercialCount,
+            SUM(category_id = 3) as villaCompoundCount,
+            SUM(category_id = 4) as penthouseCount,
+            SUM(category_id = 6) as residentialBuildingCount,
+            SUM(category_id = 7) as landCount,
+            SUM(category_id = 8) as roomsForRentCount,
+            SUM(category_id = 15) as warehouseCount FROM rents where is_approve =1 and active =1 and update_status_level =4
+            and user_id IN (SELECT user_id FROM subscription_lists WHERE end_date >= '${startTime}')`)
             return result[0]
         } else {
-            const result = await Database.rawQuery(`SELECT SUM(category_id = 16) as apartmentCount,
-            SUM(category_id = 17) as villaCount, 
+            const result = await Database.rawQuery(`SELECT SUM(category_id = 10) as apartmentCount,
+            SUM(category_id = 11) as villaCount, 
             SUM(category_id = 18) as commercialCount,
-            SUM(category_id = 19) as villaCompoundCount,
-            SUM(category_id = 20) as penthouseCount,
-            SUM(category_id = 21) as residentialBuildingCount,
-            SUM(category_id = 22) as landCount,
-            SUM(category_id = 24) as warehouseCount FROM rents where is_approve =1 and active =1 and update_status_level =4
+            SUM(category_id = 12) as villaCompoundCount,
+            SUM(category_id = 13) as penthouseCount,
+            SUM(category_id = 15) as residentialBuildingCount,
+            SUM(category_id = 16) as landCount,
+            SUM(category_id = 17) as warehouseCount FROM rents where is_approve =1 and active =1 and update_status_level =4
             and user_id IN (SELECT user_id FROM subscription_lists WHERE end_date >= '${startTime}')`)
             return result[0]
         }

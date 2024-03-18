@@ -70,6 +70,20 @@ export default class MotorpostsController {
         let motorPost = MotorPostDomain.createFromArrOfObject(
             await MotorpostRepo.get(userId, motorPostId, isApprove, active, offset, limit)
         )
+
+        if (motorPost.length != 0) {
+            motorPost.map(async (el) => {
+                let data = SubscriptionListsDomain.createFromArrOfObject(
+                    await SubscriptionListRepo.checkSubscriptionList(el.userId)
+                )
+                if (data.length == 0) {
+                    el.expiry = 1
+                } else {
+                    el.expiry = 0
+                }
+            })
+        }
+        
         motorPost = await this.getRentFavourites(userId, motorPost)
         // let userSubscription = await this.getUserSubscription(motorPost)
 

@@ -24,7 +24,8 @@ export default class MotorpostRepo {
     }
 
     static async getMotorPostCount() {
-        const startTime = format(new Date(), 'dd/MM/yyyy')
+        var datetime: any = new Date();
+        var startTime: any = format(datetime, 'yyyy-MM-dd')               
         const result = await Database.rawQuery(`
         SELECT SUM(main_motor_category_id = 1) as usedCarCount,
                 SUM(main_motor_category_id = 2) as motorCycleCount, 
