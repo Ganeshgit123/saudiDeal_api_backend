@@ -62,7 +62,7 @@ export default class RentFavouritesController {
         const offset = payload.offset ? Number(payload.offset) : 1;
         const limit = payload.offset ? Number(payload.limit) : 25;
         let SubscriptionList = SubscriptionListsDomain.createFromArrOfObject(
-            await SubscriptionListRepo.checkSubscriptionList(userId)
+            await SubscriptionListRepo.checkSubscriptionList(userId, 'PROPERTY')
         )
         let userList: any = []
         if (SubscriptionList.length != 0) {

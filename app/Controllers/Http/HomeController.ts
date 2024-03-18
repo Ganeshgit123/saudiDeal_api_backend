@@ -31,11 +31,11 @@ export default class HomeController {
         return post
     }
 
-    public setExpiry = async (post: any) => {
+    public setExpiry = async (post: any, type) => {
         if (post.length != 0) {
             post.map(async (el) => {
                 let data = SubscriptionListsDomain.createFromArrOfObject(
-                    await SubscriptionListRepo.checkSubscriptionList(el.userId)
+                    await SubscriptionListRepo.checkSubscriptionList(el.userId, type)
                 )
                 if (data.length == 0) {
                     el.expiry = 1
@@ -80,12 +80,12 @@ export default class HomeController {
             motorViewedProducts = MotorViewedProductDomain.createFromArrOfObject(
                 await MotorViewedProductsRepo.get(userId)
             )
-            motorViewedProducts = await this.setExpiry(motorViewedProducts)
+            motorViewedProducts = await this.setExpiry(motorViewedProducts, 'MOTOR')
 
             rentViewedProducts = RentViewedProductDomain.createFromArrOfObject(
                 await RentViewedProductsRepo.get(userId)
             )
-            rentViewedProducts = await this.setExpiry(rentViewedProducts)
+            rentViewedProducts = await this.setExpiry(rentViewedProducts, 'PROPERTY')
 
         }
 
@@ -93,12 +93,12 @@ export default class HomeController {
         let motorposts = MotorPostDomain.createFromArrOfObject(
             await MotorpostRepo.getAllPost('', "id", 'DESC', payload, '', '')
         )
-        motorposts = await this.setExpiry(motorposts)
+        motorposts = await this.setExpiry(motorposts, 'MOTOR')
 
         let rents = RentDomain.createFromArrOfObject(
             await RentRepo.getAllPost('', "id", 'DESC', payload, '', '')
         )
-        rents = await this.setExpiry(rents)
+        rents = await this.setExpiry(rents, 'PROPERTY')
         
         rentViewedProducts = await this.getRentFavourites(userId, rentViewedProducts)        
         motorViewedProducts = await this.getMotorFavouritesRepo(userId, motorViewedProducts)
