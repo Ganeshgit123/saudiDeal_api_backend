@@ -63,7 +63,7 @@ export default class MotorFavouritesController {
         const limit = payload.offset ? Number(payload.limit) : 25;
         let SubscriptionList = SubscriptionListsDomain.createFromArrOfObject(
             await SubscriptionListRepo.checkSubscriptionList(userId, 'MOTOR')
-        )
+        )        
         let userList: any = []
         if (SubscriptionList.length != 0) {
             SubscriptionList.map(async (el) => {
