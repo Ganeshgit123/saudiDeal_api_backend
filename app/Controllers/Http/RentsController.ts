@@ -74,7 +74,7 @@ export default class RentsController {
         if (rentPost.length != 0) {
             rentPost.map(async (el) => {
                 let data = SubscriptionListsDomain.createFromArrOfObject(
-                    await SubscriptionListRepo.checkSubscriptionList(el.userId)
+                    await SubscriptionListRepo.checkSubscriptionList(el.userId, 'PROPERTY')
                 )
                 if (data.length == 0) {
                     el.expiry = 1
@@ -110,7 +110,7 @@ export default class RentsController {
         if (rentPost.length != 0) {
             rentPost.map(async (el) => {
                 let data = SubscriptionListsDomain.createFromArrOfObject(
-                    await SubscriptionListRepo.checkSubscriptionList(el.userId)
+                    await SubscriptionListRepo.checkSubscriptionList(el.userId, 'PROPERTY')
                 )
                 console.log(data,'data')
                 if (data.length == 0) {
@@ -267,7 +267,7 @@ export default class RentsController {
         const offset = payload.offset ? Number(payload.offset) : 1;
         const limit = payload.offset ? Number(payload.limit) : 25;
         let userList = await SubscriptionListsDomain.createFromArrOfObject(
-            await SubscriptionListRepo.checkSubscriptionList('')
+            await SubscriptionListRepo.checkSubscriptionList('', 'PROPERTY')
         )
 
         if (userList.length == 0) {

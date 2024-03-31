@@ -21,11 +21,13 @@ export default class SubscriptionListsController {
 
     public async checkSubscriptionList({ request }: HttpContextContract) {
         const userId = request.header('userId') || 0
+        const payload = request.all()
+        const type = payload.type || 'RENT'
         
         return {
             success: true,
             data: SubscriptionListsDomain.createFromArrOfObject(
-                await SubscriptionListRepo.checkSubscriptionList(userId)
+                await SubscriptionListRepo.checkSubscriptionList(userId, type)
             ),
         };
     }

@@ -15,13 +15,15 @@ export default class SubscriptionListRepo {
         return result
     }
 
-    static async checkSubscriptionList(userId) {
-        const startTime = format(new Date(), 'yyyy-MM-dd')                
+    static async checkSubscriptionList(userId, type) {
+        const startTime = format(new Date(), 'yyyy-MM-dd')
         const result = await SubscriptionList.query()
             .if(startTime, (query) =>
                 query.where('end_date', '>=', startTime))
             .if(userId, (query) =>
                 query.where('user_id', userId))
+            .if(type, (query) =>
+                query.where('type', type))
             .orderBy('id', 'desc')
         return result
     }

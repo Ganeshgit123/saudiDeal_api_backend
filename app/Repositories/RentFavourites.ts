@@ -22,12 +22,12 @@ export default class RentFavouritesRepo {
         }
     }
 
-    static async get(userId, offset, limit, userList) {
+    static async get(userId, offset, limit) {
         const result = await RentFavourite.query()
             .select('rent_favourites.id as favouritesId')
             .select('rents.*')
             .innerJoin('rents', 'rents.id', 'rent_favourites.product_id')
-            .whereIn('rents.user_id', userList)
+            // .whereIn('rents.user_id', userList)
             .if(userId, (query) =>
                 query.where('rent_favourites.user_id', userId))
             .if(offset && limit, (query) => {

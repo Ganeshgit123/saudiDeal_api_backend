@@ -18,7 +18,7 @@ export default class RentRepo {
             SUM(category_id = 13) as landCount,
             SUM(category_id = 14) as roomsForRentCount,
             SUM(category_id = 15) as warehouseCount FROM rents where is_approve =1 and active =1 and update_status_level =4
-            and user_id IN (SELECT user_id FROM subscription_lists WHERE end_date >= '${startTime}')`)
+            and user_id IN (SELECT user_id FROM subscription_lists WHERE type = 'PROPERTY' and end_date >= '${startTime}')`)
 
         if (type == "RENT") {
             const result = await Database.rawQuery(`SELECT SUM(category_id = 1) as apartmentCount,
@@ -30,7 +30,7 @@ export default class RentRepo {
             SUM(category_id = 7) as landCount,
             SUM(category_id = 8) as roomsForRentCount,
             SUM(category_id = 15) as warehouseCount FROM rents where is_approve =1 and active =1 and update_status_level =4
-            and user_id IN (SELECT user_id FROM subscription_lists WHERE end_date >= '${startTime}')`)
+            and user_id IN (SELECT user_id FROM subscription_lists WHERE type = 'PROPERTY' and end_date >= '${startTime}')`)
             return result[0]
         } else {
             const result = await Database.rawQuery(`SELECT SUM(category_id = 10) as apartmentCount,
@@ -41,7 +41,7 @@ export default class RentRepo {
             SUM(category_id = 15) as residentialBuildingCount,
             SUM(category_id = 16) as landCount,
             SUM(category_id = 17) as warehouseCount FROM rents where is_approve =1 and active =1 and update_status_level =4
-            and user_id IN (SELECT user_id FROM subscription_lists WHERE end_date >= '${startTime}')`)
+            and user_id IN (SELECT user_id FROM subscription_lists WHERE type = 'PROPERTY' and end_date >= '${startTime}')`)
             return result[0]
         }
     }

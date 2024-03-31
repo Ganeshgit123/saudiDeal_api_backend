@@ -61,22 +61,36 @@ export default class RentFavouritesController {
         // let userId: any = loginUserId ?  loginUserId: guestUserId
         const offset = payload.offset ? Number(payload.offset) : 1;
         const limit = payload.offset ? Number(payload.limit) : 25;
-        let SubscriptionList = SubscriptionListsDomain.createFromArrOfObject(
-            await SubscriptionListRepo.checkSubscriptionList(userId)
-        )
-        let userList: any = []
-        if (SubscriptionList.length != 0) {
-            SubscriptionList.map(async (el) => {
-                userList.push(el.userId)
-            })
-        }
+        // let SubscriptionList = SubscriptionListsDomain.createFromArrOfObject(
+        //     await SubscriptionListRepo.checkSubscriptionList(userId, 'PROPERTY')
+        // )
+        // let userList: any = []
+        // if (SubscriptionList.length != 0) {
+        //     SubscriptionList.map(async (el) => {
+        //         userList.push(el.userId)
+        //     })
+        // }
 
         let result = RentFavouritesDomain.createFromArrOfObject(
-            await RentFavouritesRepo.get(userId, offset, limit, userList)
+            await RentFavouritesRepo.get(userId, offset, limit)
         )
-        await result.map((el) => {
-            el.isFavorites = 1
-        })
+
+        if (result.length != 0) {
+            result.map(async (el) => {
+                el.isFavorites = 1
+                let data = SubscriptionListsDomain.createFromArrOfObject(
+                    await SubscriptionListRepo.checkSubscriptionList(el.userId, 'PROPERTY')
+                )
+                if (data.length == 0) {
+                    el.expiry = 1
+                } else {
+                    el.expiry = 0
+                }
+            })
+        }
+        // await result.map((el) => {
+        //     el.isFavorites = 1
+        // })
 
         return {
             success: true,
