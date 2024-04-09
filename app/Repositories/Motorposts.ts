@@ -13,12 +13,16 @@ export default class MotorpostRepo {
 
     static async update(id: number, data: any, language: string) {
         try {
+            if (data.newPost) {
+            await delete data.newPost
+           }
             const motorpost = await Motorpost.findOrFail(id)
             motorpost.merge(data)
             await motorpost.save()
 
             return motorpost
         } catch (error) {
+            console.log(error,'error')
             throw Exceptions.conflict(FAILURE.MOTOR_POST_CONFLICT[language])
         }
     }

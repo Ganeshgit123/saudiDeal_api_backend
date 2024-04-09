@@ -134,26 +134,6 @@ export default class MotorpostsController {
         payload.userId = userId
         const language = request.header('language') || 'en'
         const motorPostDetails = await MotorpostRepo.create(payload, language);
-        let SubscriptionLists = SubscriptionListsDomain.createFromArrOfObject(
-            await SubscriptionListRepo.get(userId, 0)
-        )
-        if (SubscriptionLists.length == 0) {
-            return {
-                success: true,
-                massage: "you don't have Subscription plan"
-            }
-
-        } else {
-            let remainingPost = SubscriptionLists[0].remainingPost
-            remainingPost = remainingPost - 1
-            const UpdatePost = {
-                remainingPost
-            }
-
-            SubscriptionListsDomain.createFromObject(
-                await SubscriptionListRepo.update(SubscriptionLists[0].id, UpdatePost, language)
-            );
-        }
 
         return {
             success: true,
@@ -166,9 +146,33 @@ export default class MotorpostsController {
         const UpdatePost = request.all()
 
         const rejectReason = UpdatePost.rejectReason || ''
+        const userId = request.header('userId') || ''
 
         const language = request.header('language') || 'en'
         await MotorpostRepo.isEntryExist(params.id, language);
+
+        if(UpdatePost.updateStatusLevel == 3 && UpdatePost.newPost) {
+            let SubscriptionLists = SubscriptionListsDomain.createFromArrOfObject(
+                await SubscriptionListRepo.get(userId, 0)
+            )
+            if (SubscriptionLists.length == 0) {
+                return {
+                    success: true,
+                    massage: "you don't have Subscription plan"
+                }
+    
+            } else {
+                let remainingPost = SubscriptionLists[0].remainingPost
+                remainingPost = remainingPost - 1
+                const UpdatePost = {
+                    remainingPost
+                }
+    
+                SubscriptionListsDomain.createFromObject(
+                    await SubscriptionListRepo.update(SubscriptionLists[0].id, UpdatePost, language)
+                );
+            }
+        }
 
         const updateResult = MotorPostDomain.createFromObject(
             await MotorpostRepo.update(params.id, UpdatePost, language)

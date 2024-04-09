@@ -148,6 +148,9 @@ export default class RentRepo {
 
     static async update(id: number, data: any, language: string) {
         try {
+            if (data.newPost) {
+            await delete data.newPost
+           }
             const rent = await Rent.findOrFail(id)
             rent.merge(data)
             await rent.save()
