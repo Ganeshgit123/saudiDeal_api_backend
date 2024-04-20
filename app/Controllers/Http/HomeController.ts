@@ -76,31 +76,75 @@ export default class HomeController {
 
         let motorViewedProducts: any = []
         let rentViewedProducts: any = []
+
+        let motorViewedData = SubscriptionListsDomain.createFromArrOfObject(
+            await SubscriptionListRepo.checkSubscriptionList('', 'MOTOR')
+        )
+
+        let motorViewedDataSubscriptionIds: any = []
+        if (motorViewedData.length) {
+            await motorViewedData.map(async (el) => {
+                motorViewedDataSubscriptionIds.push(el.userId)
+            })
+        }
+        
         if (userId) {
             motorViewedProducts = MotorViewedProductDomain.createFromArrOfObject(
-                await MotorViewedProductsRepo.get(userId)
+                await MotorViewedProductsRepo.get(userId, motorViewedDataSubscriptionIds)
             )
-            motorViewedProducts = await this.setExpiry(motorViewedProducts, 'MOTOR')
+            // motorViewedProducts = await this.setExpiry(motorViewedProducts, 'MOTOR')
 
-            rentViewedProducts = RentViewedProductDomain.createFromArrOfObject(
-                await RentViewedProductsRepo.get(userId)
+            let rentViewedData = SubscriptionListsDomain.createFromArrOfObject(
+                await SubscriptionListRepo.checkSubscriptionList('', 'RENT')
             )
-            rentViewedProducts = await this.setExpiry(rentViewedProducts, 'PROPERTY')
+    
+            let rentViewedDataSubscriptionIds: any = []
+            if (rentViewedData.length) {
+                await rentViewedData.map(async (el) => {
+                    rentViewedDataSubscriptionIds.push(el.userId)
+                })
+            }
+            
+            rentViewedProducts = RentViewedProductDomain.createFromArrOfObject(
+                await RentViewedProductsRepo.get(userId, rentViewedDataSubscriptionIds)
+            )
+            // rentViewedProducts = await this.setExpiry(rentViewedProducts, 'PROPERTY')
 
         }
 
+        let motorpostsData = SubscriptionListsDomain.createFromArrOfObject(
+            await SubscriptionListRepo.checkSubscriptionList('', 'MOTOR')
+        )
+
+        let motorpostSubscriptionIds: any = []
+        if (motorpostsData.length) {
+            await motorpostsData.map(async (el) => {
+                motorpostSubscriptionIds.push(el.userId)
+            })
+        }
 
         let motorposts = MotorPostDomain.createFromArrOfObject(
-            await MotorpostRepo.getAllPost('', "id", 'DESC', payload, '', '')
+            await MotorpostRepo.getAllPost('', "id", 'DESC', payload, '', '', motorpostSubscriptionIds)
         )
-        motorposts = await this.setExpiry(motorposts, 'MOTOR')
+        // motorposts = await this.setExpiry(motorposts, 'MOTOR')
 
-        let rents = RentDomain.createFromArrOfObject(
-            await RentRepo.getAllPost('', "id", 'DESC', payload, '', '')
+        let rentPostData = SubscriptionListsDomain.createFromArrOfObject(
+            await SubscriptionListRepo.checkSubscriptionList('', 'RENT')
         )
-        rents = await this.setExpiry(rents, 'PROPERTY')
+
+        let rentPostSubscriptionIds: any = []
+        if (rentPostData.length) {
+            await rentPostData.map(async (el) => {
+                rentPostSubscriptionIds.push(el.userId)
+            })
+        }
         
-        rentViewedProducts = await this.getRentFavourites(userId, rentViewedProducts)        
+        let rents = RentDomain.createFromArrOfObject(
+            await RentRepo.getAllPost('', "id", 'DESC', payload, '', '', rentPostSubscriptionIds)
+        )
+        // rents = await this.setExpiry(rents, 'PROPERTY')
+
+        rentViewedProducts = await this.getRentFavourites(userId, rentViewedProducts)
         motorViewedProducts = await this.getMotorFavouritesRepo(userId, motorViewedProducts)
 
         rents = await this.getRentFavourites(userId, rents)

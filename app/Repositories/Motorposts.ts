@@ -14,22 +14,22 @@ export default class MotorpostRepo {
     static async update(id: number, data: any, language: string) {
         try {
             if (data.newPost) {
-            await delete data.newPost
-           }
+                await delete data.newPost
+            }
             const motorpost = await Motorpost.findOrFail(id)
             motorpost.merge(data)
             await motorpost.save()
 
             return motorpost
         } catch (error) {
-            console.log(error,'error')
+            console.log(error, 'error')
             throw Exceptions.conflict(FAILURE.MOTOR_POST_CONFLICT[language])
         }
     }
 
     static async getMotorPostCount() {
         var datetime: any = new Date();
-        var startTime: any = format(datetime, 'yyyy-MM-dd')               
+        var startTime: any = format(datetime, 'yyyy-MM-dd')
         const result = await Database.rawQuery(`
         SELECT SUM(main_motor_category_id = 1) as usedCarCount,
                 SUM(main_motor_category_id = 2) as motorCycleCount, 
@@ -40,7 +40,7 @@ export default class MotorpostRepo {
         return result[0]
     }
 
-    static async get(userId, motorPostId, isApprove, active, offset, limit) {
+    static async get(userId, motorPostId, isApprove, active, offset, limit, subscriptionIds) {
         const result = await Motorpost.query()
             .select('motor_posts.*')
             .select('motors.name as mainMotorCategoryName')
@@ -64,13 +64,15 @@ export default class MotorpostRepo {
                 query.where('motor_posts.user_id', userId))
             .if(motorPostId, (query) =>
                 query.where('motor_posts.id', motorPostId))
+            .if(subscriptionIds, (query) =>
+                query.whereIn('motor_posts.subscription_id', subscriptionIds))
             .if(offset && limit, (query) => {
                 query.forPage(offset, limit)
             })
         return result
     }
 
-    static async getAllPost(userId, orderbyColumn, orderbyValue, payload, offset, limit) {
+    static async getAllPost(userId, orderbyColumn, orderbyValue, payload, offset, limit, subscriptionIds) {
         const result = await Motorpost.query()
             .select('motor_posts.*')
             .select('motors.name as mainMotorCategoryName')
@@ -138,6 +140,8 @@ export default class MotorpostRepo {
                 query.whereBetween('motor_posts.year', [payload.startingYear, payload.endingYear]))
             .if(userId, (query) =>
                 query.where('motor_posts.user_id', userId))
+            .if(subscriptionIds, (query) =>
+                query.whereIn('motor_posts.subscription_id', subscriptionIds))
             .if(offset && limit, (query) => {
                 query.forPage(offset, limit)
             })
