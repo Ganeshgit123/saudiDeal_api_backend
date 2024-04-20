@@ -30,6 +30,7 @@ export default class MotorViewedProductsRepo {
             .leftJoin('users', 'motor_posts.user_id', 'users.id')
             .leftJoin('motor_viewed_products', 'motor_posts.id', 'motor_viewed_products.product_id')
             .where('motor_posts.update_status_level', 3)
+            .where('motor_posts.is_approve', 1)
             .orderBy('motor_posts.id', "desc")
             .if(userId, (query) =>
                 query.where('motor_viewed_products.user_id', userId))
@@ -57,6 +58,7 @@ export default class MotorViewedProductsRepo {
             .innerJoin('motor_viewed_products', 'motor_posts.id', 'motor_viewed_products.product_id')
             .innerJoin('users', 'motor_viewed_products.user_id', 'users.id')
             .where('motor_posts.update_status_level', 3)
+            .where('motor_posts.is_approve', 1)
             .orderBy('motor_posts.id', "desc")
             .if(userId, (query) =>
                 query.where('motor_viewed_products.user_id', userId))

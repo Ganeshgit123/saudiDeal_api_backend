@@ -23,6 +23,7 @@ export default class RentViewedProductsRepo {
             .leftJoin('provinces', 'rents.province_id', 'provinces.id')
             .innerJoin('rent_viewed_products', 'rent_viewed_products.product_id', 'rents.id')
             .where('rent_viewed_products.user_id', userId)
+            .where('rents.is_approve', 1)
         // .if(userId, (query) =>
         //     query.where('rents.user_id', userId))
         return result
@@ -43,6 +44,7 @@ export default class RentViewedProductsRepo {
             .innerJoin('rent_viewed_products', 'rent_viewed_products.product_id', 'rents.id')
             .innerJoin('users', 'rent_viewed_products.user_id', 'users.id')
             .where('rent_viewed_products.user_id', userId)
+            .where('rents.is_approve', 1)
         // .if(userId, (query) =>
         //     query.where('rents.user_id', userId))
         return result
