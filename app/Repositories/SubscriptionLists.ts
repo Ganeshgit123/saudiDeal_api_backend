@@ -28,6 +28,21 @@ export default class SubscriptionListRepo {
         return result
     }
 
+
+
+    static async checkSubscriptionListWithId(subscriptionId, type) {
+        const startTime = format(new Date(), 'yyyy-MM-dd')
+        const result = await SubscriptionList.query()
+            .if(startTime, (query) =>
+                query.where('end_date', '>=', startTime))
+            .if(subscriptionId, (query) =>
+                query.where('id', subscriptionId))
+            .if(type, (query) =>
+                query.where('type', type))
+            .orderBy('id', 'desc')
+        return result
+    }
+
     static async create(data: any, language: string) {
         const result = await SubscriptionList.create(data)
         if (!result) throw Exceptions.notFound(FAILURE.SUBSCRIPTION_CREATE[language])

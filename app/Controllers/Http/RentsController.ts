@@ -66,38 +66,44 @@ export default class RentsController {
         const offset = payload.offset ? Number(payload.offset) : 1;
         const limit = payload.offset ? Number(payload.limit) : 100;
 
-        let data = SubscriptionListsDomain.createFromArrOfObject(
-            await SubscriptionListRepo.checkSubscriptionList('', 'RENT')
-        )
-        let subscriptionIds: any = []
-        if (data.length == 0) {
-            return {
-                success: true,
-                data: [],
-            };
-        } else {
-            await data.map(async (el) => {
-                subscriptionIds.push(el.id)
-            })
-        }
+        // let data = SubscriptionListsDomain.createFromArrOfObject(
+        //     await SubscriptionListRepo.checkSubscriptionList('', 'RENT')
+        // )
+        // let subscriptionIds: any = []
+        // if (data.length == 0) {
+        //     return {
+        //         success: true,
+        //         data: [],
+        //     };
+        // } else {
+        //     await data.map(async (el) => {
+        //         subscriptionIds.push(el.id)
+        //     })
+        // }
 
         const userId = request.header('userId') || ''
         let rentPost = RentDomain.createFromArrOfObject(
-            await RentRepo.myRentGet(userId, rentPostId, isApprove, active, offset, limit, subscriptionIds)
+            await RentRepo.myRentGet(userId, rentPostId, isApprove, active, offset, limit, '')
         )
 
-        // if (rentPost.length != 0) {
-        //     rentPost.map(async (el) => {
-        //         let data = SubscriptionListsDomain.createFromArrOfObject(
-        //             await SubscriptionListRepo.checkSubscriptionList(el.userId, 'PROPERTY')
-        //         )
-        //         if (data.length == 0) {
-        //             el.expiry = 1
-        //         } else {
-        //             el.expiry = 0
-        //         }
-        //     })
-        // }
+        if (rentPost.length != 0) {
+            rentPost.map(async (el) => {
+                if (el.subscriptionId != 0) {
+
+                    let data = SubscriptionListsDomain.createFromArrOfObject(
+                        await SubscriptionListRepo.checkSubscriptionListWithId(el.subscriptionId, 'PROPERTY')
+                    )
+                    if (data.length == 0) {
+                        el.expiry = 1
+                    } else {
+                        el.expiry = 0
+                    }
+
+                } else {
+                    el.expiry = 1
+                }
+            })
+        }
         rentPost = await this.getRentFavourites(userId, rentPost)
 
         return {
@@ -129,11 +135,11 @@ export default class RentsController {
                 subscriptionIds.push(el.id)
             })
         }
-        
+
         let rentPost = RentDomain.createFromArrOfObject(
             await RentRepo.getAllPost(userId, orderbyColumn, orderbyValue, payload, offset, limit, subscriptionIds)
-        )        
-                
+        )
+
         // if (rentPost.length != 0) {
         //     rentPost.map(async (el) => {
         //         let data = SubscriptionListsDomain.createFromArrOfObject(
@@ -184,25 +190,25 @@ export default class RentsController {
         await RentRepo.isEntryExist(params.id, language);
         const userId = request.header('userId') || ''
 
-        if(UpdatePost.updateStatusLevel == 4 && UpdatePost.newPost) {
+        if (UpdatePost.updateStatusLevel == 4 && UpdatePost.newPost) {
             let SubscriptionLists = SubscriptionListsDomain.createFromArrOfObject(
                 await SubscriptionListRepo.get(userId, 0)
             )
-    
+
             if (SubscriptionLists.length == 0) {
                 return {
                     success: true,
                     massage: "you don't have Subscription plan"
                 }
-    
+
             } else {
-    
+
                 let remainingPost = SubscriptionLists[0].remainingPost
                 remainingPost = remainingPost - 1
                 const UpdatePost = {
                     remainingPost
                 }
-    
+
                 SubscriptionListsDomain.createFromObject(
                     await SubscriptionListRepo.update(SubscriptionLists[0].id, UpdatePost, language)
                 );
