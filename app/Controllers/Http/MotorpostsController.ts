@@ -67,22 +67,38 @@ export default class MotorpostsController {
         const offset = payload.offset ? Number(payload.offset) : 1;
         const limit = payload.offset ? Number(payload.limit) : 100;
 
-        let motorPost = MotorPostDomain.createFromArrOfObject(
-            await MotorpostRepo.get(userId, motorPostId, isApprove, active, offset, limit)
+        let data = SubscriptionListsDomain.createFromArrOfObject(
+            await SubscriptionListRepo.checkSubscriptionList('', 'MOTOR')
         )
-        
-        if (motorPost.length != 0) {
-            motorPost.map(async (el) => {
-                let data = SubscriptionListsDomain.createFromArrOfObject(
-                    await SubscriptionListRepo.checkSubscriptionList(el.userId, 'MOTOR')
-                )
-                if (data.length == 0) {
-                    el.expiry = 1
-                } else {
-                    el.expiry = 0
-                }
+        let subscriptionIds: any = []
+        if (data.length == 0) {
+            return {
+                success: true,
+                data: [],
+            };
+        } else {
+            await data.map(async (el) => {
+                subscriptionIds.push(el.id)
             })
         }
+
+
+        let motorPost = MotorPostDomain.createFromArrOfObject(
+            await MotorpostRepo.get(userId, motorPostId, isApprove, active, offset, limit, subscriptionIds)
+        )
+
+        // if (motorPost.length != 0) {
+        //     motorPost.map(async (el) => {
+        //         let data = SubscriptionListsDomain.createFromArrOfObject(
+        //             await SubscriptionListRepo.checkSubscriptionList(el.userId, 'MOTOR')
+        //         )
+        //         if (data.length == 0) {
+        //             el.expiry = 1
+        //         } else {
+        //             el.expiry = 0
+        //         }
+        //     })
+        // }
 
         motorPost = await this.getRentFavourites(userId, motorPost)
         // let userSubscription = await this.getUserSubscription(motorPost)
@@ -102,22 +118,37 @@ export default class MotorpostsController {
         const offset = payload.offset ? Number(payload.offset) : 1;
         const limit = payload.offset ? Number(payload.limit) : 25;
 
-        let motorPost = MotorPostDomain.createFromArrOfObject(
-            await MotorpostRepo.getAllPost(userId, orderbyColumn, orderbyValue, payload, offset, limit)
+        let data = SubscriptionListsDomain.createFromArrOfObject(
+            await SubscriptionListRepo.checkSubscriptionList('', 'MOTOR')
         )
-
-        if (motorPost.length != 0) {
-            motorPost.map(async (el) => {
-                let data = SubscriptionListsDomain.createFromArrOfObject(
-                    await SubscriptionListRepo.checkSubscriptionList(el.userId, 'MOTOR')
-                )
-                if (data.length == 0) {
-                    el.expiry = 1
-                } else {
-                    el.expiry = 0
-                }
+        let subscriptionIds: any = []
+        if (data.length == 0) {
+            return {
+                success: true,
+                data: [],
+            };
+        } else {
+            await data.map(async (el) => {
+                subscriptionIds.push(el.userId)
             })
         }
+        
+        let motorPost = MotorPostDomain.createFromArrOfObject(
+            await MotorpostRepo.getAllPost(userId, orderbyColumn, orderbyValue, payload, offset, limit, subscriptionIds)
+        )
+
+        // if (motorPost.length != 0) {
+        //     motorPost.map(async (el) => {
+        //         let data = SubscriptionListsDomain.createFromArrOfObject(
+        //             await SubscriptionListRepo.checkSubscriptionList(el.userId, 'MOTOR')
+        //         )
+        //         if (data.length == 0) {
+        //             el.expiry = 1
+        //         } else {
+        //             el.expiry = 0
+        //         }
+        //     })
+        // }
 
         motorPost = await this.getRentFavourites(userId, motorPost)
 
@@ -151,7 +182,7 @@ export default class MotorpostsController {
         const language = request.header('language') || 'en'
         await MotorpostRepo.isEntryExist(params.id, language);
 
-        if(UpdatePost.updateStatusLevel == 3 && UpdatePost.newPost) {
+        if (UpdatePost.updateStatusLevel == 3 && UpdatePost.newPost) {
             let SubscriptionLists = SubscriptionListsDomain.createFromArrOfObject(
                 await SubscriptionListRepo.get(userId, 0)
             )
@@ -160,14 +191,14 @@ export default class MotorpostsController {
                     success: true,
                     massage: "you don't have Subscription plan"
                 }
-    
+
             } else {
                 let remainingPost = SubscriptionLists[0].remainingPost
                 remainingPost = remainingPost - 1
                 const UpdatePost = {
                     remainingPost
                 }
-    
+
                 SubscriptionListsDomain.createFromObject(
                     await SubscriptionListRepo.update(SubscriptionLists[0].id, UpdatePost, language)
                 );
@@ -262,7 +293,7 @@ export default class MotorpostsController {
             };
 
         } else {
-            let userIds:any = []
+            let userIds: any = []
             await userList.map(async (el) => {
                 userIds.push(el.userId)
             })

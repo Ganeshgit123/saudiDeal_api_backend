@@ -62,6 +62,7 @@ export default class MotorPostDomain {
     public readonly fullyMaintained: boolean
     public readonly latitude: string
     public readonly longitude: string
+    public readonly subscriptionId: number
 
     private constructor(id: number, region: string, title: string, makeAndModel: string, trim: string,
         regionalSpecs: string, year: string, kilometer: number, price: number, phoneNumber: string,
@@ -75,7 +76,7 @@ export default class MotorPostDomain {
         capacity: string, provinceName: string, cityName: string, userName: string, userMobileNumber: string,
         productId: number, isFavorites: number, interiorColor: string, exteriorColor: string, leatherSeat: boolean,
         parkingSensor: boolean, rearViewCamera: boolean, sunRoof: boolean, accidentFree: boolean, warranty: boolean,
-        fullyMaintained: boolean, latitude: string, longitude: string) {
+        fullyMaintained: boolean, latitude: string, longitude: string, subscriptionId: number) {
 
         this.id = id
         this.region = region
@@ -139,6 +140,7 @@ export default class MotorPostDomain {
         this.fullyMaintained = fullyMaintained
         this.latitude = latitude
         this.longitude = longitude
+        this.subscriptionId = subscriptionId
     }
 
     public static createFromObject(data: any) {
@@ -153,7 +155,7 @@ export default class MotorPostDomain {
             data.$extras ? data.$extras.cityName : '', data.$extras ? data.$extras.userName : '', data.$extras ? data.$extras.userMobileNumber : '',
             data.id, 0, data.$extras.interiorColor, data.$extras.exteriorColor,
             data.$extras.leatherSeat, data.$extras.parkingSensor, data.$extras.rearViewCamera, data.$extras.sunRoof, data.$extras.accidentFree,
-            data.$extras.warranty, data.$extras.fullyMaintained, data.latitude, data.longitude)
+            data.$extras.warranty, data.$extras.fullyMaintained, data.latitude, data.longitude, data.subscriptionId)
     }
 
     public static createFromArrOfObject(data: any) {
@@ -170,7 +172,7 @@ export default class MotorPostDomain {
                 el.$extras ? el.$extras.cityName : '', el.$extras ? el.$extras.userName : '', el.$extras ? el.$extras.userMobileNumber : '',
                 el.id, 0, el.$extras.interiorColor || el.interiorColor, el.$extras.exteriorColor || el.exteriorColor, el.$extras.leatherSeat || el.leatherSeat, el.$extras.parkingSensor || el.parkingSensor,
                 el.$extras.rearViewCamera || el.rearViewCamera, el.$extras.sunRoof || el.sunRoof, el.$extras.accidentFree || el.accidentFree,
-                el.$extras.warranty || el.warranty, el.$extras.fullyMaintained || el.fullyMaintained, el.latitude, el.longitude)
+                el.$extras.warranty || el.warranty, el.$extras.fullyMaintained || el.fullyMaintained, el.latitude, el.longitude, el.subscriptionId)
         })
     }
 }

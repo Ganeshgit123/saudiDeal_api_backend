@@ -118,4 +118,7 @@ export default class Rent extends BaseModel {
 
   @column()
   public longitude: string
+
+  @column()
+  public subscriptionId: number
 }

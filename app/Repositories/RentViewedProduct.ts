@@ -10,7 +10,7 @@ export default class RentViewedProductsRepo {
         return result
     }
 
-    static async get(userId) {
+    static async get(userId, subscriptionIds) {
         // const result = await RentViewedProduct.query()
         //     .innerJoin('rents', 'rents.id', 'rent_viewed_products.product_id')
         //     .where('rent_viewed_products.user_id', userId)
@@ -24,6 +24,8 @@ export default class RentViewedProductsRepo {
             .innerJoin('rent_viewed_products', 'rent_viewed_products.product_id', 'rents.id')
             .where('rent_viewed_products.user_id', userId)
             .where('rents.is_approve', 1)
+            .if(subscriptionIds, (query) =>
+                query.whereIn('rents.subscription_id', subscriptionIds))
         // .if(userId, (query) =>
         //     query.where('rents.user_id', userId))
         return result

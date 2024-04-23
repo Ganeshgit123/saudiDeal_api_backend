@@ -22,7 +22,7 @@ export default class RentFavouritesRepo {
         }
     }
 
-    static async get(userId, offset, limit) {
+    static async get(userId, offset, limit, subscriptionIds) {
         const result = await RentFavourite.query()
             .select('rent_favourites.id as favouritesId')
             .select('rents.*')
@@ -30,6 +30,8 @@ export default class RentFavouritesRepo {
             // .whereIn('rents.user_id', userList)
             .if(userId, (query) =>
                 query.where('rent_favourites.user_id', userId))
+            .if(subscriptionIds, (query) =>
+                query.whereIn('rents.subscription_id', subscriptionIds))
             .if(offset && limit, (query) => {
                 query.forPage(offset, limit)
             })

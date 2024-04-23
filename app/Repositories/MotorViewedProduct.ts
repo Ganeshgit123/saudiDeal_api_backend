@@ -10,7 +10,7 @@ export default class MotorViewedProductsRepo {
         return result
     }
 
-    static async get(userId) {        
+    static async get(userId, subscriptionIds) {
         // const result = await MotorViewedProduct.query()
         //     .innerJoin('motor_posts', 'motor_posts.id', 'motor_viewed_products.product_id')
         //     .where('motor_viewed_products.user_id', userId)
@@ -34,7 +34,9 @@ export default class MotorViewedProductsRepo {
             .orderBy('motor_posts.id', "desc")
             .if(userId, (query) =>
                 query.where('motor_viewed_products.user_id', userId))
-                
+            .if(subscriptionIds, (query) =>
+                query.whereIn('motor_posts.subscription_id', subscriptionIds))
+
         return result
     }
 
@@ -62,7 +64,7 @@ export default class MotorViewedProductsRepo {
             .orderBy('motor_posts.id', "desc")
             .if(userId, (query) =>
                 query.where('motor_viewed_products.user_id', userId))
-            // .toSQL()            
+        // .toSQL()            
         return result
     }
 

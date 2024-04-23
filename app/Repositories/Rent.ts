@@ -7,8 +7,8 @@ import { format } from 'date-fns'
 export default class RentRepo {
 
     static async getRentPostCount(type) {
-         var datetime: any = new Date();
-        var startTime: any = format(datetime, 'yyyy-MM-dd') 
+        var datetime: any = new Date();
+        var startTime: any = format(datetime, 'yyyy-MM-dd')
         console.log(`SELECT SUM(category_id = 7) as apartmentCount,
             SUM(category_id = 8) as villaCount, 
             SUM(category_id = 9) as commercialCount,
@@ -68,7 +68,7 @@ export default class RentRepo {
         return result
     }
 
-    static async myRentGet(userId, rentPostId, isApprove, active, offset, limit) {
+    static async myRentGet(userId, rentPostId, isApprove, active, offset, limit, subscriptionIds) {
         const result = await Rent.query().where('rents.active', 1)
             .select('rents.*')
             .select('cities.city as cityName')
@@ -86,6 +86,8 @@ export default class RentRepo {
                 query.where('rents.user_id', userId))
             .if(rentPostId, (query) =>
                 query.where('rents.id', rentPostId))
+            .if(subscriptionIds, (query) =>
+                query.whereIn('rents.subscription_id', subscriptionIds))
             .if(offset && limit, (query) => {
                 query.forPage(offset, limit)
             })
@@ -93,7 +95,7 @@ export default class RentRepo {
         return result
     }
 
-    static async getAllPost(userId, orderbyColumn, orderbyValue, payload, offset, limit) {
+    static async getAllPost(userId, orderbyColumn, orderbyValue, payload, offset, limit, subscriptionIds) {
         const result = await Rent.query().where('rents.active', 1)
             .select('rents.*')
             .select('cities.city as cityName')
@@ -131,6 +133,8 @@ export default class RentRepo {
                 query.whereBetween('rents.area_in_sqmt', [payload.startingAreaInSqmt, payload.endAreaInSqmt]))
             .if(userId, (query) =>
                 query.where('rents.user_id', userId))
+            .if(subscriptionIds, (query) =>
+                query.whereIn('rents.subscription_id', subscriptionIds))
             // .if(rentPostId, (query) =>
             //     query.where('rents.id', rentPostId))
             .if(offset && limit, (query) => {
@@ -149,8 +153,8 @@ export default class RentRepo {
     static async update(id: number, data: any, language: string) {
         try {
             if (data.newPost) {
-            await delete data.newPost
-           }
+                await delete data.newPost
+            }
             const rent = await Rent.findOrFail(id)
             rent.merge(data)
             await rent.save()

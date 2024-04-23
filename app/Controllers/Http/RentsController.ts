@@ -66,23 +66,38 @@ export default class RentsController {
         const offset = payload.offset ? Number(payload.offset) : 1;
         const limit = payload.offset ? Number(payload.limit) : 100;
 
-        const userId = request.header('userId') || ''
-        let rentPost = RentDomain.createFromArrOfObject(
-            await RentRepo.myRentGet(userId, rentPostId, isApprove, active, offset, limit)
+        let data = SubscriptionListsDomain.createFromArrOfObject(
+            await SubscriptionListRepo.checkSubscriptionList('', 'RENT')
         )
-
-        if (rentPost.length != 0) {
-            rentPost.map(async (el) => {
-                let data = SubscriptionListsDomain.createFromArrOfObject(
-                    await SubscriptionListRepo.checkSubscriptionList(el.userId, 'PROPERTY')
-                )
-                if (data.length == 0) {
-                    el.expiry = 1
-                } else {
-                    el.expiry = 0
-                }
+        let subscriptionIds: any = []
+        if (data.length == 0) {
+            return {
+                success: true,
+                data: [],
+            };
+        } else {
+            await data.map(async (el) => {
+                subscriptionIds.push(el.id)
             })
         }
+
+        const userId = request.header('userId') || ''
+        let rentPost = RentDomain.createFromArrOfObject(
+            await RentRepo.myRentGet(userId, rentPostId, isApprove, active, offset, limit, subscriptionIds)
+        )
+
+        // if (rentPost.length != 0) {
+        //     rentPost.map(async (el) => {
+        //         let data = SubscriptionListsDomain.createFromArrOfObject(
+        //             await SubscriptionListRepo.checkSubscriptionList(el.userId, 'PROPERTY')
+        //         )
+        //         if (data.length == 0) {
+        //             el.expiry = 1
+        //         } else {
+        //             el.expiry = 0
+        //         }
+        //     })
+        // }
         rentPost = await this.getRentFavourites(userId, rentPost)
 
         return {
@@ -100,26 +115,38 @@ export default class RentsController {
         const offset = payload.offset ? Number(payload.offset) : 1;
         const limit = payload.offset ? Number(payload.limit) : 25;
 
-
-        let rentPost = RentDomain.createFromArrOfObject(
-            await RentRepo.getAllPost(userId, orderbyColumn, orderbyValue, payload, offset, limit)
+        let data = SubscriptionListsDomain.createFromArrOfObject(
+            await SubscriptionListRepo.checkSubscriptionList('', 'RENT')
         )
-        console.log(rentPost,'rentPost');
-        
-                
-        if (rentPost.length != 0) {
-            rentPost.map(async (el) => {
-                let data = SubscriptionListsDomain.createFromArrOfObject(
-                    await SubscriptionListRepo.checkSubscriptionList(el.userId, 'PROPERTY')
-                )
-                console.log(data,'data')
-                if (data.length == 0) {
-                    el.expiry = 1
-                } else {
-                    el.expiry = 0
-                }
+        let subscriptionIds: any = []
+        if (data.length == 0) {
+            return {
+                success: true,
+                data: [],
+            };
+        } else {
+            await data.map(async (el) => {
+                subscriptionIds.push(el.id)
             })
         }
+        
+        let rentPost = RentDomain.createFromArrOfObject(
+            await RentRepo.getAllPost(userId, orderbyColumn, orderbyValue, payload, offset, limit, subscriptionIds)
+        )        
+                
+        // if (rentPost.length != 0) {
+        //     rentPost.map(async (el) => {
+        //         let data = SubscriptionListsDomain.createFromArrOfObject(
+        //             await SubscriptionListRepo.checkSubscriptionList(el.userId, 'PROPERTY')
+        //         )
+        //         console.log(data,'data')
+        //         if (data.length == 0) {
+        //             el.expiry = 1
+        //         } else {
+        //             el.expiry = 0
+        //         }
+        //     })
+        // }
         rentPost = await this.getRentFavourites(userId, rentPost)
 
         return {

@@ -155,6 +155,9 @@ export default class MotorPost extends BaseModel {
   @column()
   public longitude: string
 
+  @column()
+  public subscriptionId: number
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
