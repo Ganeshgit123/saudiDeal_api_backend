@@ -67,38 +67,45 @@ export default class MotorpostsController {
         const offset = payload.offset ? Number(payload.offset) : 1;
         const limit = payload.offset ? Number(payload.limit) : 100;
 
-        let data = SubscriptionListsDomain.createFromArrOfObject(
-            await SubscriptionListRepo.checkSubscriptionList('', 'MOTOR')
-        )
-        let subscriptionIds: any = []
-        if (data.length == 0) {
-            return {
-                success: true,
-                data: [],
-            };
-        } else {
-            await data.map(async (el) => {
-                subscriptionIds.push(el.id)
-            })
-        }
+        // let data = SubscriptionListsDomain.createFromArrOfObject(
+        //     await SubscriptionListRepo.checkSubscriptionList('', 'MOTOR')
+        // )
+        // let subscriptionIds: any = []
+        // if (data.length == 0) {
+        //     return {
+        //         success: true,
+        //         data: [],
+        //     };
+        // } else {
+        //     await data.map(async (el) => {
+        //         subscriptionIds.push(el.id)
+        //     })
+        // }
 
 
         let motorPost = MotorPostDomain.createFromArrOfObject(
-            await MotorpostRepo.get(userId, motorPostId, isApprove, active, offset, limit, subscriptionIds)
+            await MotorpostRepo.get(userId, motorPostId, isApprove, active, offset, limit, '')
         )
 
-        // if (motorPost.length != 0) {
-        //     motorPost.map(async (el) => {
-        //         let data = SubscriptionListsDomain.createFromArrOfObject(
-        //             await SubscriptionListRepo.checkSubscriptionList(el.userId, 'MOTOR')
-        //         )
-        //         if (data.length == 0) {
-        //             el.expiry = 1
-        //         } else {
-        //             el.expiry = 0
-        //         }
-        //     })
-        // }
+        if (motorPost.length != 0) {
+            motorPost.map(async (el) => {
+                
+                if (el.subscriptionId != 0) {
+                let data = SubscriptionListsDomain.createFromArrOfObject(
+                    await SubscriptionListRepo.checkSubscriptionListWithId(el.subscriptionId, 'MOTOR')
+                )
+                
+                if (data.length == 0) {
+                    el.expiry = 1
+                } else {
+                    el.expiry = 0
+                }
+            } else 
+            {
+                el.expiry = 1
+            }
+            })
+        }
 
         motorPost = await this.getRentFavourites(userId, motorPost)
         // let userSubscription = await this.getUserSubscription(motorPost)

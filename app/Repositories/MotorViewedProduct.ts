@@ -34,7 +34,7 @@ export default class MotorViewedProductsRepo {
             .if(userId, (query) =>
                 query.where('motor_viewed_products.user_id', userId))
             .if(subscriptionIds, (query) =>
-                query.whereIn('rents.subscription_id', subscriptionIds))
+                query.whereIn('motor_posts.subscription_id', subscriptionIds))
 
         return result
     }
