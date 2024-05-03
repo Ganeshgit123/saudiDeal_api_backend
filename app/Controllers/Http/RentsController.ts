@@ -122,7 +122,7 @@ export default class RentsController {
         const limit = payload.offset ? Number(payload.limit) : 25;
 
         let data = SubscriptionListsDomain.createFromArrOfObject(
-            await SubscriptionListRepo.checkSubscriptionList('', 'RENT')
+            await SubscriptionListRepo.checkSubscriptionList('', 'PROPERTY')
         )
         let subscriptionIds: any = []
         if (data.length == 0) {

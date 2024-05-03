@@ -455,6 +455,18 @@ const SUCCESS = {
 }
 
 const FAILURE = {
+    SETTING_DELETE_CONFLICT: {
+        'en': 'Error in deleting the setting.',
+        'ar': 'خطأ في حذف الفئة.',
+    },
+    SETTING_CREATE: {
+        'en': 'Error in setting creation.',
+        'ar': 'خطأ في إنشاء الواجهة.',
+    },
+    SETTING_CONFLICT: {
+        'en': 'data not found',
+        'ar': '',
+    },
     ADMIN_CONFLICT: {
         'en': 'Incorrect email or password',
         'ar': '',
@@ -527,18 +539,18 @@ const FAILURE = {
         'en': 'Error in Notification creation.',
         'ar': 'خطأ في إنشاء التنبيه',
     },
-    SETTING_CREATE: {
-        'en': 'Error in setting creation.',
-        'ar': 'خطأ في إنشاء الاعداد.',
-    },
-    SETTING_CONFLICT: {
-        'en': 'data not found.',
-        'ar': 'لم يتم العثور على بيانات.',
-    },
-    SETTING_DELETE_CONFLICT: {
-        'en': 'Error in deleting the setting.',
-        'ar': 'خطأ في حذف الإعداد.',
-    },
+    // SETTING_CREATE: {
+    //     'en': 'Error in setting creation.',
+    //     'ar': 'خطأ في إنشاء الاعداد.',
+    // },
+    // SETTING_CONFLICT: {
+    //     'en': 'data not found.',
+    //     'ar': 'لم يتم العثور على بيانات.',
+    // },
+    // SETTING_DELETE_CONFLICT: {
+    //     'en': 'Error in deleting the setting.',
+    //     'ar': 'خطأ في حذف الإعداد.',
+    // },
     USER_CREATE: {
         'en': 'Error in User creation.',
         'ar': 'خطأ في إنشاء المستخدم.',
