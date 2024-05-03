@@ -31,6 +31,7 @@ import SubscriptionListRepo from "../Repositories/SubscriptionLists"
 import MasterTrimRepo from "../Repositories/MasterTrims"
 import NotificationRepo from "../Repositories/Notification"
 import ContactRepo from "../Repositories/Contacts"
+import SettingsRepo from "../Repositories/Settings"
 
 export {
     CategoryRepo,
@@ -64,5 +65,6 @@ export {
     SubscriptionListRepo,
     MasterTrimRepo,
     NotificationRepo,
-    ContactRepo
+    ContactRepo,
+    SettingsRepo
 }

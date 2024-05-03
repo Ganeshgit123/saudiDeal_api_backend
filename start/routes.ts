@@ -188,6 +188,13 @@ Route.group(() => {
     Route.delete('/delete/:id', 'TranslationStringsController.translationStringDelete')
   }).prefix('/translationString')
 
+  Route.group(() => {
+    Route.get('/', 'SettingsController.adminGet')
+    Route.post('/', 'SettingsController.create')
+    Route.post('/:id', 'SettingsController.update')
+    Route.delete('/:id', 'SettingsController.delete')
+  }).prefix('/setting')
+
   // admin crud API
   Route.get('/:id', 'AdminsController.getAdminList').middleware('auth')
   Route.post('/', 'AdminsController.createAdmin').middleware('auth')
@@ -208,6 +215,7 @@ Route.group(() => {
   Route.get('/subscription', 'SubscriptionsController.get')
   Route.get('/motorPostCount', 'MotorpostsController.getMotorPostCount')
   Route.get('/rentPostCount', 'RentsController.getRentPostCount')
+  Route.get('/url', 'SettingsController.getUrl')
 
   Route.group(() => {
     Route.post('/', 'ContactsController.create')

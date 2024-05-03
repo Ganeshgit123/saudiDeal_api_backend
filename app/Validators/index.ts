@@ -38,6 +38,7 @@ import MotorValidator from "../Validators/MotorValidator"
 import MotorCategoryValidator from "../Validators/MotorCategoryValidator"
 import MotorSubCategoryValidator from '../Validators/MotorSubCategoryValidator'
 import HttpContextContract from "../Validators/ContactValidator"
+import SettingValidator from "../Validators/SettingValidator"
 
 export default {
     CategoryValidator,
@@ -79,5 +80,6 @@ export default {
     MotorValidator,
     MotorCategoryValidator,
     MotorSubCategoryValidator,
-    HttpContextContract
+    HttpContextContract,
+    SettingValidator
 }
