@@ -72,7 +72,7 @@ export default class RentFavouritesController {
         // }
 
         let data = SubscriptionListsDomain.createFromArrOfObject(
-            await SubscriptionListRepo.checkSubscriptionList('', 'MOTOR')
+            await SubscriptionListRepo.checkSubscriptionList('', 'PROPERTY')
         )
         
         let subscriptionIds: any = []

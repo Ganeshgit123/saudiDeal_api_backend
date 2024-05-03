@@ -136,13 +136,14 @@ export default class MotorpostsController {
             };
         } else {
             await data.map(async (el) => {
-                subscriptionIds.push(el.userId)
+                subscriptionIds.push(el.id)
             })
         }
         
         let motorPost = MotorPostDomain.createFromArrOfObject(
             await MotorpostRepo.getAllPost(userId, orderbyColumn, orderbyValue, payload, offset, limit, subscriptionIds)
         )
+        console.log(motorPost,'motorPost')
 
         // if (motorPost.length != 0) {
         //     motorPost.map(async (el) => {

@@ -122,7 +122,7 @@ export default class RentsController {
         const limit = payload.offset ? Number(payload.limit) : 25;
 
         let data = SubscriptionListsDomain.createFromArrOfObject(
-            await SubscriptionListRepo.checkSubscriptionList('', 'RENT')
+            await SubscriptionListRepo.checkSubscriptionList('', 'PROPERTY')
         )
         let subscriptionIds: any = []
         if (data.length == 0) {
@@ -223,8 +223,8 @@ export default class RentsController {
             const notificationData = {
                 "productId": updateResult.id,
                 "userId": updateResult.userId,
-                "type": "RENT",
-                "message": "Rent post approved."
+                "type": updateResult.type,
+                "message": `${updateResult.type} post approved.`
             }
             await NotificationRepo.create(notificationData, language)
 
@@ -247,8 +247,8 @@ export default class RentsController {
             const notificationData = {
                 "productId": updateResult.id,
                 "userId": updateResult.userId,
-                "type": "RENT",
-                "message": `Rent post rejected. Reason: ${rejectReason}`
+                "type": updateResult.type,
+                "message": `${updateResult.type} post rejected. Reason: ${rejectReason}`
             }
             await NotificationRepo.create(notificationData, language)
         }
