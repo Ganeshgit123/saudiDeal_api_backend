@@ -74,8 +74,8 @@ Route.group(() => {
   // user API
   Route.group(() => {
     Route.get('/', 'UsersController.getAllUser')
-    Route.post('/update/:id', 'UsersController.adminUpdate')
-  }).prefix('/user').middleware('auth')
+    Route.post('/update/:id', 'UsersController.adminUpdate').middleware('auth')
+  }).prefix('/user')
 
   // dashboard API
   Route.group(() => {
