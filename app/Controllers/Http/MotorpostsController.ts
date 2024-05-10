@@ -49,7 +49,23 @@ export default class MotorpostsController {
     // }
 
     public async getMotorPostCount() {
-        let motorPostCount = await MotorpostRepo.getMotorPostCount()
+        let data = SubscriptionListsDomain.createFromArrOfObject(
+            await SubscriptionListRepo.checkSubscriptionList('', 'MOTOR')
+        )
+        let subscriptionIds: any = []
+        if (data.length == 0) {
+            return {
+                success: true,
+                data: [],
+            };
+        } else {
+            await data.map(async (el) => {
+                subscriptionIds.push(el.userId)
+            })
+        }
+
+        let motorPostCount = await MotorpostRepo.getMotorPostCount(subscriptionIds)
+        
         return {
             success: true,
             data: motorPostCount,

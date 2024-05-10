@@ -50,7 +50,21 @@ export default class RentsController {
     public async getRentPostCount({ request }: HttpContextContract) {
         const payload = request.all()
         let type = payload.type || 'SELL'
-        let rentPostCount = await RentRepo.getRentPostCount(type)
+        let data = SubscriptionListsDomain.createFromArrOfObject(
+            await SubscriptionListRepo.checkSubscriptionList('', 'PROPERTY')
+        )
+        let subscriptionIds: any = []
+        if (data.length == 0) {
+            return {
+                success: true,
+                data: [],
+            };
+        } else {
+            await data.map(async (el) => {
+                subscriptionIds.push(el.id)
+            })
+        }
+        let rentPostCount = await RentRepo.getRentPostCount(type, subscriptionIds)
         return {
             success: true,
             data: rentPostCount,
