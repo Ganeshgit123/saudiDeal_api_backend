@@ -95,35 +95,35 @@ export default class SettingsController {
 
                 } else if (data.key == 'supportUrl') {
                     enSupportUrl = data.enValue
-                    arSupportUrl = data.enValue
+                    arSupportUrl = data.arValue
 
                 } else if (data.key == 'about') {
                     enAbout = data.enValue
-                    arAbout = data.enValue
+                    arAbout = data.arValue
 
                 } else if (data.key == 'termsAndCondition') {
                     enTermsAndCondition = data.enValue
-                    arTermsAndCondition = data.enValue
+                    arTermsAndCondition = data.arValue
 
                 } else if (data.key == 'privacyPolicy') {
                     enPrivacyPolicy = data.enValue
-                    arPrivacyPolicy = data.enValue
+                    arPrivacyPolicy = data.arValue
 
                 } else if (data.key == 'faq') {
                     enFaq = data.enValue
-                    arFaq = data.enValue
+                    arFaq = data.arValue
 
                 } else if (data.key == 'email') {
                     enEmail = data.enValue
-                    arEmail= data.enValue
+                    arEmail= data.arValue
 
                 } else if (data.key == 'call') {
                     enCall = data.enValue
-                    arCall = data.enValue
+                    arCall = data.arValue
 
                 }  else if (data.key == 'popupAdvertisement') {
                     enPopupAdvertisement = data.enValue
-                    arPopupAdvertisement = data.enValue
+                    arPopupAdvertisement = data.arValue
 
                 }
             })
@@ -135,8 +135,8 @@ export default class SettingsController {
             data: {
                 support: language == 'en' ? enSupportUrl : arSupportUrl,
                 about: language == 'en' ? enAbout : arAbout,
-                termsAndCondition: language == 'en' ? enTermsAndCondition : arTermsAndCondition,
-                termsAndCondition_ar: 'https://www.google.com',
+                termsAndCondition: enTermsAndCondition,
+                termsAndCondition_ar: arTermsAndCondition,
                 privacyPolicy: language == 'en' ? enPrivacyPolicy : arPrivacyPolicy,
                 privacyPolicy_ar: 'https://www.google.com',
                 faq: language == 'en' ? enFaq : arFaq,

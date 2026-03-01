@@ -46,6 +46,43 @@ export default class RentRepo {
         }
     }
 
+    static async getRentCount(type, subscriptionIds, categoryId) {
+        // var datetime: any = new Date();
+        // var startTime: any = format(datetime, 'yyyy-MM-dd')
+        console.log(`SELECT SUM(category_id = ${categoryId}) as count
+             FROM rents where is_approve =1 and active =1 and update_status_level =4
+            and subscription_id IN (${subscriptionIds})`)
+
+        if (type == "RENT") {
+            let result
+            if (categoryId) {
+                result = await Database.rawQuery(`SELECT SUM(category_id = ${categoryId}) as count
+             FROM rents where is_approve =1 and active =1 and update_status_level =4
+            and subscription_id IN (${subscriptionIds})`)
+
+            } else {
+                result = await Database.rawQuery(`SELECT count(id) as count
+             FROM rents where is_approve =1 and active =1 and update_status_level =4
+            and subscription_id IN (${subscriptionIds})`)
+            }
+            return result[0]
+        } else {
+            let result
+            if (categoryId) {
+                result = await Database.rawQuery(`SELECT SUM(category_id = ${categoryId}) as count
+             FROM rents where is_approve =1 and active =1 and update_status_level =4
+            and subscription_id IN (${subscriptionIds})`)
+                return result[0]
+            } else {
+                result = await Database.rawQuery(`SELECT count(id) as count
+             FROM rents where is_approve =1 and active =1 and update_status_level =4
+            and subscription_id IN (${subscriptionIds})`)
+                return result[0]
+            }
+
+        }
+    }
+
     static async get(userId, rentPostId, offset, limit) {
         const result = await Rent.query().where('rents.active', 1)
             .select('rents.*')
@@ -137,7 +174,7 @@ export default class RentRepo {
                 query.whereIn('rents.subscription_id', subscriptionIds))
             // .if(rentPostId, (query) =>
             //     query.where('rents.id', rentPostId))
-            .if(offset && limit, (query) => {
+            .if(typeof offset === 'number' && typeof limit === 'number', (query) => {
                 query.forPage(offset, limit)
             })
 
@@ -216,7 +253,7 @@ export default class RentRepo {
             .where('rents.update_status_level', 4)
             .orderBy('rents.id', "desc")
             .if(userIds, (query) =>
-                query.whereIn('rents.user_id', userIds))
+                query.whereIn('rents.subscription_id', userIds))
             .if(active, (query) =>
                 query.where('rents.active', active))
             .if(rentId, (query) =>

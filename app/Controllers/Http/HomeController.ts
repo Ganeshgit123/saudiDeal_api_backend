@@ -84,7 +84,7 @@ export default class HomeController {
         let motorViewedDataSubscriptionIds: any = []
         if (motorViewedData.length) {
             await motorViewedData.map(async (el) => {
-                motorViewedDataSubscriptionIds.push(el.userId)
+                motorViewedDataSubscriptionIds.push(el.id)
             })
         }
         
@@ -101,7 +101,7 @@ export default class HomeController {
             let rentViewedDataSubscriptionIds: any = []
             if (rentViewedData.length) {
                 await rentViewedData.map(async (el) => {
-                    rentViewedDataSubscriptionIds.push(el.userId)
+                    rentViewedDataSubscriptionIds.push(el.id)
                 })
             }
             
@@ -119,7 +119,7 @@ export default class HomeController {
         let motorpostSubscriptionIds: any = []
         if (motorpostsData.length) {
             await motorpostsData.map(async (el) => {
-                motorpostSubscriptionIds.push(el.userId)
+                motorpostSubscriptionIds.push(el.id)
             })
         }
 
@@ -135,7 +135,7 @@ export default class HomeController {
         let rentPostSubscriptionIds: any = []
         if (rentPostData.length) {
             await rentPostData.map(async (el) => {
-                rentPostSubscriptionIds.push(el.userId)
+                rentPostSubscriptionIds.push(el.id)
             })
         }
         

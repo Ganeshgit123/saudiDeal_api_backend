@@ -44,8 +44,18 @@ const corsConfig: CorsConfig = {
   |                     one of the above values.
   |
   */
-  origin: true,
+  origin: (origin) => {
+    const allowedOrigins = [
+      'http://localhost:4200',
+      'https://saudideal.com',
+      'https://admin.saudideal.com'
+    ]
 
+    if (!origin) return true
+    if (allowedOrigins.includes(origin)) return origin
+
+    return false
+  },
   /*
   |--------------------------------------------------------------------------
   | Methods
@@ -56,7 +66,7 @@ const corsConfig: CorsConfig = {
   |
   | Following is the list of default methods. Feel free to add more.
   */
-  methods: ['GET', 'HEAD', 'POST', 'PUT', 'DELETE'],
+  methods: ['GET', 'HEAD', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
 
   /*
   |--------------------------------------------------------------------------

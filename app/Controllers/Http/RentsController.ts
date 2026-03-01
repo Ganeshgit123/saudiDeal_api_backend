@@ -129,6 +129,7 @@ export default class RentsController {
     public async getAllPost({ request }: HttpContextContract) {
         const payload = request.all()
         const userId = request.header('userId') || ''
+        // const categoryId = payload.categoryId || ''
 
         let orderbyColumn: string = payload.orderbyColumn ? String(payload.orderbyColumn) : 'id'
         let orderbyValue: string = payload.orderbyValue ? String(payload.orderbyValue) : 'DESC'
@@ -153,6 +154,10 @@ export default class RentsController {
         let rentPost = RentDomain.createFromArrOfObject(
             await RentRepo.getAllPost(userId, orderbyColumn, orderbyValue, payload, offset, limit, subscriptionIds)
         )
+        let rentPostWithoutPagination = RentDomain.createFromArrOfObject(
+            await RentRepo.getAllPost(userId, orderbyColumn, orderbyValue, payload, undefined, undefined, subscriptionIds)
+        )
+        let rentPostCount = rentPostWithoutPagination.length
 
         // if (rentPost.length != 0) {
         //     rentPost.map(async (el) => {
@@ -172,6 +177,7 @@ export default class RentsController {
         return {
             success: true,
             data: rentPost,
+            rentPostCount
         };
     }
 
@@ -321,19 +327,19 @@ export default class RentsController {
         )
 
         if (userList.length == 0) {
-            let motorPost = RentDomain.createFromArrOfObject(
-                await RentRepo.adminGetExpiryPost(payload.active, payload.rentId, offset, limit, '')
-            )
+            // let motorPost = RentDomain.createFromArrOfObject(
+            //     await RentRepo.checkSubscriptionExpriyList(payload.active, payload.rentId, offset, limit, '')
+            // )
             return {
                 success: true,
-                data: motorPost,
+                data: [],
 
             };
 
         } else {
             let userIds: any = []
             await userList.map(async (el) => {
-                userIds.push(el.userId)
+                userIds.push(el.Id)
             })
             let motorPost = RentDomain.createFromArrOfObject(
                 await RentRepo.adminGetExpiryPost(payload.active, payload.rentId, offset, limit, userIds)

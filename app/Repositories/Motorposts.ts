@@ -22,7 +22,6 @@ export default class MotorpostRepo {
 
             return motorpost
         } catch (error) {
-            console.log(error, 'error')
             throw Exceptions.conflict(FAILURE.MOTOR_POST_CONFLICT[language])
         }
     }
@@ -38,6 +37,25 @@ export default class MotorpostRepo {
                 where is_approve =1 and active =1 and update_status_level =3 
                 and subscription_id IN (${subscriptionIds})`)
         return result[0]
+    }
+
+    static async getMotorCount(subscriptionIds, mainMotorCategoryId) {
+        // var datetime: any = new Date();
+        // var startTime: any = format(datetime, 'yyyy-MM-dd')
+        if (mainMotorCategoryId) {
+            const result = await Database.rawQuery(`
+        SELECT SUM(main_motor_category_id = ${mainMotorCategoryId}) as Count FROM motor_posts 
+                where is_approve =1 and active =1 and update_status_level =3 
+                and subscription_id IN (${subscriptionIds})`)
+            return result[0]
+        } else {
+            const result = await Database.rawQuery(`
+        SELECT Count(id) as Count FROM motor_posts 
+                where is_approve =1 and active =1 and update_status_level =3 
+                and subscription_id IN (${subscriptionIds})`)
+            return result[0]
+        }
+
     }
 
     static async get(userId, motorPostId, isApprove, active, offset, limit, subscriptionIds) {
@@ -142,7 +160,8 @@ export default class MotorpostRepo {
                 query.where('motor_posts.user_id', userId))
             .if(subscriptionIds, (query) =>
                 query.whereIn('motor_posts.subscription_id', subscriptionIds))
-            .if(offset && limit, (query) => {
+            // Apply pagination only if offset and limit are both defined
+            .if(typeof offset === 'number' && typeof limit === 'number', (query) => {
                 query.forPage(offset, limit)
             })
         return result
@@ -207,7 +226,7 @@ export default class MotorpostRepo {
             .where('motor_posts.update_status_level', 3)
             .orderBy('motor_posts.id', "desc")
             .if(userIds, (query) =>
-                query.whereIn('motor_posts.user_id', userIds))
+                query.whereIn('motor_posts.subscription_id', userIds))
             .if(active, (query) =>
                 query.where('motor_posts.active', active))
             .if(motorPostId, (query) =>
