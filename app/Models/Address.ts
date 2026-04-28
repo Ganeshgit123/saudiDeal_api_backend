@@ -10,28 +10,28 @@ export default class Address extends BaseModel {
 
   @column()
   public buildingName: string
-  
+
   @column()
   public active: boolean
 
   @column()
-  public landmark: boolean
+  public landmark: string
 
   @column()
-  public address: boolean
+  public address: string
 
   @column()
-  public saveAs: boolean
+  public saveAs: string
 
   @column()
   public userId: number
 
   @column()
-  public latitude: string
+  public latitude: number
 
   @column()
-  public longitude: string
-  
+  public longitude: number
+
   @column()
   public addressName: string
 
