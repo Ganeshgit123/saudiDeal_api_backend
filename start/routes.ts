@@ -202,7 +202,7 @@ Route.group(() => {
   Route.delete('/:id', 'AdminsController.deleteAdmin').middleware('auth')
 
 
-}).prefix('/v1/admin')
+}).prefix('/admin')
 
 //user Routes
 Route.group(() => {
@@ -360,4 +360,4 @@ Route.group(() => {
     Route.post('/', 'RentsController.create')
   }).prefix('/rent')
 
-}).prefix('/v1/user')
+}).prefix('/user')
