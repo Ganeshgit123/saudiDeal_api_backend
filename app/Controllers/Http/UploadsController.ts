@@ -7,8 +7,11 @@ import path from 'path'
 export default class UploadsController {
   public async upload({ request, response }: HttpContextContract) {
     try {
-      // ensure uploads directory exists outside the build/public directory
-      const uploadsDir = path.join(Application.appRoot, 'uploads')
+      // choose uploads dir: use public uploads in production (inside build/public),
+      // otherwise store uploads in project-root `/uploads` to persist across builds
+      const uploadsDir = Env.get('NODE_ENV') === 'production'
+        ? Application.publicPath('uploads')
+        : path.join(Application.appRoot, 'uploads')
       await fs.promises.mkdir(uploadsDir, { recursive: true })
 
       // accept multiple common field names for uploaded file
