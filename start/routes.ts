@@ -22,8 +22,11 @@ import Route from '@ioc:Adonis/Core/Route'
 
 // test Route
 Route.get('/', async () => {
-  return "wellcome to Saudideals..."
+  return "welcome to Saudideals..."
 })
+
+// Simple upload endpoint
+Route.post('/api/upload', 'UploadsController.upload')
 
 // Admin Routes
 Route.group(() => {
