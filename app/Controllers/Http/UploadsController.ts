@@ -2,12 +2,13 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Application from '@ioc:Adonis/Core/Application'
 import Env from '@ioc:Adonis/Core/Env'
 import fs from 'fs'
+import path from 'path'
 
 export default class UploadsController {
   public async upload({ request, response }: HttpContextContract) {
     try {
-      // ensure uploads directory exists
-      const uploadsDir = Application.publicPath('uploads')
+      // ensure uploads directory exists outside the build/public directory
+      const uploadsDir = path.join(Application.appRoot, 'uploads')
       await fs.promises.mkdir(uploadsDir, { recursive: true })
 
       // accept multiple common field names for uploaded file
