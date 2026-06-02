@@ -55,7 +55,12 @@ export default driveConfig({
       |
       */
       // Store uploads outside the build/public folder so they persist across builds
-      root: path.join(Application.appRoot, 'uploads'),
+      // If the application is running from the compiled `build` folder, use
+      // its parent directory as the project root so uploads are stored next to `build`.
+      root: ((): string => {
+        const appRoot = Application.appRoot
+        return path.basename(appRoot) === 'build' ? path.join(appRoot, '..', 'uploads') : path.join(appRoot, 'uploads')
+      })(),
 
       /*
       |--------------------------------------------------------------------------
