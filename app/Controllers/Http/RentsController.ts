@@ -1,3 +1,4 @@
+
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { RentDomain, SubscriptionListsDomain } from "../../Domain";
 import { RentRepo, RentFavouritesRepo, NotificationRepo, SubscriptionListRepo } from "../../Repositories";
@@ -189,10 +190,6 @@ export default class RentsController {
     // const payload = await request.validate(Validators.BrandValidator);
 
     payload.userId = Number(userId)
-
-    // Ensure new rent posts have an explicit active value
-    payload.active = payload.active !== undefined ? payload.active : 1
-
     // let payload = request.all();
 
     const language = request.header('language') || 'en'
