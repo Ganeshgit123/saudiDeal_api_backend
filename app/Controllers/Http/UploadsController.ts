@@ -30,9 +30,9 @@ export default class UploadsController {
       }
 
       // basic validation
-      const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif', 'image/svg+xml', 'application/pdf']
+      const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/avif', 'image/gif', 'image/svg+xml', 'image/bmp', 'image/x-ms-bmp', 'image/tiff', 'application/pdf']
       // basic validation: accept image/*, generic 'image', application/pdf, or common mime types
-      const allowedExtensions = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'pdf']
+      const allowedExtensions = ['jpg', 'jpeg', 'png', 'webp', 'avif', 'gif', 'svg', 'bmp', 'tiff', 'tif', 'pdf']
       const fileType = (file.type || '').toString().toLowerCase()
       const ext = (file.extname || '').toString().toLowerCase()
 
