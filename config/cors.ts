@@ -48,7 +48,9 @@ const corsConfig: CorsConfig = {
     const allowedOrigins = [
       'http://localhost:4200',
       'https://saudideal.com',
-      'https://admin.saudideal.com'
+      'https://www.saudideal.com',
+      'https://admin.saudideal.com',
+      'https://www.admin.saudideal.com'
     ]
 
     if (!origin) return true
