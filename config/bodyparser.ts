@@ -185,10 +185,10 @@ const bodyParserConfig: BodyParserConfig = {
     |--------------------------------------------------------------------------
     |
     | The total limit to the multipart body. This includes all request files
-    | and fields data.
+    | and fields data. Increased from 50mb to 200mb to allow larger uploads.
     |
     */
-    limit: '50mb',
+    limit: '200mb',
 
     /*
     |--------------------------------------------------------------------------

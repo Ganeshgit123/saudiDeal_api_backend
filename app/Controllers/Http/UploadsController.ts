@@ -21,7 +21,8 @@ export default class UploadsController {
       const fieldNames = ['file', 'image', 'avatar', 'photo']
       let file = null as any
       for (const name of fieldNames) {
-        file = request.file(name, { size: '50mb' })
+        // Increase per-file size limit to match multipart limit in config
+        file = request.file(name, { size: '200mb' })
         if (file) break
       }
 
